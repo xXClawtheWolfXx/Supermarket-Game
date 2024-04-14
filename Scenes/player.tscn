@@ -1,0 +1,97 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhxdgadu6oxme"]
+
+[sub_resource type="CSharpScript" id="CSharpScript_ryc2g"]
+script/source = "using Godot;
+using System;
+
+public partial class Player : CharacterBody3D {
+    [Export] float Speed = 5.0f;
+    [Export] float JumpVelocity = 4.5f;
+    [Export] Node3D pivot;
+    [Export] float sensitivity = 0.5f;
+
+    // Get the gravity from the project settings to be synced with RigidBody nodes.
+    public float gravity = ProjectSettings.GetSetting(\"physics/3d/default_gravity\").AsSingle();
+
+    public override void _Ready() {
+        Input.MouseMode = Input.MouseModeEnum.Captured;
+    }
+
+    public override void _PhysicsProcess(double delta) {
+        Vector3 velocity = Velocity;
+
+        // Add the gravity.
+        if (!IsOnFloor())
+            velocity.Y -= gravity * (float)delta;
+
+        // Handle Jump.
+        if (Input.IsActionJustPressed(\"jump\") && IsOnFloor())
+            velocity.Y = JumpVelocity;
+
+        if (Input.IsActionJustPressed(\"quit\"))
+            GetTree().Quit();
+
+        // Get the input direction and handle the movement/deceleration.
+        // As good practice, you should replace UI actions with custom gameplay actions.
+        Vector2 inputDir = Input.GetVector(\"left\", \"right\", \"forward\", \"back\");
+        Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+        if (direction != Vector3.Zero) {
+            velocity.X = direction.X * Speed;
+            velocity.Z = direction.Z * Speed;
+        } else {
+            velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+            velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
+        }
+
+        Velocity = velocity;
+        MoveAndSlide();
+    }
+
+    public override void _Input(InputEvent @event) {
+        if (@event is InputEventMouseMotion mouseMotion) {
+            RotateY(Mathf.DegToRad(-mouseMotion.Relative.X * sensitivity));
+            pivot.RotateX(Mathf.DegToRad(-mouseMotion.Relative.Y * sensitivity));
+            pivot.Rotation = new Vector3(Mathf.Clamp(pivot.Rotation.X, Mathf.DegToRad(-90), Mathf.DegToRad(45)), pivot.Rotation.Y, pivot.Rotation.Z);
+        }
+    }
+}
+"
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ormet"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_unpy0"]
+albedo_color = Color(0.0941176, 0.262745, 0.533333, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_exh16"]
+size = Vector3(0.74, 0.17, 0.48)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8f215"]
+radius = 0.574908
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("pivot")]
+script = SubResource("CSharpScript_ryc2g")
+Speed = 10.0
+pivot = NodePath("CamOrigin")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_ormet")
+surface_material_override/0 = SubResource("StandardMaterial3D_unpy0")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40957, -0.442921)
+mesh = SubResource("BoxMesh_exh16")
+surface_material_override/0 = SubResource("StandardMaterial3D_unpy0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_8f215")
+
+[node name="CamOrigin" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.90993, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CamOrigin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.847116, 0)
+spring_length = 3.5
+margin = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="CamOrigin/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 0.967223, 0.253927, 0, -0.253927, 0.967223, 0, 1.885, 3.3)

@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://c18wkc2g6xkfw"]
+
+[ext_resource type="Script" path="res://Scripts/Shelf.cs" id="1_bs6pm"]
+[ext_resource type="PackedScene" uid="uid://ddq18kyu4gb3x" path="res://Scenes/inventory.tscn" id="2_3iu68"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_oftsi"]
+size = Vector3(1.97, 1.6, 0.38)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c5dhf"]
+albedo_color = Color(0.337255, 0.054902, 0.0705882, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ispp0"]
+size = Vector3(1.97, 1.6, 0.38)
+
+[node name="Shelf" type="StaticBody3D"]
+script = ExtResource("1_bs6pm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_oftsi")
+surface_material_override/0 = SubResource("StandardMaterial3D_c5dhf")
+
+[node name="Inventory" parent="." node_paths=PackedStringArray("itemPositions") instance=ExtResource("2_3iu68")]
+itemPositions = [NodePath("InvPos"), NodePath("InvPos2"), NodePath("InvPos3"), NodePath("InvPos4"), NodePath("InvPos5"), NodePath("InvPos6"), NodePath("InvPos7"), NodePath("InvPos8"), NodePath("InvPos9")]
+maxItems = 9
+
+[node name="InvPos" type="Node3D" parent="Inventory"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.702625, 0.467407, -0.208606)
+
+[node name="InvPos2" type="Node3D" parent="Inventory"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0559295, 0.467407, -0.208606)
+
+[node name="InvPos3" type="Node3D" parent="Inventory"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.732132, 0.467407, -0.208606)
+
+[node name="InvPos4" type="Node3D" parent="Inventory"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.702625, -0.0201399, -0.208606)
+
+[node name="InvPos5" type="Node3D" parent="Inventory"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0559295, -0.0201399, -0.208606)
+
+[node name="InvPos6" type="Node3D" parent="Inventory"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.732132, -0.0201399, -0.208606)
+
+[node name="InvPos7" type="Node3D" parent="Inventory"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.702625, -0.602323, -0.208606)
+
+[node name="InvPos8" type="Node3D" parent="Inventory"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0559295, -0.602323, -0.208606)
+
+[node name="InvPos9" type="Node3D" parent="Inventory"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.732132, -0.602323, -0.208606)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_ispp0")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.977133, 0)
+text = "Jimin
+"
