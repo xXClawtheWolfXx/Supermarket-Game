@@ -8,7 +8,8 @@ public partial class Inventory : Node3D {
     [Export] Array<Node3D> itemPositions;
     [Export] int maxItems;
 
-    int currItemAmt;
+    int currItemAmt = 0;
+    int currItemIndex = 0;
 
     public void AddToInventory(ItemR item) {
         if (currItemAmt < maxItems) {
@@ -26,7 +27,13 @@ public partial class Inventory : Node3D {
     }
 
     public void ShowItems() {
-        //spawn in itemPos, 1st to 1st. 
+        currItemIndex = 0;
+        foreach (ItemR item in items) {
+            //spawn, to pos, parent to itemPOS
+            Node3D newItem = item.GetPackedScene.Instantiate<Node3D>();
+            newItem.Position = itemPositions[currItemIndex].Position;
+            itemPositions[currItemIndex].AddChild(newItem);
+        }
     }
 
 

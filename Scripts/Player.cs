@@ -3,6 +3,9 @@ using System;
 
 public partial class Player : CharacterBody3D {
 
+    private static Player instance;
+    public static Player Instance { get { return instance; } }
+
     [ExportCategory("Movement")]
     [Export] float Speed = 5.0f;
     [Export] float JumpVelocity = 4.5f;
@@ -12,6 +15,8 @@ public partial class Player : CharacterBody3D {
 
     [ExportCategory("Jimin")]
     [Export] int money;
+    [Export] Inventory hands;
+
 
 
     public int Money { get { return money; } set { money += value; } }
@@ -20,7 +25,9 @@ public partial class Player : CharacterBody3D {
     public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
     public override void _Ready() {
+        instance = this;
         Input.MouseMode = Input.MouseModeEnum.Captured;
+
     }
 
     //movement
