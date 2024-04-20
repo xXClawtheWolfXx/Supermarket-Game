@@ -10,14 +10,11 @@ public partial class Player : CharacterBody3D {
     [Export] float Speed = 5.0f;
     [Export] float JumpVelocity = 4.5f;
     [Export] float sensitivity = 0.5f;
-
     [Export] Node3D pivot;
 
     [ExportCategory("Jimin")]
     [Export] int money;
     [Export] Inventory hands;
-
-
 
     public int Money { get { return money; } set { money += value; } }
 
@@ -70,4 +67,10 @@ public partial class Player : CharacterBody3D {
         }
     }
 
+    public void PickUp(IGatherable item) {
+        if (hands.AddToInventory(item)) {
+            GD.Print("Enshrined");
+            hands.ShowItems();
+        }
+    }
 }

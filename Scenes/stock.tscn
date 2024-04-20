@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://s37vs2bqcq84"]
+
+[ext_resource type="Script" path="res://Scripts/Stock.cs" id="1_q6gvu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_np4nq"]
+size = Vector3(1.69, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xl3ah"]
+size = Vector3(1.69, 5, 1)
+
+[node name="Stock" type="StaticBody3D"]
+script = ExtResource("1_q6gvu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_np4nq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_xl3ah")

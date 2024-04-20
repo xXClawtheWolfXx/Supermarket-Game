@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://low48jg67342"]
+[gd_scene load_steps=11 format=3 uid="uid://low48jg67342"]
 
 [ext_resource type="PackedScene" uid="uid://dhxdgadu6oxme" path="res://Scenes/player.tscn" id="1_8wwns"]
 [ext_resource type="PackedScene" uid="uid://c18wkc2g6xkfw" path="res://Scenes/shelf.tscn" id="2_e4dxn"]
+[ext_resource type="PackedScene" uid="uid://dnhvdiof62i6c" path="res://Scenes/ui_manager.tscn" id="3_1hcqx"]
+[ext_resource type="PackedScene" uid="uid://bm4aunvoehknb" path="res://Scenes/buy_stock.tscn" id="4_vpu4l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_25ghb"]
 sky_top_color = Color(0.47451, 0.847059, 0.941176, 1)
@@ -39,8 +41,6 @@ environment = SubResource("Environment_g2spj")
 
 [node name="Player" parent="." instance=ExtResource("1_8wwns")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25457, 0)
-pivot = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.90993, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
-
 
 [node name="Ground" type="StaticBody3D" parent="."]
 
@@ -54,3 +54,8 @@ shape = SubResource("BoxShape3D_2lrul")
 
 [node name="Shelf" parent="." instance=ExtResource("2_e4dxn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44362, 5.72922)
+
+[node name="UIManager" parent="." instance=ExtResource("3_1hcqx")]
+
+[node name="BuyStock" parent="." instance=ExtResource("4_vpu4l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62168, 0.772364, 0)

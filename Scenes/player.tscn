@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dhxdgadu6oxme"]
+[gd_scene load_steps=7 format=3 uid="uid://dhxdgadu6oxme"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_y3t3v"]
+[ext_resource type="PackedScene" uid="uid://ddq18kyu4gb3x" path="res://Scenes/inventory.tscn" id="2_jn6yf"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ormet"]
 
@@ -13,10 +14,11 @@ size = Vector3(0.74, 0.17, 0.48)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8f215"]
 radius = 0.574908
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("pivot")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("pivot", "hands")]
 script = ExtResource("1_y3t3v")
 Speed = 10.0
 pivot = NodePath("CamOrigin")
+hands = NodePath("Inventory")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_ormet")
@@ -40,3 +42,10 @@ margin = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="CamOrigin/SpringArm3D"]
 transform = Transform3D(1, 0, 0, 0, 0.967223, 0.253927, 0, -0.253927, 0.967223, 0, 1.885, 3.3)
+
+[node name="Inventory" parent="." node_paths=PackedStringArray("itemPositions") instance=ExtResource("2_jn6yf")]
+itemPositions = [NodePath("Hand Pos")]
+maxItems = 1
+
+[node name="Hand Pos" type="Node3D" parent="Inventory"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.14985)

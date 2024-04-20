@@ -14,7 +14,7 @@ public partial class Interaction : Area3D {
 
     public override void _Process(double delta) {
         if (isPlayerInteracting && Input.IsActionJustPressed("interact"))
-            ((Interactable)interactable).Interact(Player.Instance);
+            ((IInteractable)interactable).Interact(Player.Instance);
     }
 
     public void OnBodyEntered(Node3D body) {

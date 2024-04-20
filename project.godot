@@ -15,9 +15,22 @@ run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.2", "C#", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+UiManager="*res://Scripts/UIManager.cs"
+
 [dotnet]
 
 project/assembly_name="SupermarketAsAlwaysForUs"
+
+[file_customization]
+
+folder_colors={
+"res://Art/": "pink",
+"res://Resources/": "green",
+"res://Scenes/": "orange",
+"res://Scripts/": "yellow"
+}
 
 [input]
 

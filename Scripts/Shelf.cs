@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Shelf : StaticBody3D, Interactable {
+public partial class Shelf : StaticBody3D, IInteractable {
 
     [Export] Inventory inventory;
     [Export] int itemAmount;
