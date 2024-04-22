@@ -13,9 +13,8 @@ albedo_color = Color(0.337255, 0.054902, 0.0705882, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ispp0"]
 size = Vector3(4.83, 5, 1)
 
-[node name="Shelf" type="StaticBody3D" node_paths=PackedStringArray("inventory")]
+[node name="Shelf" type="StaticBody3D"]
 script = ExtResource("1_bs6pm")
-inventory = NodePath("Inventory")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_oftsi")

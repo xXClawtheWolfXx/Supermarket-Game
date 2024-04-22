@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://low48jg67342"]
+[gd_scene load_steps=12 format=3 uid="uid://low48jg67342"]
 
 [ext_resource type="PackedScene" uid="uid://dhxdgadu6oxme" path="res://Scenes/player.tscn" id="1_8wwns"]
 [ext_resource type="PackedScene" uid="uid://c18wkc2g6xkfw" path="res://Scenes/shelf.tscn" id="2_e4dxn"]
 [ext_resource type="PackedScene" uid="uid://dnhvdiof62i6c" path="res://Scenes/ui_manager.tscn" id="3_1hcqx"]
 [ext_resource type="PackedScene" uid="uid://bm4aunvoehknb" path="res://Scenes/buy_stock.tscn" id="4_vpu4l"]
+[ext_resource type="PackedScene" uid="uid://s37vs2bqcq84" path="res://Scenes/stock.tscn" id="5_156qu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_25ghb"]
 sky_top_color = Color(0.47451, 0.847059, 0.941176, 1)
@@ -59,3 +60,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44362, 5.72922)
 
 [node name="BuyStock" parent="." instance=ExtResource("4_vpu4l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62168, 0.772364, 0)
+
+[node name="Stock" parent="." instance=ExtResource("5_156qu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55374, -3.48316)

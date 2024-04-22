@@ -12,4 +12,12 @@ public partial class CrateR : Resource, IGatherable {
 
     public PackedScene GetPackedScene() { return crateScene; }
 
+    public void UpdateAmt(int amt) {
+        amtToSpawn = amt;
+    }
+
+    public override string ToString() {
+        return "Crate of: " + amtToSpawn + " " + itemR.GetName;
+    }
+
 }

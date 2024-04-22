@@ -14,9 +14,10 @@ public partial class Player : CharacterBody3D {
 
     [ExportCategory("Jimin")]
     [Export] int money;
-    [Export] Inventory hands;
+    [Export] Hands hands;
 
     public int Money { get { return money; } set { money += value; } }
+    public Hands GetHands { get { return hands; } }
 
     // Get the gravity from the project settings to be synced with RigidBody nodes.
     public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
@@ -68,9 +69,12 @@ public partial class Player : CharacterBody3D {
     }
 
     public void PickUp(IGatherable item) {
-        if (hands.AddToInventory(item)) {
-            GD.Print("Enshrined");
-            hands.ShowItems();
+        if (hands.PickUp(item)) {
+            hands.ShowItem();
         }
+    }
+
+    public IGatherable PutDown() {
+        return hands.PutDown();
     }
 }

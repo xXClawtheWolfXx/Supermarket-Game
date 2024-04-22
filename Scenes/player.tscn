@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dhxdgadu6oxme"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_y3t3v"]
-[ext_resource type="PackedScene" uid="uid://ddq18kyu4gb3x" path="res://Scenes/inventory.tscn" id="2_jn6yf"]
+[ext_resource type="Script" path="res://Scripts/Hands.cs" id="2_yj32h"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ormet"]
 
@@ -18,7 +18,7 @@ radius = 0.574908
 script = ExtResource("1_y3t3v")
 Speed = 10.0
 pivot = NodePath("CamOrigin")
-hands = NodePath("Inventory")
+hands = NodePath("Hands")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_ormet")
@@ -43,9 +43,9 @@ margin = 0.5
 [node name="Camera3D" type="Camera3D" parent="CamOrigin/SpringArm3D"]
 transform = Transform3D(1, 0, 0, 0, 0.967223, 0.253927, 0, -0.253927, 0.967223, 0, 1.885, 3.3)
 
-[node name="Inventory" parent="." node_paths=PackedStringArray("itemPositions") instance=ExtResource("2_jn6yf")]
-itemPositions = [NodePath("Hand Pos")]
-maxItems = 1
+[node name="Hands" type="Node3D" parent="." node_paths=PackedStringArray("handsPos")]
+script = ExtResource("2_yj32h")
+handsPos = NodePath("Hand Pos")
 
-[node name="Hand Pos" type="Node3D" parent="Inventory"]
+[node name="Hand Pos" type="Node3D" parent="Hands"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.14985)

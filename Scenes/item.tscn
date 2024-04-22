@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bgvudcmxw5lp7"]
+[gd_scene load_steps=7 format=3 uid="uid://bgvudcmxw5lp7"]
 
 [ext_resource type="Script" path="res://Scripts/Item.cs" id="1_uk2wq"]
 [ext_resource type="PackedScene" uid="uid://qtl1a3gvbksv" path="res://Scenes/interaction.tscn" id="2_dmsv8"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_4a6gc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7tfbe"]
+albedo_color = Color(0.117647, 0.32549, 0.572549, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2sadq"]
 
@@ -15,6 +18,7 @@ script = ExtResource("1_uk2wq")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_4a6gc")
+surface_material_override/0 = SubResource("StandardMaterial3D_7tfbe")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_2sadq")

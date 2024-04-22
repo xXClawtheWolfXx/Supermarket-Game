@@ -1,3 +1,23 @@
-[gd_scene format=3 uid="uid://dceyxvh3o2s73"]
+[gd_scene load_steps=6 format=3 uid="uid://dceyxvh3o2s73"]
+
+[ext_resource type="PackedScene" uid="uid://ddq18kyu4gb3x" path="res://Scenes/inventory.tscn" id="1_fbv8a"]
+[ext_resource type="Script" path="res://Scripts/Customer.cs" id="1_jtvsm"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_axefv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qg6p"]
+albedo_color = Color(1, 0.443137, 0.0784314, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iw5rb"]
 
 [node name="Customer" type="CharacterBody3D"]
+script = ExtResource("1_jtvsm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_axefv")
+surface_material_override/0 = SubResource("StandardMaterial3D_3qg6p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_iw5rb")
+
+[node name="Inventory" parent="." instance=ExtResource("1_fbv8a")]
