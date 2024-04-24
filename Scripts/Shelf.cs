@@ -8,6 +8,26 @@ public partial class Shelf : StaticBody3D, IInteractable {
     ItemR item;
     CrateR crateR;
 
+    public ItemR GetItemR { get { return item; } }
+
+    public bool IsEmpty() {
+        return itemAmount == 0;
+    }
+
+    //will later take an int param
+    public void TakeItem(Customer cust) {
+        if (!IsEmpty()) {
+            Print("Taking item from she;f");
+            itemAmount--;
+            cust.FillShoppingBasket(item);
+            PrintStock();
+            return;
+        }
+        Print("Taking no item");
+        PrintStock();
+        cust.FillShoppingBasket(null);
+    }
+
     void StockItem(CrateR crate) {
         crateR = crate;
         item = crate.GetItemR;
@@ -30,21 +50,26 @@ public partial class Shelf : StaticBody3D, IInteractable {
         if (item == null)
             Print("NO stock");
         else
-            Print(item.ToString() + " total: " + itemAmount);
+            Print(item.ToString());
+        Print(" total: " + itemAmount);
     }
     void DisplayCount() {
 
     }
 
     public void Interact(Node3D body) {
-        if (Player.Instance.GetHands.IsEmpty()) {
-            UnstockItem();
-        } else {
-            IGatherable ig = Player.Instance.PutDown();
-            if (ig is CrateR) {
-                StockItem((CrateR)ig);
-            } else
-                Player.Instance.PickUp(ig);
+        if (body is Customer)
+            TakeItem((Customer)body);
+        if (body is Player) {
+            if (Player.Instance.GetHands.IsEmpty()) {
+                UnstockItem();
+            } else {
+                IGatherable ig = Player.Instance.PutDown();
+                if (ig is CrateR) {
+                    StockItem((CrateR)ig);
+                } else
+                    Player.Instance.PickUp(ig);
+            }
         }
     }
 }

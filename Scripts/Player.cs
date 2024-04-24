@@ -19,8 +19,11 @@ public partial class Player : CharacterBody3D {
     public int Money { get { return money; } set { money += value; } }
     public Hands GetHands { get { return hands; } }
 
+
     // Get the gravity from the project settings to be synced with RigidBody nodes.
     public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
+
+    bool isCursorShowing = false;
 
     public override void _Ready() {
         instance = this;
@@ -43,6 +46,9 @@ public partial class Player : CharacterBody3D {
         if (Input.IsActionJustPressed("quit"))
             GetTree().Quit();
 
+        if (Input.IsActionJustPressed("alt"))
+            UnstickCursor();
+
         // Get the input direction and handle the movement/deceleration.
         // As good practice, you should replace UI actions with custom gameplay actions.
         Vector2 inputDir = Input.GetVector("left", "right", "forward", "back");
@@ -61,11 +67,19 @@ public partial class Player : CharacterBody3D {
 
     //mouseMovement
     public override void _Input(InputEvent @event) {
-        if (@event is InputEventMouseMotion mouseMotion) {
+        if (@event is InputEventMouseMotion mouseMotion && !isCursorShowing) {
             RotateY(Mathf.DegToRad(-mouseMotion.Relative.X * sensitivity));
             pivot.RotateX(Mathf.DegToRad(-mouseMotion.Relative.Y * sensitivity));
             pivot.Rotation = new Vector3(Mathf.Clamp(pivot.Rotation.X, Mathf.DegToRad(-90), Mathf.DegToRad(45)), pivot.Rotation.Y, pivot.Rotation.Z);
         }
+    }
+
+    public void UnstickCursor() {
+        isCursorShowing = !isCursorShowing;
+        if (isCursorShowing)
+            Input.MouseMode = Input.MouseModeEnum.Visible;
+        else
+            Input.MouseMode = Input.MouseModeEnum.Captured;
     }
 
     public void PickUp(IGatherable item) {

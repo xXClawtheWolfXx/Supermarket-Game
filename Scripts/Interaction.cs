@@ -18,8 +18,10 @@ public partial class Interaction : Area3D {
     }
 
     public void OnBodyEntered(Node3D body) {
-        if (body is Player) // || body is NPC
+        if (body is Player)
             isPlayerInteracting = true;
+        else if (body is Customer)
+            ((IInteractable)interactable).Interact(body);
         //elseif body is NPC, call NPC.interact() from interact
     }
 

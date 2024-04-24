@@ -3,23 +3,26 @@ using System;
 
 public partial class UIManager : Control {
 
-	private static UIManager instance;
-	public static UIManager Instance { get { return instance; } }
+    private static UIManager instance;
+    public static UIManager Instance { get { return instance; } }
 
+    [Export] RichTextLabel moneyLabel;
+    [Export] RichTextLabel timeLabel;
 
-	[Export] RichTextLabel moneyLabel;
-	[Export] RichTextLabel timeLabel;
+    public override void _Ready() {
+        instance = this;
+    }
 
-	public override void _Ready() {
-		instance = this;
-	}
+    public void UpdateMoneyLabel(int money) {
+        moneyLabel.Text = "Money: " + money;
+    }
 
-	public void UpdateMoneyLabel(int money) {
-		moneyLabel.Text = "Money: " + money;
-	}
+    public void UpdateTimeLabel() {
 
-	public void UpdateTimeLabel() {
+    }
 
-	}
+    public void OnOpenStoreButtonPressed() {
+        GameManager.OpenStore();
+    }
 }
 
