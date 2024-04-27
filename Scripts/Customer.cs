@@ -10,9 +10,15 @@ public partial class Customer : CharacterBody3D {
     [Export] NavigationAgent3D agent;
     [Export] float speed = 10;
 
+
+
+    public Inventory GetShoppingBasket { get { return shoppingBasket; } }
+    public ItemR GetItemLookingFor { get { return first; } }
+
     List<ItemR> shoppingList = new List<ItemR>();
     Mood mood = Mood.HAPPY;
     int shoppingIndex = 0;
+
 
     ItemR first;
 
@@ -27,7 +33,6 @@ public partial class Customer : CharacterBody3D {
         Vector3 nextLoc = agent.GetNextPathPosition();
         Vector3 newVel = (nextLoc - currLoc).Normalized() * speed;
 
-
         Velocity = newVel;
         MoveAndSlide();
     }
@@ -35,38 +40,65 @@ public partial class Customer : CharacterBody3D {
     public void FillShoppingBasket(ItemR item) {
         if (item == null) {
             Complain("there's no more items");
-            shoppingIndex++;
+            GD.Print("sh contan: " + shoppingList.Contains(first));
+            while (shoppingList.Contains(first)) {
+                shoppingList.Remove(first);
+                GD.Print("remove " + first.GetName);
+            }
+            //shoppingIndex++;
+
+            //CheckIfMoreInList(item);
         } else {
             shoppingBasket.AddToInventory(item);
-            shoppingList.Remove(first);
-            GD.Print("Filled Shoppingcart with: " + item.ToString());
+            shoppingList.Remove(item);
+
+            GD.Print(this.Name + " filled Shoppingcart with: " + item.GetName);
         }
         Browse();
     }
 
+    void CheckIfMoreInList(ItemR item) {
+        if (shoppingIndex >= shoppingList.Count) { Leave(); return; }
+        if (shoppingList[shoppingIndex].GetName == item.GetName) {
+            shoppingIndex++;
+            CheckIfMoreInList(item);
+        }
+    }
+
+    public int HowManyItems(ItemR item) {
+        int count = 0;
+        foreach (ItemR i in shoppingList)
+            if (item == i)
+                count++;
+        return count;
+    }
+
     //look for stock that matches the first of shopping list
     public void Browse() {
-        if (shoppingIndex >= shoppingList.Count) {
+        GD.Print("sl Count: " + shoppingList.Count);
+        if (shoppingList.Count == 0) {
+            GD.Print("Finished shopping");
             Checkout();
             return;
         }
 
-        first = shoppingList[shoppingIndex];
+        first = shoppingList[0];
         //only remove if get it
-
+        GD.Print("first: " + first.GetName);
         Array<Node> shelves = GetTree().GetNodesInGroup("Shelf");
         foreach (Node shelfNode in shelves) {
             //go to first
             Shelf shelf = shelfNode.GetNode<Shelf>(".");
-            GD.Print("shelf: " + shelf.GetItemR.ToString() + " cust: " + first.ToString());
             if (shelf.GetItemR.GetName != first.GetName)
                 continue;
+
             //we found a shelf
-            Move(shelf.Position);
+            Move(shelf.GetSpawnPos.GlobalPosition);
             return;
 
         }
-        shoppingIndex++;
+
+        //shoppingIndex++;
         Complain("nothing I want is here");
         Browse();
     }
@@ -87,8 +119,9 @@ public partial class Customer : CharacterBody3D {
 
 
     //when mood is angry
-    void Leave() {
-
+    public void Leave() {
+        Move(NPCSpawner.Instance.Position);
+        NPCSpawner.Instance.DestroyCustomer(this);
     }
 
     void Move(Vector3 pos) {
@@ -99,6 +132,16 @@ public partial class Customer : CharacterBody3D {
 
     //when at the end of shopping index
     void Checkout() {
+        GD.Print("Checking out");
+        if (shoppingBasket.IsEmpty()) {
+            Complain("There's nothing for me here!");
+            Leave();
+        }
 
+        Array<Node> cashiers = GetTree().GetNodesInGroup("Cashier");
+        //eventually check which cashier has the least people on it and go there
+        Cashier cashier = cashiers[0].GetNode<Cashier>(".");
+        Move(cashier.GetSpawnPos.GlobalPosition);
     }
+
 }

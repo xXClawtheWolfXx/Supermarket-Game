@@ -16,8 +16,10 @@ size = Vector3(4.83, 5, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_6vouh"]
 size = Vector3(5.01453, 4.45715, 3.64207)
 
-[node name="Shelf" type="StaticBody3D" groups=["Shelf"]]
+[node name="Shelf" type="StaticBody3D" node_paths=PackedStringArray("spawnPos", "label") groups=["Shelf"]]
 script = ExtResource("1_bs6pm")
+spawnPos = NodePath("spawnPos")
+label = NodePath("Label3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_oftsi")
@@ -58,7 +60,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.732132, -0.602323, -0.2086
 shape = SubResource("BoxShape3D_ispp0")
 
 [node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.977133, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.18276, -0.869022)
+pixel_size = 0.012
 text = "Jimin / Cheese
 "
 
@@ -69,5 +72,8 @@ interactable = NodePath("..")
 [node name="CollisionShape3D" parent="Interaction" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0287476, 0.228577, 0.30568)
 shape = SubResource("BoxShape3D_6vouh")
+
+[node name="spawnPos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.36611)
 
 [editable path="Interaction"]

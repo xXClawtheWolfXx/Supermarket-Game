@@ -48,6 +48,8 @@ public partial class Player : CharacterBody3D {
 
         if (Input.IsActionJustPressed("alt"))
             UnstickCursor();
+        if (Input.IsActionJustPressed("X"))
+            PutDown();
 
         // Get the input direction and handle the movement/deceleration.
         // As good practice, you should replace UI actions with custom gameplay actions.
@@ -91,4 +93,5 @@ public partial class Player : CharacterBody3D {
     public IGatherable PutDown() {
         return hands.PutDown();
     }
+
 }

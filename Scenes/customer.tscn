@@ -31,5 +31,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_3qg6p")
 shape = SubResource("CapsuleShape3D_iw5rb")
 
 [node name="Inventory" parent="." instance=ExtResource("1_fbv8a")]
+maxItems = 100
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

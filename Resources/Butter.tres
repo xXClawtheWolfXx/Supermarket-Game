@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemR" load_steps=3 format=3 uid="uid://c07c4al8f0hqw"]
+
+[ext_resource type="Script" path="res://Scripts/ItemR.cs" id="1_5elik"]
+[ext_resource type="PackedScene" uid="uid://ryofev1omh08" path="res://Scenes/item_butter.tscn" id="1_7qw1x"]
+
+[resource]
+script = ExtResource("1_5elik")
+scene = ExtResource("1_7qw1x")
+name = "Butter"
+baseSellPrice = 4
+baseBuyPrice = 2
+weight = 1

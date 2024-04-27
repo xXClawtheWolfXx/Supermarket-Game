@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CrateR" load_steps=4 format=3 uid="uid://br85ho7fjqipd"]
+
+[ext_resource type="Script" path="res://Scripts/CrateR.cs" id="1_lnmgg"]
+[ext_resource type="PackedScene" uid="uid://f7yxqoq6p17q" path="res://Scenes/crate_apple.tscn" id="1_sl7wm"]
+[ext_resource type="Resource" uid="uid://dbhflyhsvyx4f" path="res://Resources/Apple.tres" id="2_6b1up"]
+
+[resource]
+script = ExtResource("1_lnmgg")
+itemR = ExtResource("2_6b1up")
+crateScene = ExtResource("1_sl7wm")
+amtToSpawn = 4

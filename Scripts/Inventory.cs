@@ -43,6 +43,7 @@ public partial class Inventory : Node3D {
         if (!IsEmpty()) {
             IGatherable item = items[0];
             items.RemoveAt(0);
+            currItemAmt--;
             return item;
         }
         return null;

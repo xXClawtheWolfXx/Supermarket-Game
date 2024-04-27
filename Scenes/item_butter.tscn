@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://ryofev1omh08"]
+
+[ext_resource type="Script" path="res://Scripts/Item.cs" id="1_kw03d"]
+[ext_resource type="PackedScene" uid="uid://qtl1a3gvbksv" path="res://Scenes/interaction.tscn" id="2_605jw"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_4a6gc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7tfbe"]
+albedo_color = Color(0.952941, 0.588235, 0.117647, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2sadq"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sn87w"]
+radius = 1.0
+
+[node name="Item" type="StaticBody3D"]
+script = ExtResource("1_kw03d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_4a6gc")
+surface_material_override/0 = SubResource("StandardMaterial3D_7tfbe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_2sadq")
+
+[node name="Interaction" parent="." node_paths=PackedStringArray("interactable") instance=ExtResource("2_605jw")]
+interactable = NodePath("..")
+
+[node name="CollisionShape3D" parent="Interaction" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.020916)
+shape = SubResource("SphereShape3D_sn87w")
+
+[editable path="Interaction"]

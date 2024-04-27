@@ -22,11 +22,11 @@ public partial class Interaction : Area3D {
             isPlayerInteracting = true;
         else if (body is Customer)
             ((IInteractable)interactable).Interact(body);
-        //elseif body is NPC, call NPC.interact() from interact
     }
 
     public void OnBodyExited(Node3D body) {
         if (body is Player)
             isPlayerInteracting = false;
+
     }
 }
