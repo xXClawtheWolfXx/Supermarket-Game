@@ -1,20 +1,27 @@
-[gd_scene load_steps=7 format=3 uid="uid://dbkm5b0k6pv21"]
+[gd_scene load_steps=8 format=3 uid="uid://dbkm5b0k6pv21"]
 
 [ext_resource type="Script" path="res://Scripts/Item.cs" id="1_plhrb"]
 [ext_resource type="PackedScene" uid="uid://qtl1a3gvbksv" path="res://Scenes/interaction.tscn" id="2_utfb5"]
+[ext_resource type="Material" uid="uid://b1vf0vvvxyql" path="res://Art/Materials/whiteMat.tres" id="2_weiyl"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_4a6gc"]
+radius = 0.25
+height = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7tfbe"]
 albedo_color = Color(0.972549, 0.184314, 0.239216, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2sadq"]
+radius = 0.25
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_sn87w"]
 radius = 1.0
 
-[node name="Item" type="StaticBody3D"]
+[node name="Item" type="Area3D" node_paths=PackedStringArray("mesh")]
 script = ExtResource("1_plhrb")
+name = "Apple"
+whiteMat = ExtResource("2_weiyl")
+mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_4a6gc")
