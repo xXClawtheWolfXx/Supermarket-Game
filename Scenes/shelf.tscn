@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://c18wkc2g6xkfw"]
+[gd_scene load_steps=6 format=3 uid="uid://c18wkc2g6xkfw"]
 
 [ext_resource type="Script" path="res://Scripts/Shelf.cs" id="1_bs6pm"]
 [ext_resource type="PackedScene" uid="uid://ddq18kyu4gb3x" path="res://Scenes/inventory.tscn" id="2_3iu68"]
-[ext_resource type="PackedScene" uid="uid://qtl1a3gvbksv" path="res://Scenes/interaction.tscn" id="3_14rld"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_oftsi"]
 size = Vector3(4.83, 5, 1)
@@ -12,9 +11,6 @@ albedo_color = Color(0.337255, 0.054902, 0.0705882, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ispp0"]
 size = Vector3(4.83, 5, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_6vouh"]
-size = Vector3(5.01453, 4.45715, 3.64207)
 
 [node name="Shelf" type="StaticBody3D" node_paths=PackedStringArray("spawnPos", "label") groups=["Shelf"]]
 script = ExtResource("1_bs6pm")
@@ -65,15 +61,5 @@ pixel_size = 0.012
 text = "Jimin / Cheese
 "
 
-[node name="Interaction" parent="." node_paths=PackedStringArray("interactable") instance=ExtResource("3_14rld")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.410859)
-interactable = NodePath("..")
-
-[node name="CollisionShape3D" parent="Interaction" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0287476, 0.228577, 0.30568)
-shape = SubResource("BoxShape3D_6vouh")
-
 [node name="spawnPos" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.36611)
-
-[editable path="Interaction"]

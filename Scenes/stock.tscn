@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://s37vs2bqcq84"]
+[gd_scene load_steps=11 format=3 uid="uid://s37vs2bqcq84"]
 
 [ext_resource type="Script" path="res://Scripts/Stock.cs" id="1_q6gvu"]
-[ext_resource type="PackedScene" uid="uid://qtl1a3gvbksv" path="res://Scenes/interaction.tscn" id="2_6n1qh"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_np4nq"]
 size = Vector3(2.5, 5, 2)
@@ -31,9 +30,6 @@ size = Vector3(0.5, 0.5, 0.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_gi81k"]
 size = Vector3(0.5, 0.5, 0.5)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_8bj8y"]
-size = Vector3(3.5, 4, 6.13526)
 
 [node name="Stock" type="StaticBody3D" node_paths=PackedStringArray("mesh", "objects")]
 script = ExtResource("1_q6gvu")
@@ -71,12 +67,3 @@ surface_material_override/0 = SubResource("StandardMaterial3D_5tfcc")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.72293, 2.5, 0.0475545)
 mesh = SubResource("BoxMesh_gi81k")
 surface_material_override/0 = SubResource("StandardMaterial3D_5tfcc")
-
-[node name="Interaction" parent="." node_paths=PackedStringArray("interactable") instance=ExtResource("2_6n1qh")]
-interactable = NodePath("..")
-
-[node name="CollisionShape3D" parent="Interaction" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0939526)
-shape = SubResource("BoxShape3D_8bj8y")
-
-[editable path="Interaction"]

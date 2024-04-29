@@ -14,6 +14,7 @@ public partial class StockInventory : StaticBody3D, IInteractable {
     [Export] Vector3 endOffset = new Vector3(0.25f, 0.25f, 0.25f);
 
     List<IGatherable> items = new List<IGatherable>();
+    List<CrateR> crates = new List<CrateR>();
     List<Vector3> takenPos = new List<Vector3>();
 
     int meshIndex = 0;
@@ -55,6 +56,11 @@ public partial class StockInventory : StaticBody3D, IInteractable {
             }
             takenPos.Add(pos);
         }
+        if (itemAmt != 0) {
+            //crate.
+        }
+
+        crates.Add(crate);
 
         //give back crate if itemAmt is not 0
     }

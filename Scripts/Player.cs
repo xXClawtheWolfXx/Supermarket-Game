@@ -16,9 +16,14 @@ public partial class Player : CharacterBody3D {
     [Export] int money;
     [Export] Hands hands;
 
+    ItemR mouseOverItem;
+    IInteractable currInteractable;
+
     public int Money { get { return money; } set { money += value; } }
     public Hands GetHands { get { return hands; } }
 
+    public ItemR GetMouseOverItem { get { return mouseOverItem; } set { mouseOverItem = value; } }
+    public IInteractable GetCurrInteractable { get { return currInteractable; } set { currInteractable = value; } }
 
     // Get the gravity from the project settings to be synced with RigidBody nodes.
     public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();

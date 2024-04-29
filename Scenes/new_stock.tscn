@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://ekdcvl5gblkh"]
+[gd_scene load_steps=6 format=3 uid="uid://ekdcvl5gblkh"]
 
 [ext_resource type="Script" path="res://Scripts/StockInventory.cs" id="1_ye7xm"]
-[ext_resource type="PackedScene" uid="uid://qtl1a3gvbksv" path="res://Scenes/interaction.tscn" id="2_c52b7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s0ivi"]
+size = Vector3(2.35229, 4.93469, 0.146729)
 
 [sub_resource type="BoxMesh" id="BoxMesh_np4nq"]
 size = Vector3(2.5, 0.15, 2)
@@ -9,9 +11,6 @@ size = Vector3(2.5, 0.15, 2)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ya6bs"]
 transparency = 1
 albedo_color = Color(0.819608, 0.752941, 0.921569, 0.172549)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_8bj8y"]
-size = Vector3(3.5, 4, 6.13526)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nbmmd"]
 size = Vector3(2.5, 0.15, 2)
@@ -21,6 +20,10 @@ script = ExtResource("1_ye7xm")
 meshes = [NodePath("Shelf1"), NodePath("Shelf2"), NodePath("Shelf3"), NodePath("Shelf4")]
 meshSpawnPos = NodePath("MeshSpawnPos")
 itemSpawn = NodePath("ItemSpawn")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0379639, 0.0136108, -0.0179443)
+shape = SubResource("BoxShape3D_s0ivi")
 
 [node name="Shelf1" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.38614, 0)
@@ -42,13 +45,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.36997, 0)
 mesh = SubResource("BoxMesh_np4nq")
 surface_material_override/0 = SubResource("StandardMaterial3D_ya6bs")
 
-[node name="Interaction" parent="." node_paths=PackedStringArray("interactable") instance=ExtResource("2_c52b7")]
-interactable = NodePath("..")
-
-[node name="CollisionShape3D" parent="Interaction" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0939526)
-shape = SubResource("BoxShape3D_8bj8y")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.38614, 0)
 shape = SubResource("BoxShape3D_nbmmd")
@@ -69,5 +65,3 @@ shape = SubResource("BoxShape3D_nbmmd")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.38242)
 
 [node name="ItemSpawn" type="Node3D" parent="."]
-
-[editable path="Interaction"]

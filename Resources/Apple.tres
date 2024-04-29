@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemR" load_steps=3 format=3 uid="uid://dbhflyhsvyx4f"]
 
 [ext_resource type="Script" path="res://Scripts/ItemR.cs" id="1_60ss2"]
-[ext_resource type="PackedScene" uid="uid://dbkm5b0k6pv21" path="res://Scenes/item_apple.tscn" id="1_i7hw1"]
+[ext_resource type="PackedScene" uid="uid://t6vep05owx3t" path="res://Scenes/item_apple.tscn" id="1_i7hw1"]
 
 [resource]
 script = ExtResource("1_60ss2")

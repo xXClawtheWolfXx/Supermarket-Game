@@ -1,43 +1,29 @@
-[gd_scene load_steps=8 format=3 uid="uid://bgvudcmxw5lp7"]
+[gd_scene load_steps=6 format=3 uid="uid://dbkm5b0k6pv21"]
 
-[ext_resource type="Script" path="res://Scripts/Item.cs" id="1_uk2wq"]
-[ext_resource type="Material" uid="uid://b1vf0vvvxyql" path="res://Art/Materials/whiteMat.tres" id="2_au6dm"]
-[ext_resource type="PackedScene" uid="uid://qtl1a3gvbksv" path="res://Scenes/interaction.tscn" id="2_dmsv8"]
+[ext_resource type="Script" path="res://Scripts/Item.cs" id="1_plhrb"]
+[ext_resource type="Material" uid="uid://b1vf0vvvxyql" path="res://Art/Materials/whiteMat.tres" id="2_gpwox"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_4a6gc"]
+[sub_resource type="SphereMesh" id="SphereMesh_tdqyd"]
 radius = 0.25
 height = 0.5
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7tfbe"]
-albedo_color = Color(0.117647, 0.32549, 0.572549, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_41f6i"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_2sadq"]
-radius = 0.25
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_sn87w"]
-radius = 1.0
+[sub_resource type="SphereShape3D" id="SphereShape3D_3hnr7"]
+radius = 0.3
 
 [node name="Item" type="Area3D" node_paths=PackedStringArray("mesh")]
-script = ExtResource("1_uk2wq")
-name = "Blackberry"
-whiteMat = ExtResource("2_au6dm")
+priority = -1
+script = ExtResource("1_plhrb")
+whiteMat = ExtResource("2_gpwox")
 mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_4a6gc")
-surface_material_override/0 = SubResource("StandardMaterial3D_7tfbe")
+mesh = SubResource("SphereMesh_tdqyd")
+surface_material_override/0 = SubResource("StandardMaterial3D_41f6i")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_2sadq")
-
-[node name="Interaction" parent="." node_paths=PackedStringArray("interactable") instance=ExtResource("2_dmsv8")]
-interactable = NodePath("..")
-
-[node name="CollisionShape3D" parent="Interaction" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.020916)
-shape = SubResource("SphereShape3D_sn87w")
+shape = SubResource("SphereShape3D_3hnr7")
 
 [connection signal="mouse_entered" from="." to="." method="OnMouseEntered"]
 [connection signal="mouse_exited" from="." to="." method="OnMouseExited"]
-
-[editable path="Interaction"]

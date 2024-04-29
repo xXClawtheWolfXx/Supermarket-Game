@@ -12,6 +12,8 @@ public partial class CrateR : Resource, IGatherable {
 
     public PackedScene GetPackedScene() { return crateScene; }
 
+
+
     public void UpdateAmt(int amt) {
         amtToSpawn = amt;
     }

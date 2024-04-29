@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhxdgadu6oxme"]
+[gd_scene load_steps=8 format=3 uid="uid://dhxdgadu6oxme"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_y3t3v"]
 [ext_resource type="Script" path="res://Scripts/Hands.cs" id="2_yj32h"]
+[ext_resource type="Script" path="res://Scripts/Interact.cs" id="3_ehs6e"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ormet"]
 
@@ -48,4 +49,11 @@ script = ExtResource("2_yj32h")
 handsPos = NodePath("Hand Pos")
 
 [node name="Hand Pos" type="Node3D" parent="Hands"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.14985)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.555326, -1.14985)
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.464713, 0)
+target_position = Vector3(0, 0, -4)
+debug_shape_custom_color = Color(0.686275, 0.188235, 0.188235, 1)
+debug_shape_thickness = 5
+script = ExtResource("3_ehs6e")

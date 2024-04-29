@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="ItemR" load_steps=3 format=3 uid="uid://nhg27bd602y"]
 
-[ext_resource type="PackedScene" uid="uid://bgvudcmxw5lp7" path="res://Scenes/item.tscn" id="1_8bw22"]
 [ext_resource type="Script" path="res://Scripts/ItemR.cs" id="1_c8pyy"]
+[ext_resource type="PackedScene" uid="uid://tqh6ko4lck51" path="res://Scenes/item_blackerry.tscn" id="1_pq6cp"]
 
 [resource]
 script = ExtResource("1_c8pyy")
-scene = ExtResource("1_8bw22")
+scene = ExtResource("1_pq6cp")
 name = "Blackberry"
 baseSellPrice = 6
 baseBuyPrice = 3

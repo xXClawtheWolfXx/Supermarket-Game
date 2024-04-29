@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Godot.Collections;
 
 public partial class Item : Area3D {
 
@@ -13,31 +14,44 @@ public partial class Item : Area3D {
 
     public override void _Ready() {
         currMat = mesh.GetActiveMaterial(0);
-        OnMouseOn += Change;
-        GD.Print("Jungkook");
+        //OnMouseOn += Change;
 
     }
 
+    /*
     public void Change(bool isOn, string n) {
+        GD.Print(Name);
+
         if (name == n) {
             if (isOn) mesh.SetSurfaceOverrideMaterial(0, whiteMat);
             else mesh.SetSurfaceOverrideMaterial(0, currMat);
         }
 
     }
+    */
+
+    void Change(bool isOn) {
+        Array<Node> items = GetTree().GetNodesInGroup(name);
+        foreach (Node i in items) {
+            Item item = i.GetNode<Item>(".");
+            if (isOn) item.mesh.SetSurfaceOverrideMaterial(0, whiteMat);
+            else item.mesh.SetSurfaceOverrideMaterial(0, currMat);
+        }
+    }
 
     public void OnMouseEntered() {
-        GD.Print("Jimin");
-        mesh.SetSurfaceOverrideMaterial(0, whiteMat);
-        EmitSignal(SignalName.OnMouseOn, true, name);
+        //mesh.SetSurfaceOverrideMaterial(0, whiteMat);
+        Player.Instance.GetMouseOverItem = this; //GetItemR in gameManager?
+        Change(true);
+        //EmitSignal(SignalName.OnMouseOn, true, name);
+        //GD.Print(Name);
     }
 
     public void OnMouseExited() {
-        GD.Print("Yoongi");
+        //mesh.SetSurfaceOverrideMaterial(0, whiteMat);
+        Change(false);
 
-        mesh.SetSurfaceOverrideMaterial(0, whiteMat);
-        EmitSignal(SignalName.OnMouseOn, false, name);
-
+        //EmitSignal(SignalName.OnMouseOn, false, name);
     }
 
 

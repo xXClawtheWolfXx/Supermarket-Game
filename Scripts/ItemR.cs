@@ -21,5 +21,4 @@ public partial class ItemR : Resource, IGatherable {
         return "ItemR: " + name + " sell:" + baseSellPrice + " buy: "
         + baseBuyPrice + " weight: " + weight;
     }
-
 }

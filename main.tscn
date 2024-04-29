@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://low48jg67342"]
+[gd_scene load_steps=27 format=3 uid="uid://low48jg67342"]
 
 [ext_resource type="PackedScene" uid="uid://dhxdgadu6oxme" path="res://Scenes/player.tscn" id="1_8wwns"]
 [ext_resource type="PackedScene" uid="uid://c18wkc2g6xkfw" path="res://Scenes/shelf.tscn" id="2_e4dxn"]
@@ -14,6 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://ekdcvl5gblkh" path="res://Scenes/new_stock.tscn" id="9_nbr5d"]
 [ext_resource type="Resource" uid="uid://dbhflyhsvyx4f" path="res://Resources/Apple.tres" id="12_yj52b"]
 [ext_resource type="Resource" uid="uid://c07c4al8f0hqw" path="res://Resources/Butter.tres" id="13_jtxim"]
+[ext_resource type="PackedScene" uid="uid://t6vep05owx3t" path="res://Scenes/item_apple.tscn" id="15_lr4dc"]
+[ext_resource type="Script" path="res://Scripts/Item.cs" id="16_stut7"]
+[ext_resource type="Material" uid="uid://b1vf0vvvxyql" path="res://Art/Materials/whiteMat.tres" id="17_pbmh8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_25ghb"]
 sky_top_color = Color(0.47451, 0.847059, 0.941176, 1)
@@ -43,6 +46,10 @@ albedo_color = Color(0.647059, 0.490196, 0.113725, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_2lrul"]
 size = Vector3(20, 1, 20)
 
+[sub_resource type="BoxMesh" id="BoxMesh_6i4ec"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4q58u"]
+
 [node name="Main" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -55,8 +62,6 @@ environment = SubResource("Environment_g2spj")
 
 [node name="Player" parent="." instance=ExtResource("1_8wwns")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25457, 0)
-
-[node name="UIManager" parent="." instance=ExtResource("3_1hcqx")]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_5jnnv")
@@ -106,3 +111,25 @@ maxNumNPCs = 4
 
 [node name="GameManager" parent="." instance=ExtResource("7_apsrb")]
 allItems = Array[Object]([ExtResource("8_v6a4x"), ExtResource("12_yj52b"), ExtResource("13_jtxim")])
+
+[node name="UIManager" parent="." instance=ExtResource("3_1hcqx")]
+mouse_filter = 2
+
+[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("mesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.978254, -5.54043)
+script = ExtResource("16_stut7")
+name = "Cherry"
+whiteMat = ExtResource("17_pbmh8")
+mesh = NodePath("MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+mesh = SubResource("BoxMesh_6i4ec")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_4q58u")
+
+[node name="ItemApple" parent="." instance=ExtResource("15_lr4dc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.69658, 1.1402, -7.09451)
+priority = 0
+
+[connection signal="mouse_entered" from="Area3D" to="Area3D" method="OnMouseEntered"]
