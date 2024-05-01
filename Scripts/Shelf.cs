@@ -1,20 +1,19 @@
 using Godot;
-using System;
-using System.Net.Http.Headers;
 using static Godot.GD;
 
 public partial class Shelf : StaticBody3D, IInteractable {
 
-    [Export] Node3D spawnPos;
+    [Export] Node3D customerSpawnPos;
     [Export] Label3D label;
+    [Export] DynamicInventory dynamicInventory;
 
     int itemAmount;
     ItemR item;
-    CrateR crateR;
+    CrateR crateR; // make a list of crates instead of just one?
 
 
     public ItemR GetItemR { get { return item; } }
-    public Node3D GetSpawnPos { get { return spawnPos; } }
+    public Node3D GetCustomerSpawnPos { get { return customerSpawnPos; } }
 
     public bool IsEmpty() {
         return itemAmount <= 0;
@@ -25,52 +24,68 @@ public partial class Shelf : StaticBody3D, IInteractable {
         if (cust.GetItemLookingFor.GetName != item.GetName) return;
         if (howMany <= 0) return;
 
-
         if (IsEmpty()) {
             cust.FillShoppingBasket(null);
             return;
         }
 
         itemAmount--;
+        dynamicInventory.RemoveFromInventory(item, 1);
         TakeItem(cust, howMany - 1);
         cust.FillShoppingBasket(item);
-        DisplayStock();
-
+        DisplayStockAmt();
     }
 
-
-
     void StockItem(CrateR crate) {
-        //if we already stock
-        if (itemAmount >= crate.GetAmtToSpawn) {
+        if (dynamicInventory.GetIsInventoryFull) {
             Print("No need for stock");
+            return;
+        }
+
+        if (itemAmount > 0 && item != crate.GetItemR) {
+            Print("Cannot stock different item at the moment");
             Player.Instance.PickUp(crate);
             return;
         }
-        //we have some stock
-        if (itemAmount > 0) {
-            //if the stocked item is different from potential stock items
-            if (item != crate.GetItemR) {
-                Print("Cannot stock different item at the moment");
-                Player.Instance.PickUp(crate);
-                return;
-            }
-            //make the amount, the amount in the crate, without overflow
-            int max = crate.GetAmtToSpawn;
-            crate.UpdateAmt(max - itemAmount);
-            itemAmount = max;
-            Player.Instance.PickUp(crate);
-
-        }
-        //if we don't have stock
-        crateR = crate;
+        dynamicInventory.AddToInventory(crate);
+        itemAmount += crate.GetAmtToSpawn;
         item = crate.GetItemR;
-        itemAmount = crate.GetAmtToSpawn;
-        DisplayStock();
-        //PrintStock();
+        DisplayStockAmt();
+
+        /*
+
+                //if we already stock
+                if (itemAmount >= crate.GetAmtToSpawn) {
+                    Print("No need for stock");
+                    Player.Instance.PickUp(crate);
+                    return;
+                }
+                //we have some stock
+                if (itemAmount > 0) {
+                    //if the stocked item is different from potential stock items
+                    if (item != crate.GetItemR) {
+                        Print("Cannot stock different item at the moment");
+                        Player.Instance.PickUp(crate);
+                        return;
+                    }
+                    //make the amount, the amount in the crate, without overflow
+                    int max = crate.GetAmtToSpawn;
+                    crate.UpdateAmt(max - itemAmount);
+                    itemAmount = max;
+                    Player.Instance.PickUp(crate);
+
+                }
+                //if we don't have stock
+                crateR = crate;
+                item = crate.GetItemR;
+                itemAmount = crate.GetAmtToSpawn;
+                DisplayStock();
+                //PrintStock();
+                */
     }
 
     void UnstockItem() {
+        /*
         if (crateR == null || item == null)
             return;
         item = null;
@@ -79,14 +94,18 @@ public partial class Shelf : StaticBody3D, IInteractable {
         Player.Instance.PickUp(crateR);
         Print(crateR);
         crateR = null;
-        DisplayStock();
-        //PrintStock();
+        //PrintStock();*/
+
+        dynamicInventory.RemoveFromInventory();
+        if (dynamicInventory.IsEmpty())
+            itemAmount = 0;
+        DisplayStockAmt();
+
     }
 
-    void DisplayStock() {
+    void DisplayStockAmt() {
         label.Text = item.GetName + ": " + itemAmount;
     }
-
 
     public void Interact(Node3D body) {
         if (body is Customer)

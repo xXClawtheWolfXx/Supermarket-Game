@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/UIManager.cs" id="1_2r4ub"]
 [ext_resource type="Theme" uid="uid://b0unkfsbkbs8a" path="res://Art/Font/overlayTheme.tres" id="1_a1pi6"]
 
-[node name="UIManager" type="Control"]
+[node name="UIManager" type="Control" node_paths=PackedStringArray("moneyLabel", "timeLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +11,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2r4ub")
+moneyLabel = NodePath("Money Label")
+timeLabel = NodePath("Time  label")
 
 [node name="Money Label" type="RichTextLabel" parent="."]
 layout_mode = 0

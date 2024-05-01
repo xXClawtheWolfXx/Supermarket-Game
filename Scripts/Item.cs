@@ -8,14 +8,16 @@ public partial class Item : Area3D {
     [Export] Material whiteMat;
     [Export] MeshInstance3D mesh;
 
+    public string GetName { get { return name; } }
+
     Material currMat;
 
     [Signal] public delegate void OnMouseOnEventHandler(bool isOn, string name);
 
+
     public override void _Ready() {
         currMat = mesh.GetActiveMaterial(0);
         //OnMouseOn += Change;
-
     }
 
     /*
@@ -41,7 +43,7 @@ public partial class Item : Area3D {
 
     public void OnMouseEntered() {
         //mesh.SetSurfaceOverrideMaterial(0, whiteMat);
-        Player.Instance.GetMouseOverItem = this; //GetItemR in gameManager?
+        Player.Instance.GetMouseOverItem = GameManager.Instance.GetItemR(name);
         Change(true);
         //EmitSignal(SignalName.OnMouseOn, true, name);
         //GD.Print(Name);

@@ -6,7 +6,7 @@ public partial class GameManager : Node {
     private static GameManager instance;
     public static GameManager Instance { get { return instance; } }
 
-    [Export] Array<ItemR> allItems;
+    [Export] Array<ItemR> allItems = new Array<ItemR>();
 
     public Array<ItemR> GetAllItems { get { return allItems; } }
 
@@ -16,6 +16,13 @@ public partial class GameManager : Node {
 
     public static void OpenStore() {
         NPCSpawner.Instance.SpawnCustomer();
+    }
+
+    public ItemR GetItemR(string name) {
+        foreach (ItemR itemR in allItems)
+            if (name == itemR.GetName)
+                return itemR;
+        return null;
     }
 
     public void CloseStore() {

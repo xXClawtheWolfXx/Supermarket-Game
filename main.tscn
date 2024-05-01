@@ -1,11 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://low48jg67342"]
+[gd_scene load_steps=21 format=3 uid="uid://low48jg67342"]
 
 [ext_resource type="PackedScene" uid="uid://dhxdgadu6oxme" path="res://Scenes/player.tscn" id="1_8wwns"]
 [ext_resource type="PackedScene" uid="uid://c18wkc2g6xkfw" path="res://Scenes/shelf.tscn" id="2_e4dxn"]
 [ext_resource type="PackedScene" uid="uid://dnhvdiof62i6c" path="res://Scenes/ui_manager.tscn" id="3_1hcqx"]
 [ext_resource type="PackedScene" uid="uid://bm4aunvoehknb" path="res://Scenes/buy_stock.tscn" id="4_vpu4l"]
 [ext_resource type="Resource" uid="uid://br85ho7fjqipd" path="res://Resources/AppleCrate.tres" id="5_4v4hg"]
-[ext_resource type="PackedScene" uid="uid://s37vs2bqcq84" path="res://Scenes/stock.tscn" id="5_156qu"]
 [ext_resource type="Resource" uid="uid://dcfsn40srrjbr" path="res://Resources/ButterCrate.tres" id="6_7rvse"]
 [ext_resource type="PackedScene" uid="uid://cye6eyd3u56cp" path="res://Scenes/cashier.tscn" id="6_isd6n"]
 [ext_resource type="PackedScene" uid="uid://brf05haln1ovu" path="res://Scenes/npc_spawner.tscn" id="6_yy7a7"]
@@ -14,9 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://ekdcvl5gblkh" path="res://Scenes/new_stock.tscn" id="9_nbr5d"]
 [ext_resource type="Resource" uid="uid://dbhflyhsvyx4f" path="res://Resources/Apple.tres" id="12_yj52b"]
 [ext_resource type="Resource" uid="uid://c07c4al8f0hqw" path="res://Resources/Butter.tres" id="13_jtxim"]
-[ext_resource type="PackedScene" uid="uid://t6vep05owx3t" path="res://Scenes/item_apple.tscn" id="15_lr4dc"]
-[ext_resource type="Script" path="res://Scripts/Item.cs" id="16_stut7"]
-[ext_resource type="Material" uid="uid://b1vf0vvvxyql" path="res://Art/Materials/whiteMat.tres" id="17_pbmh8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_25ghb"]
 sky_top_color = Color(0.47451, 0.847059, 0.941176, 1)
@@ -46,10 +42,6 @@ albedo_color = Color(0.647059, 0.490196, 0.113725, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_2lrul"]
 size = Vector3(20, 1, 20)
 
-[sub_resource type="BoxMesh" id="BoxMesh_6i4ec"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_4q58u"]
-
 [node name="Main" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -77,7 +69,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_qcu1h")
 shape = SubResource("BoxShape3D_2lrul")
 
 [node name="Shelf" parent="NavigationRegion3D" instance=ExtResource("2_e4dxn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.83806, 1.44362, 5.72922)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.83806, 2.39788, 5.72922)
 
 [node name="BuyStock" parent="NavigationRegion3D" instance=ExtResource("4_vpu4l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62168, 0.772364, 2.01744)
@@ -90,17 +82,14 @@ crate = ExtResource("5_4v4hg")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62168, 0.772364, -3.99873)
 crate = ExtResource("6_7rvse")
 
-[node name="Stock" parent="NavigationRegion3D" instance=ExtResource("5_156qu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.84839, 0.55374, -8.70206)
-
 [node name="Cashier" parent="NavigationRegion3D" instance=ExtResource("6_isd6n")]
 transform = Transform3D(-0.00708602, 0, 0.999975, 0, 1, 0, -0.999975, 0, -0.00708602, 7.60923, 1.2263, -1.98176)
 
 [node name="Shelf2" parent="NavigationRegion3D" instance=ExtResource("2_e4dxn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.604814, 1.47032, 6.07853)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.604814, 2.42458, 6.07853)
 
 [node name="Shelf3" parent="NavigationRegion3D" instance=ExtResource("2_e4dxn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.45268, 1.42861, 5.99442)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.45268, 2.38287, 5.99442)
 
 [node name="NewStock" parent="NavigationRegion3D" instance=ExtResource("9_nbr5d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.58948, 3.36091, -9.10416)
@@ -110,26 +99,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8.967)
 maxNumNPCs = 4
 
 [node name="GameManager" parent="." instance=ExtResource("7_apsrb")]
-allItems = Array[Object]([ExtResource("8_v6a4x"), ExtResource("12_yj52b"), ExtResource("13_jtxim")])
+allItems = [ExtResource("8_v6a4x"), ExtResource("12_yj52b"), ExtResource("13_jtxim")]
 
 [node name="UIManager" parent="." instance=ExtResource("3_1hcqx")]
 mouse_filter = 2
-
-[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("mesh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.978254, -5.54043)
-script = ExtResource("16_stut7")
-name = "Cherry"
-whiteMat = ExtResource("17_pbmh8")
-mesh = NodePath("MeshInstance3D")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
-mesh = SubResource("BoxMesh_6i4ec")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-shape = SubResource("BoxShape3D_4q58u")
-
-[node name="ItemApple" parent="." instance=ExtResource("15_lr4dc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.69658, 1.1402, -7.09451)
-priority = 0
-
-[connection signal="mouse_entered" from="Area3D" to="Area3D" method="OnMouseEntered"]

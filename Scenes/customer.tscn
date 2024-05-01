@@ -13,17 +13,20 @@ size = Vector3(0.49, 0.29, 0.32)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iw5rb"]
 
-[node name="Customer" type="CharacterBody3D" node_paths=PackedStringArray("shoppingBasket", "agent")]
+[node name="Customer" type="CharacterBody3D" node_paths=PackedStringArray("cashierTimer", "shoppingBasket", "raycasts", "agent")]
 script = ExtResource("1_jtvsm")
+cashierTimer = NodePath("CashierTimer")
 shoppingBasket = NodePath("Inventory")
+raycasts = [NodePath("forward"), NodePath("Right"), NodePath("Left")]
 agent = NodePath("NavigationAgent3D")
+rotateSpeed = 5.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_axefv")
 surface_material_override/0 = SubResource("StandardMaterial3D_3qg6p")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.412846, -0.520809)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.412846, -0.475231)
 mesh = SubResource("BoxMesh_e2klr")
 surface_material_override/0 = SubResource("StandardMaterial3D_3qg6p")
 
@@ -34,3 +37,27 @@ shape = SubResource("CapsuleShape3D_iw5rb")
 maxItems = 100
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="forward" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.464713, 0)
+target_position = Vector3(0, 0, -3.59)
+debug_shape_custom_color = Color(0.686275, 0.188235, 0.188235, 1)
+debug_shape_thickness = 5
+
+[node name="Right" type="RayCast3D" parent="."]
+transform = Transform3D(0.73902, 0, -0.673683, 0, 1, 0, 0.673683, 0, 0.73902, 0, 0.464713, 0)
+target_position = Vector3(0, 0, -3.59)
+debug_shape_custom_color = Color(0.686275, 0.188235, 0.188235, 1)
+debug_shape_thickness = 5
+
+[node name="Left" type="RayCast3D" parent="."]
+transform = Transform3D(0.747172, 0, 0.664631, 0, 1, 0, -0.664631, 0, 0.747172, 0, 0.464713, 0)
+target_position = Vector3(0, 0, -3.59)
+debug_shape_custom_color = Color(0.686275, 0.188235, 0.188235, 1)
+debug_shape_thickness = 5
+
+[node name="CashierTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[connection signal="timeout" from="CashierTimer" to="." method="OnCashierTimerTimeout"]

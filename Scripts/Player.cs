@@ -13,13 +13,14 @@ public partial class Player : CharacterBody3D {
     [Export] Node3D pivot;
 
     [ExportCategory("Jimin")]
-    [Export] int money;
+    [Export] int money = 100;
     [Export] Hands hands;
 
     ItemR mouseOverItem;
     IInteractable currInteractable;
 
-    public int Money { get { return money; } set { money += value; } }
+    public int GetMoney { get { return money; } }
+
     public Hands GetHands { get { return hands; } }
 
     public ItemR GetMouseOverItem { get { return mouseOverItem; } set { mouseOverItem = value; } }
@@ -33,8 +34,8 @@ public partial class Player : CharacterBody3D {
     public override void _Ready() {
         instance = this;
         Input.MouseMode = Input.MouseModeEnum.Captured;
-
     }
+
 
     //movement
     public override void _PhysicsProcess(double delta) {
@@ -87,6 +88,12 @@ public partial class Player : CharacterBody3D {
             Input.MouseMode = Input.MouseModeEnum.Visible;
         else
             Input.MouseMode = Input.MouseModeEnum.Captured;
+    }
+
+
+    public void SetMoney(int amt) {
+        money += amt;
+        UIManager.Instance.UpdateMoneyLabel(money);
     }
 
     public void PickUp(IGatherable item) {

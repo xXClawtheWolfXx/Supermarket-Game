@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://ekdcvl5gblkh"]
+[gd_scene load_steps=7 format=3 uid="uid://ekdcvl5gblkh"]
 
 [ext_resource type="Script" path="res://Scripts/StockInventory.cs" id="1_ye7xm"]
+[ext_resource type="PackedScene" uid="uid://daog1nnun51w1" path="res://Scenes/dynamic_inventory.tscn" id="2_e5umd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s0ivi"]
 size = Vector3(2.35229, 4.93469, 0.146729)
@@ -15,11 +16,9 @@ albedo_color = Color(0.819608, 0.752941, 0.921569, 0.172549)
 [sub_resource type="BoxShape3D" id="BoxShape3D_nbmmd"]
 size = Vector3(2.5, 0.15, 2)
 
-[node name="NewStock" type="StaticBody3D" node_paths=PackedStringArray("meshes", "meshSpawnPos", "itemSpawn")]
+[node name="NewStock" type="StaticBody3D" node_paths=PackedStringArray("dynamicInventory")]
 script = ExtResource("1_ye7xm")
-meshes = [NodePath("Shelf1"), NodePath("Shelf2"), NodePath("Shelf3"), NodePath("Shelf4")]
-meshSpawnPos = NodePath("MeshSpawnPos")
-itemSpawn = NodePath("ItemSpawn")
+dynamicInventory = NodePath("DynamicInventory")
 
 [node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0379639, 0.0136108, -0.0179443)
@@ -64,4 +63,9 @@ shape = SubResource("BoxShape3D_nbmmd")
 [node name="MeshSpawnPos" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.38242)
 
-[node name="ItemSpawn" type="Node3D" parent="."]
+[node name="ItemParent" type="Node3D" parent="."]
+
+[node name="DynamicInventory" parent="." node_paths=PackedStringArray("meshes", "meshSpawnPos", "itemParent") instance=ExtResource("2_e5umd")]
+meshes = [NodePath("../Shelf1"), NodePath("../Shelf2"), NodePath("../Shelf3"), NodePath("../Shelf4")]
+meshSpawnPos = NodePath("../MeshSpawnPos")
+itemParent = NodePath("../ItemParent")

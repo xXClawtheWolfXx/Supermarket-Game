@@ -6,11 +6,14 @@ public enum Mood { HAPPY, NEUTRAL, ANGRY };
 
 public partial class Customer : CharacterBody3D {
 
+
+    [Export] Timer cashierTimer;
     [Export] Inventory shoppingBasket;
+    [Export] Array<RayCast3D> raycasts;
+
     [Export] NavigationAgent3D agent;
     [Export] float speed = 10;
-
-
+    [Export] float rotateSpeed = 10;
 
     public Inventory GetShoppingBasket { get { return shoppingBasket; } }
     public ItemR GetItemLookingFor { get { return first; } }
@@ -22,37 +25,44 @@ public partial class Customer : CharacterBody3D {
 
     ItemR first;
 
-    public List<ItemR> ShoppingList {
-        set {
-            shoppingList = value;
-        }
-    }
+    public List<ItemR> ShoppingList { set { shoppingList = value; } }
 
     public override void _PhysicsProcess(double delta) {
-        Vector3 currLoc = GlobalPosition;
+
+        foreach (RayCast3D rayCast3D in raycasts) {
+            if (rayCast3D.IsColliding() && rayCast3D.GetCollider() is IInteractable) {
+                ((IInteractable)rayCast3D.GetCollider()).Interact(this);
+                break;
+            }
+        }
+
+        if (agent.IsNavigationFinished()) {
+            if (GlobalPosition == NPCSpawner.Instance.Position)
+                NPCSpawner.Instance.DestroyCustomer(this);
+            return;
+        }
         Vector3 nextLoc = agent.GetNextPathPosition();
-        Vector3 newVel = (nextLoc - currLoc).Normalized() * speed;
+        Vector3 offset = nextLoc - GlobalPosition;
+        Vector3 newVel = offset.Normalized() * speed;
 
         Velocity = newVel;
         MoveAndSlide();
+
+        offset.Y = 0;
+        LookAt(GlobalPosition + offset, Vector3.Up);
     }
 
     public void FillShoppingBasket(ItemR item) {
         if (item == null) {
             Complain("there's no more items");
-            GD.Print("sh contan: " + shoppingList.Contains(first));
             while (shoppingList.Contains(first)) {
                 shoppingList.Remove(first);
-                GD.Print("remove " + first.GetName);
             }
-            //shoppingIndex++;
-
-            //CheckIfMoreInList(item);
         } else {
             shoppingBasket.AddToInventory(item);
             shoppingList.Remove(item);
 
-            GD.Print(this.Name + " filled Shoppingcart with: " + item.GetName);
+            GD.Print(Name + " filled Shoppingcart with: " + item.GetName);
         }
         Browse();
     }
@@ -75,9 +85,7 @@ public partial class Customer : CharacterBody3D {
 
     //look for stock that matches the first of shopping list
     public void Browse() {
-        GD.Print("sl Count: " + shoppingList.Count);
         if (shoppingList.Count == 0) {
-            GD.Print("Finished shopping");
             Checkout();
             return;
         }
@@ -91,14 +99,10 @@ public partial class Customer : CharacterBody3D {
             Shelf shelf = shelfNode.GetNode<Shelf>(".");
             if (shelf.GetItemR.GetName != first.GetName)
                 continue;
-
             //we found a shelf
-            Move(shelf.GetSpawnPos.GlobalPosition);
+            Move(shelf.GetCustomerSpawnPos.GlobalPosition);
             return;
-
         }
-
-        //shoppingIndex++;
         Complain("nothing I want is here");
         Browse();
     }
@@ -109,6 +113,8 @@ public partial class Customer : CharacterBody3D {
     void Complain(string msg) {
         mood++;
         GD.Print(Name + " is " + mood.ToString() + " " + msg);
+        if (mood == Mood.ANGRY)
+            Leave();
     }
 
     //when happy and found a couple of items
@@ -121,7 +127,6 @@ public partial class Customer : CharacterBody3D {
     //when mood is angry
     public void Leave() {
         Move(NPCSpawner.Instance.Position);
-        NPCSpawner.Instance.DestroyCustomer(this);
     }
 
     void Move(Vector3 pos) {
@@ -137,11 +142,19 @@ public partial class Customer : CharacterBody3D {
             Complain("There's nothing for me here!");
             Leave();
         }
-
         Array<Node> cashiers = GetTree().GetNodesInGroup("Cashier");
         //eventually check which cashier has the least people on it and go there
         Cashier cashier = cashiers[0].GetNode<Cashier>(".");
         Move(cashier.GetSpawnPos.GlobalPosition);
+
+    }
+
+    public void StartCashierTimer() {
+        cashierTimer.Start();
+    }
+
+    public void OnCashierTimerTimeout() {
+        Complain("The cashier is taking too long");
     }
 
 }

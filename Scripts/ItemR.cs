@@ -17,6 +17,16 @@ public partial class ItemR : Resource, IGatherable {
 
     public PackedScene GetPackedScene() { return scene; }
 
+    public ItemR() : this("", 0, 0, 0, null) { }
+
+    public ItemR(string n, int bsp, int bbp, int w, PackedScene s) {
+        name = n;
+        baseSellPrice = bsp;
+        baseBuyPrice = bbp;
+        weight = w;
+        scene = s;
+    }
+
     public override string ToString() {
         return "ItemR: " + name + " sell:" + baseSellPrice + " buy: "
         + baseBuyPrice + " weight: " + weight;

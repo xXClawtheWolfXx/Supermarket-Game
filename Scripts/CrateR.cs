@@ -12,7 +12,19 @@ public partial class CrateR : Resource, IGatherable {
 
     public PackedScene GetPackedScene() { return crateScene; }
 
+    public CrateR() : this(null, null, 0) { }
 
+    public CrateR(ItemR i, PackedScene s, int amt) {
+        itemR = i;
+        crateScene = s;
+        amtToSpawn = amt;
+    }
+
+    public CrateR(CrateR c, int amt) {
+        itemR = c.itemR;
+        crateScene = c.crateScene;
+        amtToSpawn = amt;
+    }
 
     public void UpdateAmt(int amt) {
         amtToSpawn = amt;

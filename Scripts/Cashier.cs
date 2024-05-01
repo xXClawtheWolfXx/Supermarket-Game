@@ -18,7 +18,7 @@ public partial class Cashier : StaticBody3D, IInteractable {
     }
 
     void AddCustomer(Customer cust) {
-
+        cust.StartCashierTimer();
         line.Add(cust);
     }
 
@@ -29,6 +29,7 @@ public partial class Cashier : StaticBody3D, IInteractable {
             Inventory custSB = cust.GetShoppingBasket;
             while (!custSB.IsEmpty()) {
                 ItemR item = (ItemR)custSB.RemoveFromInventory();
+                Player.Instance.SetMoney(item.BaseSellPrice);
                 GD.Print("Checking out " + item.GetName);
             }
 
