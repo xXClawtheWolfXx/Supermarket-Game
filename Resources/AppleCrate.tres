@@ -8,4 +8,4 @@
 script = ExtResource("1_lnmgg")
 itemR = ExtResource("2_6b1up")
 crateScene = ExtResource("1_sl7wm")
-amtToSpawn = 4
+amtToSpawn = 12

@@ -57,7 +57,7 @@ debug_shape_custom_color = Color(0.686275, 0.188235, 0.188235, 1)
 debug_shape_thickness = 5
 
 [node name="CashierTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 20.0
 one_shot = true
 
 [connection signal="timeout" from="CashierTimer" to="." method="OnCashierTimerTimeout"]

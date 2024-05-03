@@ -37,7 +37,7 @@ public partial class Customer : CharacterBody3D {
         }
 
         if (agent.IsNavigationFinished()) {
-            if (GlobalPosition == NPCSpawner.Instance.Position)
+            if (agent.TargetPosition == NPCSpawner.Instance.Position)
                 NPCSpawner.Instance.DestroyCustomer(this);
             return;
         }
