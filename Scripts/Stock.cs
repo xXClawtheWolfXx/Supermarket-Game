@@ -3,8 +3,11 @@ using System;
 using Godot.Collections;
 
 using static Godot.GD;
-using System.ComponentModel;
 
+
+/// <summary>
+/// No longer used--- will be deleted
+/// </summary>
 public partial class Stock : StaticBody3D, IInteractable {
 
     //stock

@@ -2,6 +2,9 @@ using Godot;
 using System;
 using System.Runtime.CompilerServices;
 
+/// <summary>
+/// Holds a scene to instantiate, a name, buy and sell prices, and a weight
+/// </summary>
 [GlobalClass]
 public partial class ItemR : Resource, IGatherable {
     [Export] PackedScene scene;

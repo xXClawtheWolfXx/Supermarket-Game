@@ -4,6 +4,13 @@ using Godot.Collections;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// A soon-to-be deprecated class
+/// DynamicInventory is to be used for inventorys who need graphics
+/// List will suffice to inventories without graphics
+/// 
+/// Holds a list of items and might show them, though this was never tested
+/// </summary>
 public partial class Inventory : Node3D {
 
     List<IGatherable> items = new List<IGatherable>();
@@ -17,7 +24,11 @@ public partial class Inventory : Node3D {
         return currItemAmt == 0;
     }
 
-    //if we have enough space, add the item to inventory
+    /// <summary>
+    /// Adds the specified item to the inventory
+    /// </summary>
+    /// <param name="item"> the item to be added</param>
+    /// <returns> if it succeeded</returns>
     public bool AddToInventory(IGatherable item) {
         if (currItemAmt <= maxItems) {
             items.Add(item);
@@ -26,19 +37,23 @@ public partial class Inventory : Node3D {
         }
         GD.PrintErr("No more space in Inventory");
         return false;
-        //else print that basket is full
     }
 
-    //removes item from inventory
+    /// <summary>
+    /// Removes the specified item from the inventory
+    /// </summary>
+    /// <param name="item"> the item to be removed</param>
     public void RemoveFromInventory(IGatherable item) {
         if (items.Contains(item)) {
             items.Remove(item);
             currItemAmt--;
-            HideItems();
+            //HideItems();
         }
     }
-
-    //always removes first item from inventory and returns it
+    /// <summary>
+    /// Always removes the first item from the inventory and returns it
+    /// </summary>
+    /// <returns>The first</returns>
     public IGatherable RemoveFromInventory() {
         if (!IsEmpty()) {
             IGatherable item = items[0];
@@ -49,27 +64,26 @@ public partial class Inventory : Node3D {
         return null;
     }
 
-    //checks if an item exists in the inventory
     public bool HasItem(IGatherable item) {
         return items.Contains(item);
     }
-
-    public void ShowItems() {
-        currItemIndex = 0;
-        foreach (IGatherable item in items) {
-            //spawn, to pos, parent to itemPOS
-            Node3D newItem = item.GetPackedScene().Instantiate<Node3D>();
-            newItem.Position = itemPositions[currItemIndex].Position;
-            itemPositions[currItemIndex].AddChild(newItem);
-            currItemIndex++;
+    /*
+        public void ShowItems() {
+            currItemIndex = 0;
+            foreach (IGatherable item in items) {
+                //spawn, to pos, parent to itemPOS
+                Node3D newItem = item.GetPackedScene().Instantiate<Node3D>();
+                newItem.Position = itemPositions[currItemIndex].Position;
+                itemPositions[currItemIndex].AddChild(newItem);
+                currItemIndex++;
+            }
         }
-    }
 
-    public void HideItems() {
-        currItemIndex = 0;
-        foreach (Node3D node3D in itemPositions) {
-            node3D.GetChild<Item>(0).QueueFree();
+        public void HideItems() {
+            currItemIndex = 0;
+            foreach (Node3D node3D in itemPositions) {
+                node3D.GetChild<Item>(0).QueueFree();
+            }
         }
-    }
-
+    */
 }

@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://c18wkc2g6xkfw"]
+[gd_scene load_steps=8 format=3 uid="uid://c18wkc2g6xkfw"]
 
 [ext_resource type="Script" path="res://Scripts/Shelf.cs" id="1_bs6pm"]
+[ext_resource type="Resource" uid="uid://dtot5k2d2lvgo" path="res://Resources/dummyItemR.tres" id="2_bku27"]
 [ext_resource type="PackedScene" uid="uid://daog1nnun51w1" path="res://Scenes/dynamic_inventory.tscn" id="2_nvbei"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_o8cos"]
@@ -20,6 +21,7 @@ script = ExtResource("1_bs6pm")
 customerSpawnPos = NodePath("customerSpawnPos")
 label = NodePath("Label3D")
 dynamicInventory = NodePath("DynamicInventory")
+dummyItemR = ExtResource("2_bku27")
 
 [node name="Shelf1" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73364, 0)

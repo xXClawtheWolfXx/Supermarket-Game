@@ -2,6 +2,11 @@ using Godot;
 using System;
 using Godot.Collections;
 
+/// <summary>
+/// To be changed--need to only affect items in Stock's list
+/// 
+/// Changes the item's material 
+/// </summary>
 public partial class Item : Area3D {
 
     [Export] string name;
@@ -12,26 +17,14 @@ public partial class Item : Area3D {
 
     Material currMat;
 
-    [Signal] public delegate void OnMouseOnEventHandler(bool isOn, string name);
-
-
     public override void _Ready() {
         currMat = mesh.GetActiveMaterial(0);
-        //OnMouseOn += Change;
     }
 
-    /*
-    public void Change(bool isOn, string n) {
-        GD.Print(Name);
-
-        if (name == n) {
-            if (isOn) mesh.SetSurfaceOverrideMaterial(0, whiteMat);
-            else mesh.SetSurfaceOverrideMaterial(0, currMat);
-        }
-
-    }
-    */
-
+    /// <summary>
+    /// Changes all of the items with the same name's material to white if it can, and to normal if it can't
+    /// </summary>
+    /// <param name="isOn"> can it change to the white material</param>
     void Change(bool isOn) {
         Array<Node> items = GetTree().GetNodesInGroup(name);
         foreach (Node i in items) {
@@ -41,19 +34,15 @@ public partial class Item : Area3D {
         }
     }
 
+    //If the mouse is over the item, change it's material to white
     public void OnMouseEntered() {
-        //mesh.SetSurfaceOverrideMaterial(0, whiteMat);
         Player.Instance.GetMouseOverItem = GameManager.Instance.GetItemR(name);
         Change(true);
-        //EmitSignal(SignalName.OnMouseOn, true, name);
-        //GD.Print(Name);
     }
 
+    //If the mouse is no longer over the item, change it's material to normal
     public void OnMouseExited() {
-        //mesh.SetSurfaceOverrideMaterial(0, whiteMat);
         Change(false);
-
-        //EmitSignal(SignalName.OnMouseOn, false, name);
     }
 
 
