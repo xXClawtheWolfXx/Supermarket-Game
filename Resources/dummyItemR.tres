@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ItemR" load_steps=3 format=3 uid="uid://dtot5k2d2lvgo"]
 
-[ext_resource type="Script" path="res://Scripts/ItemR.cs" id="1_plit4"]
+[ext_resource type="Script" path="res://Scripts/Managers/ItemR.cs" id="1_plit4"]
 
 [sub_resource type="PackedScene" id="PackedScene_t387e"]
 

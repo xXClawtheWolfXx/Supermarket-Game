@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dbkm5b0k6pv21"]
 
-[ext_resource type="Script" path="res://Scripts/Item.cs" id="1_plhrb"]
-[ext_resource type="Material" uid="uid://b1vf0vvvxyql" path="res://Art/Materials/whiteMat.tres" id="2_gpwox"]
+[ext_resource type="Script" path="res://Scripts/Managers/Item.cs" id="1_sev5g"]
+[ext_resource type="Material" uid="uid://b1vf0vvvxyql" path="res://Art/Materials/whiteMat.tres" id="2_pp5ct"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_tdqyd"]
 radius = 0.25
@@ -14,8 +14,8 @@ radius = 0.3
 
 [node name="Item" type="Area3D" node_paths=PackedStringArray("mesh")]
 priority = -1
-script = ExtResource("1_plhrb")
-whiteMat = ExtResource("2_gpwox")
+script = ExtResource("1_sev5g")
+whiteMat = ExtResource("2_pp5ct")
 mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

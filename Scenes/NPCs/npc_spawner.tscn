@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://brf05haln1ovu"]
 
-[ext_resource type="Script" path="res://Scripts/NPCSpawner.cs" id="1_tp103"]
-[ext_resource type="PackedScene" uid="uid://dceyxvh3o2s73" path="res://Scenes/customer.tscn" id="2_b0gtj"]
+[ext_resource type="Script" path="res://Scripts/NPCs/NPCSpawner.cs" id="1_tp103"]
+[ext_resource type="PackedScene" uid="uid://dceyxvh3o2s73" path="res://Scenes/NPCs/customer.tscn" id="2_b0gtj"]
 
 [node name="NPCSpawner" type="Node3D" node_paths=PackedStringArray("timer")]
 script = ExtResource("1_tp103")

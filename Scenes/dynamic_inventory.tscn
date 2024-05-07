@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://daog1nnun51w1"]
 
-[ext_resource type="Script" path="res://Scripts/DynamicInventory.cs" id="1_5jma2"]
+[ext_resource type="Script" path="res://Scripts/Managers/DynamicInventory.cs" id="1_d3v21"]
 
 [node name="DynamicInventory" type="Node3D"]
-script = ExtResource("1_5jma2")
+script = ExtResource("1_d3v21")

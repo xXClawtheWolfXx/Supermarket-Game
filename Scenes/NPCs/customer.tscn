@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dceyxvh3o2s73"]
 
-[ext_resource type="PackedScene" uid="uid://ddq18kyu4gb3x" path="res://Scenes/inventory.tscn" id="1_fbv8a"]
-[ext_resource type="Script" path="res://Scripts/Customer.cs" id="1_jtvsm"]
+[ext_resource type="PackedScene" uid="uid://ddq18kyu4gb3x" path="res://Scenes/NPCs/inventory.tscn" id="1_fbv8a"]
+[ext_resource type="Script" path="res://Scripts/NPCs/Customer.cs" id="1_nmcxq"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_axefv"]
 
@@ -14,7 +14,7 @@ size = Vector3(0.49, 0.29, 0.32)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iw5rb"]
 
 [node name="Customer" type="CharacterBody3D" node_paths=PackedStringArray("cashierTimer", "shoppingBasket", "raycasts", "agent")]
-script = ExtResource("1_jtvsm")
+script = ExtResource("1_nmcxq")
 cashierTimer = NodePath("CashierTimer")
 shoppingBasket = NodePath("Inventory")
 raycasts = [NodePath("forward"), NodePath("Right"), NodePath("Left")]

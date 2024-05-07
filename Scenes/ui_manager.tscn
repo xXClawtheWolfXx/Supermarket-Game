@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dnhvdiof62i6c"]
 
-[ext_resource type="Script" path="res://Scripts/UIManager.cs" id="1_2r4ub"]
+[ext_resource type="Script" path="res://Scripts/Managers/UIManager.cs" id="1_2r4ub"]
 [ext_resource type="Theme" uid="uid://b0unkfsbkbs8a" path="res://Art/Font/overlayTheme.tres" id="1_a1pi6"]
 
 [node name="UIManager" type="Control" node_paths=PackedStringArray("moneyLabel", "timeLabel")]

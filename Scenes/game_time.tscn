@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://duau4b7orib43"]
+
+[ext_resource type="Script" path="res://Scripts/Time/GameTime.cs" id="1_dmxdk"]
+
+[node name="GameTime" type="Node3D"]
+script = ExtResource("1_dmxdk")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

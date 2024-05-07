@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfssguemfh8qh"]
+
+[ext_resource type="Script" path="res://Scripts/NPCs/Stocker.cs" id="1_dn3q4"]
+
+[node name="Stocker" type="CharacterBody3D"]
+script = ExtResource("1_dn3q4")
