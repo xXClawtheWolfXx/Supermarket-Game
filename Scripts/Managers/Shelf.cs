@@ -18,6 +18,7 @@ public partial class Shelf : StaticBody3D, IInteractable {
 
     public ItemR GetItemR { get { return item; } }
     public Node3D GetCustomerSpawnPos { get { return customerSpawnPos; } }
+    public int GetItemAmount { get { return itemAmount; } }
 
     public override void _Ready() {
         item = dummyItemR;
@@ -53,7 +54,7 @@ public partial class Shelf : StaticBody3D, IInteractable {
     /// Stocks the specified crate's items onto the Shelf
     /// </summary>
     /// <param name="crate">the crate who's items will be stocked</param>
-    void StockItem(CrateR crate) {
+    public void StockItem(CrateR crate) {
         if (dynamicInventory.GetIsInventoryFull) {
             Print("No need for stock");
             return;
@@ -78,7 +79,7 @@ public partial class Shelf : StaticBody3D, IInteractable {
     /// 
     /// </summary>
     void UnstockItem() {
-        if (IsEmpty()) return;
+        if (IsEmpty() || Player.Instance.GetMouseOverItem == null) return;
 
         dynamicInventory.RemoveFromInventory();
         itemAmount = 0;

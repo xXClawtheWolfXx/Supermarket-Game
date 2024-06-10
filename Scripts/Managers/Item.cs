@@ -25,26 +25,15 @@ public partial class Item : Area3D {
     /// Changes all of the items with the same name's material to white if it can, and to normal if it can't
     /// </summary>
     /// <param name="isOn"> can it change to the white material</param>
-    void Change(bool isOn) {
-        Array<Node> items = GetTree().GetNodesInGroup(name);
+    public void Change(bool isOn) {
+        Array<Node> items = GetParent().GetChildren();
         foreach (Node i in items) {
-            Item item = i.GetNode<Item>(".");
-            if (isOn) item.mesh.SetSurfaceOverrideMaterial(0, whiteMat);
-            else item.mesh.SetSurfaceOverrideMaterial(0, currMat);
+            if (i.IsInGroup(name)) {
+                Item item = i.GetNode<Item>(".");
+                if (isOn) item.mesh.SetSurfaceOverrideMaterial(0, whiteMat);
+                else item.mesh.SetSurfaceOverrideMaterial(0, currMat);
+            }
         }
     }
-
-    //If the mouse is over the item, change it's material to white
-    public void OnMouseEntered() {
-        Player.Instance.GetMouseOverItem = GameManager.Instance.GetItemR(name);
-        Change(true);
-    }
-
-    //If the mouse is no longer over the item, change it's material to normal
-    public void OnMouseExited() {
-        Change(false);
-    }
-
-
 
 }

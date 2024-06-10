@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhxdgadu6oxme"]
+[gd_scene load_steps=9 format=3 uid="uid://dhxdgadu6oxme"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_y3t3v"]
-[ext_resource type="Script" path="res://Scripts/NPCs/Hands.cs" id="2_yj32h"]
+[ext_resource type="Script" path="res://Scripts/Util/RayPickerCamera.cs" id="2_dcvgs"]
 [ext_resource type="Script" path="res://Scripts/NPCs/Interact.cs" id="3_ehs6e"]
+[ext_resource type="PackedScene" uid="uid://dbr5gcelrsyiw" path="res://Scenes/hands.tscn" id="3_tgylp"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ormet"]
 
@@ -41,17 +42,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.847116, 0)
 spring_length = 3.5
 margin = 0.5
 
-[node name="Camera3D" type="Camera3D" parent="CamOrigin/SpringArm3D"]
+[node name="Camera3D" type="Camera3D" parent="CamOrigin/SpringArm3D" node_paths=PackedStringArray("raycast", "player")]
 transform = Transform3D(1, 0, 0, 0, 0.967223, 0.253927, 0, -0.253927, 0.967223, 0, 1.885, 3.3)
+script = ExtResource("2_dcvgs")
+raycast = NodePath("InFrontRay")
+player = NodePath("../../..")
 
-[node name="Hands" type="Node3D" parent="." node_paths=PackedStringArray("handsPos")]
-script = ExtResource("2_yj32h")
-handsPos = NodePath("Hand Pos")
+[node name="InFrontRay" type="RayCast3D" parent="CamOrigin/SpringArm3D/Camera3D"]
+target_position = Vector3(0, 0, -3)
+collision_mask = 4
+collide_with_areas = true
+collide_with_bodies = false
 
-[node name="Hand Pos" type="Node3D" parent="Hands"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.555326, -1.14985)
+[node name="Hands" parent="." instance=ExtResource("3_tgylp")]
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
+[node name="InteractionRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.464713, 0)
 target_position = Vector3(0, 0, -4)
 debug_shape_custom_color = Color(0.686275, 0.188235, 0.188235, 1)

@@ -21,6 +21,7 @@ public partial class GameTime : Node {
 
     public void OnTimerTimeout() {
         gameTime.IncreaseTime(timeIncrease);
+        UIManager.Instance.UpdateTimeLabel(gameTime);
         EmitSignal(SignalName.OnTimeIncrease, gameTime);
     }
 

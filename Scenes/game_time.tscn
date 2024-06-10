@@ -1,10 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://duau4b7orib43"]
+[gd_scene load_steps=3 format=3 uid="uid://duau4b7orib43"]
 
 [ext_resource type="Script" path="res://Scripts/Time/GameTime.cs" id="1_dmxdk"]
+[ext_resource type="Script" path="res://Scripts/Time/Clock.cs" id="2_oeix5"]
 
-[node name="GameTime" type="Node3D"]
+[node name="GameTime" type="Node3D" node_paths=PackedStringArray("gameTime", "timer")]
 script = ExtResource("1_dmxdk")
+gameTime = NodePath("Clock")
+timer = NodePath("Timer")
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Clock" type="Node" parent="."]
+script = ExtResource("2_oeix5")
 
 [connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

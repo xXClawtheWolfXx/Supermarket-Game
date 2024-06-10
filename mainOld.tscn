@@ -1,0 +1,119 @@
+[gd_scene load_steps=24 format=3 uid="uid://bor04tplcmskv"]
+
+[ext_resource type="PackedScene" uid="uid://dhxdgadu6oxme" path="res://Scenes/player.tscn" id="1_v3pqw"]
+[ext_resource type="PackedScene" uid="uid://c18wkc2g6xkfw" path="res://Scenes/shelf.tscn" id="2_7gsmv"]
+[ext_resource type="PackedScene" uid="uid://bm4aunvoehknb" path="res://Scenes/buy_stock.tscn" id="3_r1wmy"]
+[ext_resource type="Resource" uid="uid://br85ho7fjqipd" path="res://Resources/AppleCrate.tres" id="4_g2dn1"]
+[ext_resource type="Resource" uid="uid://dcfsn40srrjbr" path="res://Resources/ButterCrate.tres" id="5_q6sht"]
+[ext_resource type="PackedScene" uid="uid://cye6eyd3u56cp" path="res://Scenes/cashier.tscn" id="6_rok4x"]
+[ext_resource type="PackedScene" uid="uid://ekdcvl5gblkh" path="res://Scenes/new_stock.tscn" id="7_g508f"]
+[ext_resource type="PackedScene" uid="uid://brf05haln1ovu" path="res://Scenes/NPCs/npc_spawner.tscn" id="8_j525u"]
+[ext_resource type="PackedScene" uid="uid://ratdhqfgp8gj" path="res://Scenes/game_manager.tscn" id="9_6b7on"]
+[ext_resource type="Resource" uid="uid://nhg27bd602y" path="res://Resources/Blackberry.tres" id="10_twjkd"]
+[ext_resource type="Resource" uid="uid://dbhflyhsvyx4f" path="res://Resources/Apple.tres" id="11_ihvwk"]
+[ext_resource type="Resource" uid="uid://c07c4al8f0hqw" path="res://Resources/Butter.tres" id="12_tbg4s"]
+[ext_resource type="PackedScene" uid="uid://dnhvdiof62i6c" path="res://Scenes/ui_manager.tscn" id="13_1uavl"]
+[ext_resource type="PackedScene" uid="uid://t6vep05owx3t" path="res://Scenes/Item/item_apple.tscn" id="14_wr6ux"]
+[ext_resource type="PackedScene" uid="uid://bfssguemfh8qh" path="res://Scenes/NPCs/stocker.tscn" id="15_6wnxt"]
+[ext_resource type="PackedScene" uid="uid://duau4b7orib43" path="res://Scenes/game_time.tscn" id="16_1d5qd"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_25ghb"]
+sky_top_color = Color(0.47451, 0.847059, 0.941176, 1)
+sky_horizon_color = Color(0.681373, 0.735294, 0.759804, 1)
+ground_bottom_color = Color(0.25098, 0.0941176, 0.0980392, 1)
+ground_horizon_color = Color(0.681373, 0.735294, 0.759804, 1)
+
+[sub_resource type="Sky" id="Sky_0rv44"]
+sky_material = SubResource("ProceduralSkyMaterial_25ghb")
+
+[sub_resource type="Environment" id="Environment_g2spj"]
+background_mode = 2
+sky = SubResource("Sky_0rv44")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_5jnnv"]
+vertices = PackedVector3Array(8.5, 1, -2.25, 8.75, 1, -1, 9.5, 1, -1, 9.5, 1, -9.5, -9.5, 1, -9.5, -9.5, 1, -8.25, -8, 1, -8.25, -7.75, 1, -9.25, -4.25, 1, -6.25, -4.75, 1, -6, 6, 1, -1.75, -9.5, 1, -9.5, -7.75, 1, -9.25, -4.5, 1, -9.25, 9.5, 1, -9.5, 6, 1, -1.75, 6.25, 1, -2.25, 9.5, 1, -9.5, -4.5, 1, -9.25, -4.25, 1, -6.25, 6.25, 1, -2.25, 8.5, 1, -2.25, 9.5, 1, -9.5, -9.5, 1, 5.75, -9, 1, 5.75, -8.75, 1, 4.75, -7.75, 1, -6, -8, 1, -8.25, -9.5, 1, -8.25, -8.75, 1, 4.75, -2.75, 1, 5, 1.5, 1, 5, 6, 1, -1.75, -4.75, 1, -6, -7.75, 1, -6, 1.5, 1, 5, 6, 1, 4.75, 6, 1, 2.75, 1.5, 1, 5, 6, 1, 2.75, 6, 1, -1.75, -7, 6.25, -8.25, -7, 6.25, -7, -5.25, 6.25, -7, -5.25, 6.25, -8.25, 7, 2.25, -1.25, 7, 2.25, 2, 7.75, 2.25, 2, 7.75, 2.25, -1.25, 6, 1, 2.75, 6, 1, 4.75, 7.5, 1, 5, 8.75, 1, 2.75, 7.25, 1, 7, 2, 1, 7, 2, 1, 9.5, 9.5, 1, 9.5, 9.5, 1, -1, 8.75, 1, -1, 8.75, 1, 2.75, 9.5, 1, 9.5, 8.75, 1, 2.75, 7.5, 1, 5, 7.25, 1, 7, 9.5, 1, 9.5, -8.75, 1, 7, -9, 1, 5.75, -9.5, 1, 5.75, -9.5, 1, 9.5, -9.5, 1, 9.5, 2, 1, 9.5, -3, 1, 7, -8.75, 1, 7, 2, 1, 9.5, 2, 1, 7, 1.5, 1, 6.75, -3, 1, 7, 1.5, 1, 6.75, 1.5, 1, 5, -2.75, 1, 5, -3, 1, 7)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(6, 5, 7), PackedInt32Array(7, 5, 4), PackedInt32Array(10, 9, 8), PackedInt32Array(12, 11, 13), PackedInt32Array(13, 11, 14), PackedInt32Array(16, 15, 17), PackedInt32Array(17, 15, 19), PackedInt32Array(17, 19, 18), PackedInt32Array(20, 22, 21), PackedInt32Array(24, 23, 25), PackedInt32Array(25, 23, 26), PackedInt32Array(26, 23, 27), PackedInt32Array(27, 23, 28), PackedInt32Array(30, 29, 31), PackedInt32Array(31, 29, 32), PackedInt32Array(32, 29, 33), PackedInt32Array(33, 29, 34), PackedInt32Array(37, 36, 35), PackedInt32Array(40, 39, 38), PackedInt32Array(44, 43, 41), PackedInt32Array(41, 43, 42), PackedInt32Array(48, 47, 45), PackedInt32Array(45, 47, 46), PackedInt32Array(50, 49, 51), PackedInt32Array(51, 49, 52), PackedInt32Array(54, 53, 55), PackedInt32Array(55, 53, 56), PackedInt32Array(58, 57, 59), PackedInt32Array(59, 57, 60), PackedInt32Array(62, 61, 63), PackedInt32Array(63, 61, 64), PackedInt32Array(66, 65, 67), PackedInt32Array(67, 65, 68), PackedInt32Array(72, 71, 69), PackedInt32Array(69, 71, 70), PackedInt32Array(74, 73, 75), PackedInt32Array(75, 73, 76), PackedInt32Array(78, 77, 79), PackedInt32Array(79, 77, 80)]
+
+[sub_resource type="BoxMesh" id="BoxMesh_uikad"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qcu1h"]
+albedo_color = Color(0.647059, 0.490196, 0.113725, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2lrul"]
+size = Vector3(20, 1, 20)
+
+[node name="Main" type="Node3D"]
+
+[node name="GameTime" parent="." instance=ExtResource("16_1d5qd")]
+
+[node name="GameManager" parent="." instance=ExtResource("9_6b7on")]
+allItems = [ExtResource("10_twjkd"), ExtResource("11_ihvwk"), ExtResource("12_tbg4s")]
+
+[node name="NPCSpawner" parent="." instance=ExtResource("8_j525u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8.78107)
+maxNumNPCs = 4
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+light_color = Color(0.976471, 0.784314, 0.811765, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_g2spj")
+
+[node name="Player" parent="." instance=ExtResource("1_v3pqw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.461346, 2.25457, -2.17367)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_5jnnv")
+
+[node name="Ground" type="StaticBody3D" parent="NavigationRegion3D"]
+
+[node name="Ground" type="MeshInstance3D" parent="NavigationRegion3D/Ground"]
+mesh = SubResource("BoxMesh_uikad")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_qcu1h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground"]
+shape = SubResource("BoxShape3D_2lrul")
+
+[node name="BuyStock" parent="NavigationRegion3D" instance=ExtResource("3_r1wmy")]
+transform = Transform3D(0.0533642, 0, -0.998575, 0, 1, 0, 0.998575, 0, 0.0533642, -7.74056, 0.782673, 2.64013)
+
+[node name="BuyStock2" parent="NavigationRegion3D" instance=ExtResource("3_r1wmy")]
+transform = Transform3D(0.0533642, 0, -0.998575, 0, 1, 0, 0.998575, 0, 0.0533642, -7.92039, 0.782673, -0.445782)
+crate = ExtResource("4_g2dn1")
+
+[node name="BuyStock3" parent="NavigationRegion3D" instance=ExtResource("3_r1wmy")]
+transform = Transform3D(0.0533642, 0, -0.998575, 0, 1, 0, 0.998575, 0, 0.0533642, -8.09056, 0.782673, -3.36586)
+crate = ExtResource("5_q6sht")
+
+[node name="Cashier" parent="NavigationRegion3D" instance=ExtResource("6_rok4x")]
+transform = Transform3D(-0.00708602, 0, 0.999975, 0, 1, 0, -0.999975, 0, -0.00708602, 7.40442, 1.2263, 0.379224)
+
+[node name="Shelf4" parent="NavigationRegion3D" instance=ExtResource("2_7gsmv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.83806, 2.45745, 5.84816)
+
+[node name="Shelf5" parent="NavigationRegion3D" instance=ExtResource("2_7gsmv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.604814, 2.48415, 5.86953)
+
+[node name="Shelf6" parent="NavigationRegion3D" instance=ExtResource("2_7gsmv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.45268, 2.44244, 5.78542)
+
+[node name="NewStock" parent="NavigationRegion3D" instance=ExtResource("7_g508f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.08784, 3.36091, -7.56469)
+
+[node name="ItemApple" parent="." instance=ExtResource("14_wr6ux")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.51968, -4.18075)
+collision_layer = 1
+collision_mask = 1
+
+[node name="UIManager" parent="." instance=ExtResource("13_1uavl")]
+mouse_filter = 2
+
+[node name="Stocker" parent="." node_paths=PackedStringArray("shelfContainer") instance=ExtResource("15_6wnxt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shelfContainer = NodePath("../NavigationRegion3D")

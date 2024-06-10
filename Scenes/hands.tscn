@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbr5gcelrsyiw"]
+
+[ext_resource type="Script" path="res://Scripts/NPCs/Hands.cs" id="1_lyfjf"]
+
+[node name="Hands" type="Node3D" node_paths=PackedStringArray("handsPos")]
+script = ExtResource("1_lyfjf")
+handsPos = NodePath("Hand Pos")
+
+[node name="Hand Pos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.555326, -1.14985)

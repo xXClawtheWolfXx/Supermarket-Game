@@ -1,6 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfssguemfh8qh"]
+[gd_scene load_steps=6 format=3 uid="uid://bfssguemfh8qh"]
 
 [ext_resource type="Script" path="res://Scripts/NPCs/Stocker.cs" id="1_dn3q4"]
+[ext_resource type="PackedScene" uid="uid://dbr5gcelrsyiw" path="res://Scenes/hands.tscn" id="2_7kmqv"]
 
-[node name="Stocker" type="CharacterBody3D"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jplar"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ddd8b"]
+albedo_color = Color(0.337255, 0.960784, 0.698039, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ggu3d"]
+
+[node name="Stocker" type="CharacterBody3D" node_paths=PackedStringArray("hands", "agent", "raycasts")]
 script = ExtResource("1_dn3q4")
+hands = NodePath("Hands")
+agent = NodePath("NavigationAgent3D")
+raycasts = []
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_jplar")
+surface_material_override/0 = SubResource("StandardMaterial3D_ddd8b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_ggu3d")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="Hands" parent="." instance=ExtResource("2_7kmqv")]

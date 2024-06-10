@@ -30,7 +30,6 @@ public partial class DynamicInventory : Node3D {
     Aabb currMeshAABB;
 
     //if we try too many times, send back badVec
-    //since we can't send back null Vector3s for some reason
     Vector3 badVec = new Vector3(-1000, -1000, -1000);
     int randPosAmt = 0;
 
@@ -42,6 +41,18 @@ public partial class DynamicInventory : Node3D {
     /// <returns> true if the inventory is empty</returns>
     public bool IsEmpty() {
         return crates.Count <= 0;
+    }
+    /// <summary>
+    /// Checks if a specified itemR exists in the inventory
+    /// </summary>
+    /// <param name="item"> the item to be checked</param>
+    /// <returns></returns>
+    public bool HasItemR(ItemR item) {
+        foreach (CrateR crateR in crates) {
+            if (crateR.GetItemR == item)
+                return true;
+        }
+        return false;
     }
 
     /// <summary>
@@ -227,6 +238,26 @@ public partial class DynamicInventory : Node3D {
         }
         isFull = false;
         meshIndex = 0;
+    }
+
+    public CrateR RemoveFromInventoryNPC(ItemR item) {
+        CrateR crate = null;
+        //find the item
+        for (int i = 0; i < itemObjects.Count; i++) {
+            //as long as that item exists
+            if (itemObjects[i].Count != 0 && itemObjects[i][0].GetName == item.GetName) {
+                DestoryObjects(itemObjects[i]);
+                if (itemObjects.Count == 0) {
+                    crate = crates[i];
+                    crates.RemoveAt(i);
+                    itemObjects.RemoveAt(i);
+                }
+                break;
+            }
+        }
+        isFull = false;
+        meshIndex = 0;
+        return crate;
     }
 
     /// <summary>

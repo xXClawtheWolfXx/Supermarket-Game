@@ -15,4 +15,15 @@ public partial class StockInventory : StaticBody3D, IInteractable {
                 dynamicInventory.RemoveFromInventory();
     }
 
+    public bool HasItemR(ItemR item) {
+        return dynamicInventory.HasItemR(item);
+    }
+
+    public CrateR RemoveFromInventory(ItemR item) {
+        return dynamicInventory.RemoveFromInventoryNPC(item);
+    }
+
+    public void AddToInventory(CrateR crateR) {
+        dynamicInventory.AddToInventory(crateR);
+    }
 }

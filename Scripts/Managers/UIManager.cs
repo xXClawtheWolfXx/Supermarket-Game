@@ -24,7 +24,8 @@ public partial class UIManager : Control {
         moneyLabel.Text = "Money: " + money;
     }
 
-    public void UpdateTimeLabel() {
+    public void UpdateTimeLabel(Clock gameTime) {
+        timeLabel.Text = "Time: " + gameTime.ToString();
 
     }
 
@@ -32,7 +33,7 @@ public partial class UIManager : Control {
     /// Opens the store when the button is pressed
     /// </summary>
     public void OnOpenStoreButtonPressed() {
-        GameManager.OpenStore();
+        GameManager.Instance.OpenStore();
     }
 }
 
