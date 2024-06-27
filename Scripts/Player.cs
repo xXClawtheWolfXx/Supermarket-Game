@@ -4,7 +4,7 @@ using System;
 /// <summary>
 /// Will move every physics Frame, obtain money, and hold items
 /// </summary>
-public partial class Player : CharacterBody3D {
+public partial class Player : CharacterBody3D, ICharacter {
 
     private static Player instance;
     public static Player Instance { get { return instance; } }

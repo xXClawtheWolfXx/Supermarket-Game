@@ -28,6 +28,11 @@ public partial class Shelf : StaticBody3D, IInteractable {
     public bool IsEmpty() {
         return itemAmount <= 0;
     }
+
+    public bool IsFull() {
+        return dynamicInventory.GetIsInventoryFull;
+    }
+
     public bool HasItemR() { return item != null; }
 
 
@@ -57,7 +62,7 @@ public partial class Shelf : StaticBody3D, IInteractable {
     /// Stocks the specified crate's items onto the Shelf
     /// </summary>
     /// <param name="crate">the crate who's items will be stocked</param>
-    public void StockItem(CrateR crate) {
+    public void StockItem(CrateR crate, ICharacter character) {
         if (dynamicInventory.GetIsInventoryFull) {
             Print("No need for stock");
             return;
@@ -70,7 +75,7 @@ public partial class Shelf : StaticBody3D, IInteractable {
             return;
         }
 
-        dynamicInventory.AddToInventory(crate);
+        dynamicInventory.AddToInventory(crate, character);
         itemAmount += crate.GetAmtToSpawn;
         item = crate.GetItemR;
         crates.Add(crate);
@@ -104,17 +109,18 @@ public partial class Shelf : StaticBody3D, IInteractable {
             } else {
                 IGatherable ig = player.PutDown();
                 if (ig is CrateR crate) {
-                    StockItem(crate);
+                    StockItem(crate, player);
                 } else
                     player.PickUp(ig);
             }
         } else if (body is Stocker stocker) {
-            if (!stocker.GetHands.IsEmpty()) {
-                IGatherable ig = stocker.GetHands.PutDown();
-                if (ig is CrateR crate)
-                    StockItem(crate);
-                else
-                    stocker.GetHands.PickUp(ig);
+            if (!stocker.IsEmpty()) {
+                IGatherable ig = stocker.PutDown();
+                if (ig is CrateR crate) {
+                    StockItem(crate, stocker);
+                    stocker.DealWithMoreStock();
+                } else
+                    stocker.PickUp(ig);
             }
         }
     }

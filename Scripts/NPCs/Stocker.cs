@@ -3,7 +3,7 @@ using System;
 using Godot.Collections;
 using System.Diagnostics.SymbolStore;
 
-public partial class Stocker : Staff {
+public partial class Stocker : Staff, ICharacter {
     [Export] Node3D shelfContainer;
     [Export] Hands hands;
 
@@ -13,9 +13,9 @@ public partial class Stocker : Staff {
     StockInventory currentStock;
     Shelf currentShelf;
     ItemR workingItemR;
-    bool isAtCurrStock;
+    bool isAtCurrShelf;
 
-    public Hands GetHands { get { return hands; } }
+    public ItemR GetWorkingItem { get { return workingItemR; } }
 
     public override void _Ready() {
         base._Ready();
@@ -30,39 +30,47 @@ public partial class Stocker : Staff {
     }
 
     public override void _PhysicsProcess(double delta) {
-        if (agent.IsNavigationFinished()) {
+        if (agent.IsNavigationFinished())
+            return;
+        /*{
             if (currentStock != null && agent.TargetPosition == currentStock.Position)
                 StockStock();
             else if (currentShelf != null && agent.TargetPosition == currentShelf.Position)
                 StockShelf();
             return;
         }
+        */
         base._PhysicsProcess(delta);
 
     }
 
-    private void StockShelf() {
-        currentShelf.StockItem((CrateR)hands.PutDown());
+    public void StockShelf() {
+        Move(currentShelf.Position);
         currentShelf = null;
+        isAtCurrShelf = true;
         //if we still have stock left, put it back
-
     }
 
     public void DealWithMoreStock() {
         if (!hands.IsEmpty())
             Move(currentStock.Position);
+        else
+            Rest();
+        currentStock = null;
     }
 
-    private void StockStock() {
-        if (hands.IsEmpty()) {
-            //pick up stock
-            CrateR crate = currentStock.RemoveFromInventory(workingItemR);
-            hands.PickUp(crate);
-            Move(currentShelf.Position);
-        } else
-            currentStock.AddToInventory((CrateR)hands.PutDown());
-    }
+    /*
+        private void StockStock() {
+            if (hands.IsEmpty()) {
+                //pick up stock
+                CrateR crate = currentStock.RemoveFromInventory(workingItemR);
+                hands.PickUp(crate);
+                Move(currentShelf.Position);
+            } else
+                currentStock.AddToInventory((CrateR)hands.PutDown());
+        }
 
+    */
     protected override void Work() {
 
         currentShelf = LowestShelf();
@@ -103,6 +111,8 @@ public partial class Stocker : Staff {
                 bestShelf = shelf;
             }
         }
+        if (bestShelf.IsFull())
+            return null;
 
         return bestShelf;
     }
@@ -115,5 +125,17 @@ public partial class Stocker : Staff {
         }
 
         return null;
+    }
+
+    public void PickUp(IGatherable item) {
+        hands.PickUp(item);
+    }
+
+    public IGatherable PutDown() {
+        return hands.PutDown();
+    }
+
+    public bool IsEmpty() {
+        return hands.IsEmpty();
     }
 }

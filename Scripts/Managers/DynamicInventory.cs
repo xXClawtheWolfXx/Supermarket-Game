@@ -59,9 +59,9 @@ public partial class DynamicInventory : Node3D {
     /// Will populate and add IGatherable to inventory if it is a CrateR
     /// </summary>
     /// <param name="gatherable"> the IGatherable to be added to the inventory</param>
-    public void AddToInventory(IGatherable gatherable) {
+    public void AddToInventory(IGatherable gatherable, ICharacter character) {
         if (gatherable is CrateR)
-            ShowItems((CrateR)gatherable);
+            ShowItems((CrateR)gatherable, character);
     }
 
     /// <summary>
@@ -69,11 +69,11 @@ public partial class DynamicInventory : Node3D {
     /// If there is no more space, the crate will be given back to the player. If some,but not all of the items are spawned, a modified crate with the remaining stock amount will be picked up by the player.
     /// </summary>
     /// <param name="crate"> the crate to be added</param>
-    void ShowItems(CrateR crate) {
+    void ShowItems(CrateR crate, ICharacter character) {
         //if we've exhausted all meshes, give the crate back to the player
         if (meshIndex >= meshes.Count) {
             Print("Cannot stock more items");
-            Player.Instance.PickUp(crate);
+            character.PickUp(crate);
             return;
         }
 
@@ -92,7 +92,7 @@ public partial class DynamicInventory : Node3D {
             if (pos == badVec) {
                 meshIndex++;
                 if (meshIndex >= meshes.Count) {
-                    crate = CleanUp(crate, itemAmt);
+                    crate = CleanUp(crate, itemAmt, character);
                     isFull = true;
                     break;
                 }
@@ -115,11 +115,11 @@ public partial class DynamicInventory : Node3D {
     /// <param name="crate"> the current crate being unpacked</param>
     /// <param name="itemAmt"> the amount of items not yet stocked</param>
     /// <returns> the old crate with the items it did stock </returns>
-    CrateR CleanUp(CrateR crate, int itemAmt) {
+    CrateR CleanUp(CrateR crate, int itemAmt, ICharacter character) {
         int crateAmt = crate.GetAmtToSpawn;
 
         CrateR newCrate = new CrateR(crate, itemAmt);
-        Player.Instance.PickUp(newCrate);
+        character.PickUp(newCrate);
 
         crate.UpdateAmt(crateAmt - itemAmt);
         return crate;

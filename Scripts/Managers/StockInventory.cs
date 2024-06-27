@@ -8,22 +8,26 @@ public partial class StockInventory : StaticBody3D, IInteractable {
     [Export] DynamicInventory dynamicInventory;
 
     public void Interact(Node3D body) {
-        if (body is Player)
+        if (body is Player player) {
             if (!Player.Instance.GetHands.IsEmpty())
-                dynamicInventory.AddToInventory(Player.Instance.PutDown());
+                dynamicInventory.AddToInventory(Player.Instance.PutDown(), player);
             else
                 dynamicInventory.RemoveFromInventory();
+        } else if (body is Stocker stocker) {
+            if (stocker.IsEmpty()) {
+                //pick up stock
+                CrateR crate = dynamicInventory.RemoveFromInventory(stocker.GetWorkingItem);
+                stocker.PickUp(crate);
+                stocker.StockShelf();
+            } else {
+                dynamicInventory.AddToInventory((CrateR)stocker.PutDown(), stocker);
+                stocker.Rest();
+            }
+        }
     }
 
     public bool HasItemR(ItemR item) {
         return dynamicInventory.HasItemR(item);
     }
 
-    public CrateR RemoveFromInventory(ItemR item) {
-        return dynamicInventory.RemoveFromInventory(item);
-    }
-
-    public void AddToInventory(CrateR crateR) {
-        dynamicInventory.AddToInventory(crateR);
-    }
 }

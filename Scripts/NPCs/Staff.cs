@@ -60,9 +60,10 @@ public partial class Staff : CharacterBody3D {
 
     }
 
-    protected void Rest() {
+    public void Rest() {
         isWorking = false;
         //go to rest area and leave if energy fully dep
+        Move(StaffManager.Instance.Position);
         GD.PrintS("Resting");
     }
 
@@ -76,5 +77,6 @@ public partial class Staff : CharacterBody3D {
             Work();
         }
     }
+
 
 }

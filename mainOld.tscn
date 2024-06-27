@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bor04tplcmskv"]
+[gd_scene load_steps=24 format=3 uid="uid://bor04tplcmskv"]
 
 [ext_resource type="PackedScene" uid="uid://dhxdgadu6oxme" path="res://Scenes/player.tscn" id="1_v3pqw"]
 [ext_resource type="PackedScene" uid="uid://c18wkc2g6xkfw" path="res://Scenes/shelf.tscn" id="2_7gsmv"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://br85ho7fjqipd" path="res://Resources/AppleCrate.tres" id="4_g2dn1"]
 [ext_resource type="Resource" uid="uid://dcfsn40srrjbr" path="res://Resources/ButterCrate.tres" id="5_q6sht"]
 [ext_resource type="PackedScene" uid="uid://cye6eyd3u56cp" path="res://Scenes/cashier.tscn" id="6_rok4x"]
+[ext_resource type="Script" path="res://Scripts/Managers/StaffManager.cs" id="7_et0b7"]
 [ext_resource type="PackedScene" uid="uid://ekdcvl5gblkh" path="res://Scenes/new_stock.tscn" id="7_g508f"]
 [ext_resource type="PackedScene" uid="uid://brf05haln1ovu" path="res://Scenes/NPCs/npc_spawner.tscn" id="8_j525u"]
 [ext_resource type="PackedScene" uid="uid://ratdhqfgp8gj" path="res://Scenes/game_manager.tscn" id="9_6b7on"]
@@ -46,15 +47,24 @@ size = Vector3(20, 1, 20)
 
 [node name="Main" type="Node3D"]
 
-[node name="GameTime" parent="." instance=ExtResource("16_1d5qd")]
+[node name="Managers" type="Node3D" parent="."]
+
+[node name="GameTime" parent="Managers" instance=ExtResource("16_1d5qd")]
 timeUntilNextTime = 5.0
 
-[node name="GameManager" parent="." instance=ExtResource("9_6b7on")]
+[node name="GameManager" parent="Managers" instance=ExtResource("9_6b7on")]
 allItems = [ExtResource("10_twjkd"), ExtResource("11_ihvwk"), ExtResource("12_tbg4s")]
 
-[node name="NPCSpawner" parent="." instance=ExtResource("8_j525u")]
+[node name="NPCSpawner" parent="Managers" instance=ExtResource("8_j525u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8.78107)
 maxNumNPCs = 4
+
+[node name="StaffManager" type="Node3D" parent="Managers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.08475, 0, -8.70508)
+script = ExtResource("7_et0b7")
+
+[node name="UIManager" parent="Managers" instance=ExtResource("13_1uavl")]
+mouse_filter = 2
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -105,9 +115,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.45268, 2.44244, 5.78542)
 
 [node name="NewStock" parent="NavigationRegion3D" instance=ExtResource("7_g508f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.08784, 3.36091, -7.56469)
-
-[node name="UIManager" parent="." instance=ExtResource("13_1uavl")]
-mouse_filter = 2
 
 [node name="Stocker" parent="." node_paths=PackedStringArray("shelfContainer") instance=ExtResource("15_6wnxt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
