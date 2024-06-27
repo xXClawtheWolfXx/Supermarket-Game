@@ -13,6 +13,9 @@ public partial class Stocker : Staff {
     StockInventory currentStock;
     Shelf currentShelf;
     ItemR workingItemR;
+    bool isAtCurrStock;
+
+    public Hands GetHands { get { return hands; } }
 
     public override void _Ready() {
         base._Ready();
@@ -42,6 +45,10 @@ public partial class Stocker : Staff {
         currentShelf.StockItem((CrateR)hands.PutDown());
         currentShelf = null;
         //if we still have stock left, put it back
+
+    }
+
+    public void DealWithMoreStock() {
         if (!hands.IsEmpty())
             Move(currentStock.Position);
     }
@@ -51,7 +58,6 @@ public partial class Stocker : Staff {
             //pick up stock
             CrateR crate = currentStock.RemoveFromInventory(workingItemR);
             hands.PickUp(crate);
-            hands.ShowItem();
             Move(currentShelf.Position);
         } else
             currentStock.AddToInventory((CrateR)hands.PutDown());
@@ -60,8 +66,20 @@ public partial class Stocker : Staff {
     protected override void Work() {
 
         currentShelf = LowestShelf();
+        if (currentShelf == null) {
+            GD.PrintS(Name, "no shelves to stock");
+            Rest();
+            return;
+        }
+
         GD.PrintS("currShelf:", currentShelf.Name);
-        workingItemR = currentShelf.GetItemR;
+        workingItemR = currentShelf?.GetItemR;
+
+        if (workingItemR == null) {
+            GD.PrintS(Name, "no item in the shelves to stock");
+            Rest();
+            return;
+        }
         //get stock from stock
         GD.PrintS("currItem:", workingItemR.GetName);
 
@@ -70,6 +88,8 @@ public partial class Stocker : Staff {
             Move(currentStock.Position);
 
             base.Work();
+        } else {
+            GD.PrintS(Name, "no stock to stock");
         }
     }
 

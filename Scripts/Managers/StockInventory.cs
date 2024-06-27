@@ -20,7 +20,7 @@ public partial class StockInventory : StaticBody3D, IInteractable {
     }
 
     public CrateR RemoveFromInventory(ItemR item) {
-        return dynamicInventory.RemoveFromInventoryNPC(item);
+        return dynamicInventory.RemoveFromInventory(item);
     }
 
     public void AddToInventory(CrateR crateR) {

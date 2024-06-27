@@ -1,6 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using Godot.Collections;
+using System.Data.Common;
 
 public enum Mood { HAPPY, NEUTRAL, ANGRY, ENRAGED };
 
@@ -77,7 +78,7 @@ public partial class Customer : CharacterBody3D {
             shoppingBasket.AddToInventory(item);
             shoppingList.Remove(item);
 
-            GD.Print(Name + " filled Shoppingcart with: " + item.GetName);
+            //GD.Print(Name + " filled Shoppingcart with: " + item.GetName);
         }
         Browse();
     }
@@ -117,18 +118,24 @@ public partial class Customer : CharacterBody3D {
         }
 
         first = shoppingList[0];
-        GD.Print("first: " + first.GetName);
+        //GD.Print("first: " + first.GetName);
 
         Array<Node> shelves = GetTree().GetNodesInGroup("Shelf");
         foreach (Node shelfNode in shelves) {
             Shelf shelf = shelfNode.GetNode<Shelf>(".");
-            if (shelf.GetItemR.GetName != first.GetName)
-                continue;
+            //GD.PrintS("itemInShelf", shelf.HasItemR());
 
+            if (!shelf.HasItemR()) {
+                //GD.Print("can't find this item now");
+                continue;
+            }
+            if (shelf.HasItemR() && shelf.GetItemR?.GetName != first.GetName)
+                continue;
             //we found a shelf
             Move(shelf.GetCustomerSpawnPos.GlobalPosition);
             return;
         }
+        shoppingList.RemoveAt(0);
         //if can't find anything
         Complain("nothing I want is here");
         Browse();
@@ -143,7 +150,7 @@ public partial class Customer : CharacterBody3D {
     void Complain(string msg) {
         mood++;
         GD.Print(Name + " is " + mood.ToString() + " " + msg);
-        if (mood == Mood.ANGRY)
+        if (mood >= Mood.ANGRY)
             Leave();
     }
 
@@ -152,8 +159,6 @@ public partial class Customer : CharacterBody3D {
     void Praise() {
 
     }
-
-
 
     public void Leave() {
         Move(NPCSpawner.Instance.Position);
@@ -165,7 +170,7 @@ public partial class Customer : CharacterBody3D {
     /// <param name="pos"> the position to move to</param>
     void Move(Vector3 pos) {
         //need to move
-        GD.Print("Moving");
+        //GD.Print("Moving");
         agent.TargetPosition = pos;
     }
 
@@ -174,10 +179,11 @@ public partial class Customer : CharacterBody3D {
     /// If there's nothing in their shopping basket, they will leave
     /// </summary>
     void Checkout() {
-        GD.Print("Checking out");
+        //GD.Print("Checking out");
         if (shoppingBasket.IsEmpty()) {
             Complain("There's nothing for me here!");
             Leave();
+            return;
         }
         Array<Node> cashiers = GetTree().GetNodesInGroup("Cashier");
         //eventually check which cashier has the least people on it and go there

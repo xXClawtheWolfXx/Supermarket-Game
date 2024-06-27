@@ -32,7 +32,7 @@ public partial class Clock : Node {
     }
 
     public override string ToString() {
-        return hour.ToString().PadLeft(2) + ":" + minute.ToString().PadLeft(2);
+        return hour.ToString().PadLeft(2, '0') + ":" + minute.ToString().PadLeft(2, '0');
 
     }
 

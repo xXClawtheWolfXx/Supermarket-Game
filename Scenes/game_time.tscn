@@ -9,6 +9,7 @@ gameTime = NodePath("Clock")
 timer = NodePath("Timer")
 
 [node name="Timer" type="Timer" parent="."]
+autostart = true
 
 [node name="Clock" type="Node" parent="."]
 script = ExtResource("2_oeix5")

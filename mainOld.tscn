@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bor04tplcmskv"]
+[gd_scene load_steps=23 format=3 uid="uid://bor04tplcmskv"]
 
 [ext_resource type="PackedScene" uid="uid://dhxdgadu6oxme" path="res://Scenes/player.tscn" id="1_v3pqw"]
 [ext_resource type="PackedScene" uid="uid://c18wkc2g6xkfw" path="res://Scenes/shelf.tscn" id="2_7gsmv"]
@@ -13,7 +13,6 @@
 [ext_resource type="Resource" uid="uid://dbhflyhsvyx4f" path="res://Resources/Apple.tres" id="11_ihvwk"]
 [ext_resource type="Resource" uid="uid://c07c4al8f0hqw" path="res://Resources/Butter.tres" id="12_tbg4s"]
 [ext_resource type="PackedScene" uid="uid://dnhvdiof62i6c" path="res://Scenes/ui_manager.tscn" id="13_1uavl"]
-[ext_resource type="PackedScene" uid="uid://t6vep05owx3t" path="res://Scenes/Item/item_apple.tscn" id="14_wr6ux"]
 [ext_resource type="PackedScene" uid="uid://bfssguemfh8qh" path="res://Scenes/NPCs/stocker.tscn" id="15_6wnxt"]
 [ext_resource type="PackedScene" uid="uid://duau4b7orib43" path="res://Scenes/game_time.tscn" id="16_1d5qd"]
 
@@ -48,6 +47,7 @@ size = Vector3(20, 1, 20)
 [node name="Main" type="Node3D"]
 
 [node name="GameTime" parent="." instance=ExtResource("16_1d5qd")]
+timeUntilNextTime = 5.0
 
 [node name="GameManager" parent="." instance=ExtResource("9_6b7on")]
 allItems = [ExtResource("10_twjkd"), ExtResource("11_ihvwk"), ExtResource("12_tbg4s")]
@@ -105,11 +105,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.45268, 2.44244, 5.78542)
 
 [node name="NewStock" parent="NavigationRegion3D" instance=ExtResource("7_g508f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.08784, 3.36091, -7.56469)
-
-[node name="ItemApple" parent="." instance=ExtResource("14_wr6ux")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.51968, -4.18075)
-collision_layer = 1
-collision_mask = 1
 
 [node name="UIManager" parent="." instance=ExtResource("13_1uavl")]
 mouse_filter = 2

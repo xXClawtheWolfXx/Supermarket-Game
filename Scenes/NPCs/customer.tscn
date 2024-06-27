@@ -37,6 +37,7 @@ shape = SubResource("CapsuleShape3D_iw5rb")
 maxItems = 100
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
 
 [node name="forward" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.464713, 0)

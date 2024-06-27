@@ -22,8 +22,10 @@ public partial class Hands : Node3D {
     /// <param name="ig">the gatherable to be added</param>
     /// <returns> true if it succeeds</returns>
     public bool PickUp(IGatherable ig) {
+        GD.PrintS("item", ig);
         if (IsEmpty()) {
             item = ig;
+            ShowItem();
             return true;
         }
         GD.Print("Hands Full");

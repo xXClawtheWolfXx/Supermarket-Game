@@ -112,9 +112,7 @@ public partial class Player : CharacterBody3D {
     /// </summary>
     /// <param name="item">the IGatherable to add</param>
     public void PickUp(IGatherable item) {
-        if (hands.PickUp(item)) {
-            hands.ShowItem();
-        }
+        hands.PickUp(item);
     }
 
     /// <summary>

@@ -13,7 +13,7 @@ public partial class Shelf : StaticBody3D, IInteractable {
     [Export] ItemR dummyItemR;
 
     int itemAmount;
-    ItemR item;
+    ItemR item = null;
     List<CrateR> crates = new List<CrateR>(); // make a list of crates instead of just one?--for unstocking?
 
     public ItemR GetItemR { get { return item; } }
@@ -21,12 +21,15 @@ public partial class Shelf : StaticBody3D, IInteractable {
     public int GetItemAmount { get { return itemAmount; } }
 
     public override void _Ready() {
-        item = dummyItemR;
+        //item = dummyItemR;
+        Print(HasItemR());
     }
 
     public bool IsEmpty() {
         return itemAmount <= 0;
     }
+    public bool HasItemR() { return item != null; }
+
 
     /// <summary>
     /// For each of the same item in the customer's shopping basket, will give that item to the customer 
@@ -61,7 +64,7 @@ public partial class Shelf : StaticBody3D, IInteractable {
         }
 
         //We can't stock more than one kind of item
-        if (itemAmount > 0 && item != crate.GetItemR) {
+        if (item != crate.GetItemR && itemAmount > 0) {
             Print("Cannot stock different item at the moment");
             Player.Instance.PickUp(crate);
             return;
@@ -93,17 +96,25 @@ public partial class Shelf : StaticBody3D, IInteractable {
     }
 
     public void Interact(Node3D body) {
-        if (body is Customer)
-            TakeItem((Customer)body, ((Customer)body).HowManyItems(item));
-        if (body is Player) {
-            if (Player.Instance.GetHands.IsEmpty()) {
+        if (body is Customer cust)
+            TakeItem(cust, cust.HowManyItems(item));
+        else if (body is Player player) {
+            if (player.GetHands.IsEmpty()) {
                 UnstockItem();
             } else {
-                IGatherable ig = Player.Instance.PutDown();
-                if (ig is CrateR) {
-                    StockItem((CrateR)ig);
+                IGatherable ig = player.PutDown();
+                if (ig is CrateR crate) {
+                    StockItem(crate);
                 } else
-                    Player.Instance.PickUp(ig);
+                    player.PickUp(ig);
+            }
+        } else if (body is Stocker stocker) {
+            if (!stocker.GetHands.IsEmpty()) {
+                IGatherable ig = stocker.GetHands.PutDown();
+                if (ig is CrateR crate)
+                    StockItem(crate);
+                else
+                    stocker.GetHands.PickUp(ig);
             }
         }
     }

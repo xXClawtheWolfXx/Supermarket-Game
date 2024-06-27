@@ -39,6 +39,9 @@ public partial class Staff : CharacterBody3D {
         Velocity = newVel;
         MoveAndSlide();
 
+        if (GlobalTransform.Origin.IsEqualApprox(GlobalPosition + offset))
+            return;
+
         //rotation
         offset.Y = 0;
         LookAt(GlobalPosition + offset, Vector3.Up);
@@ -59,7 +62,7 @@ public partial class Staff : CharacterBody3D {
 
     protected void Rest() {
         isWorking = false;
-        //go to rest area and leave 
+        //go to rest area and leave if energy fully dep
         GD.PrintS("Resting");
     }
 
@@ -67,10 +70,11 @@ public partial class Staff : CharacterBody3D {
 
     }
 
-    void CheckTime(Clock gameTime) {
-        if (gameTime.GetHour >= 2 && gameTime.GetHour <= 13)
-            if (!isWorking)
-                Work();
+    public void CheckTime(Clock gameTime) {
+        GD.PrintS("time checkd", gameTime);
+        if (gameTime.GetHour > 1 && gameTime.GetHour < 14) {
+            Work();
+        }
     }
 
 }

@@ -239,6 +239,25 @@ public partial class DynamicInventory : Node3D {
         isFull = false;
         meshIndex = 0;
     }
+    public CrateR RemoveFromInventory(ItemR item) {
+        CrateR crate = null;
+        for (int i = 0; i < itemObjects.Count; i++) {
+            //pick up the crate corresponding to that item
+            if (itemObjects[i][0].GetName == item.GetName) {
+                DestoryObjects(itemObjects[i]);
+                crate = crates[i];
+
+                crates.RemoveAt(i);
+                itemObjects.RemoveAt(i);
+                break;
+            }
+        }
+        isFull = false;
+        meshIndex = 0;
+        return crate;
+
+    }
+
 
     public CrateR RemoveFromInventoryNPC(ItemR item) {
         CrateR crate = null;
