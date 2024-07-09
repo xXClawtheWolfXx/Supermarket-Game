@@ -4,13 +4,11 @@ using Godot.Collections;
 using System.Collections;
 using System.Collections.Generic;
 
-/// <summary>
 /// A soon-to-be deprecated class
 /// DynamicInventory is to be used for inventorys who need graphics
 /// List will suffice to inventories without graphics
 /// 
 /// Holds a list of items and might show them, though this was never tested
-/// </summary>
 public partial class Inventory : Node3D {
 
     List<IGatherable> items = new List<IGatherable>();

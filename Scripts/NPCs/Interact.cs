@@ -1,10 +1,8 @@
 using Godot;
 using System;
 
-/// <summary>
 /// The Interaction class for the player
 /// The Player probes the world with a raycast every frame, looking for interactables
-/// </summary>
 public partial class Interact : RayCast3D {
 
     //checks every frame for an interact keypress and an interactable to interact with

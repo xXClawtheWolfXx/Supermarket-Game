@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 UiManager="*res://Scripts/Managers/UIManager.cs"
 
+[display]
+
+window/size/always_on_top=true
+
 [dotnet]
 
 project/assembly_name="SupermarketAsAlwaysForUs"

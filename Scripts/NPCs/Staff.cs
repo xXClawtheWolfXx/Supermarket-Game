@@ -2,7 +2,7 @@ using Godot;
 using System;
 using Godot.Collections;
 
-public partial class Staff : CharacterBody3D {
+public partial class Staff : CharacterBody3D, ICharacter {
 
     [Export] protected NavigationAgent3D agent;
     [Export] float speed = 10;
@@ -10,14 +10,21 @@ public partial class Staff : CharacterBody3D {
 
     [Export] int energyDepleteAmt = 5;
     [Export] Array<RayCast3D> raycasts;
-    //need rest area to go to
+    [Export] Hands hands;
+    [Export] float restTimerTime = 8f;
 
-    bool isWorking = false;
-
+    protected Timer restTimer = new();
+    private bool isWorking = false;
     protected int energy = 100;
+
     public override void _Ready() {
         GameTime.Instance.OnTimeIncrease += CheckTime;
         GameManager.Instance.OnOpenStore += Work;
+
+        restTimer.OneShot = true;
+        restTimer.WaitTime = restTimerTime;
+        restTimer.Timeout += OnRestTimerTimeout;
+        AddChild(restTimer);
     }
 
     public override void _PhysicsProcess(double delta) {
@@ -53,6 +60,7 @@ public partial class Staff : CharacterBody3D {
 
 
     protected virtual void Work() {
+        if (!isWorking) return;
         isWorking = true;
         energy -= energyDepleteAmt;
         if (energy <= 0)
@@ -60,11 +68,19 @@ public partial class Staff : CharacterBody3D {
 
     }
 
+    public void OnRestTimerTimeout() {
+        energy = 100;
+        Work();
+    }
+
     public void Rest() {
         isWorking = false;
         //go to rest area and leave if energy fully dep
         Move(StaffManager.Instance.Position);
         GD.PrintS("Resting");
+        energy += 5;
+        if (restTimer.TimeLeft <= 0)
+            restTimer.Start();
     }
 
     protected void TakeTimeOff() {
@@ -77,6 +93,15 @@ public partial class Staff : CharacterBody3D {
             Work();
         }
     }
+    public void PickUp(IGatherable item) {
+        hands.PickUp(item);
+    }
 
+    public IGatherable PutDown() {
+        return hands.PutDown();
+    }
 
+    public bool IsEmpty() {
+        return hands.IsEmpty();
+    }
 }

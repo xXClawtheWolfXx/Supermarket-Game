@@ -1,9 +1,7 @@
 using Godot;
 using System;
 
-/// <summary>
 /// Will move every physics Frame, obtain money, and hold items
-/// </summary>
 public partial class Player : CharacterBody3D, ICharacter {
 
     private static Player instance;
@@ -87,9 +85,7 @@ public partial class Player : CharacterBody3D, ICharacter {
         }
     }
 
-    /// <summary>
     /// Unsticks the Cursor or sticks it
-    /// </summary>
     public void UnstickCursor() {
         isCursorShowing = !isCursorShowing;
         if (isCursorShowing)
@@ -98,27 +94,18 @@ public partial class Player : CharacterBody3D, ICharacter {
             Input.MouseMode = Input.MouseModeEnum.Captured;
     }
 
-    /// <summary>
     /// adds a specified amount of money to the player's "wallet"
-    /// </summary>
-    /// <param name="amt"> the amount of money to be added</param>
     public void SetMoney(int amt) {
         money += amt;
         UIManager.Instance.UpdateMoneyLabel(money);
     }
 
-    /// <summary>
     /// Adds an item to the inventory and spawns it in the world
-    /// </summary>
-    /// <param name="item">the IGatherable to add</param>
     public void PickUp(IGatherable item) {
         hands.PickUp(item);
     }
 
-    /// <summary>
     /// Removes an item from inventory and despawns it inthe world
-    /// </summary>
-    /// <returns> the IGatherable removed</returns>
     public IGatherable PutDown() {
         return hands.PutDown();
     }

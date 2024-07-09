@@ -2,12 +2,10 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-/// <summary>
-/// Cashier checks out customers when interacted by Customers and Players
-/// </summary>
-public partial class Cashier : StaticBody3D, IInteractable {
+public partial class CashRegister : StaticBody3D, IInteractable {
 
-    [Export] Node3D spawnPos;
+    [Export] Node3D custSpawnPos;
+    [Export] Node3D cashierSpawnPos;
     [Export] Node3D itemSpawnPos;
     [Export] Label3D itemPriceLabel;
     [Export] Timer itemSpawnTimer;
@@ -15,7 +13,10 @@ public partial class Cashier : StaticBody3D, IInteractable {
     bool isPlayerPresent = true; // what if the player walks away mid-checkout?
 
     public List<Customer> GetLine { get { return line; } }
-    public Node3D GetSpawnPos { get { return spawnPos; } }
+    public Node3D GetSpawnPos { get { return custSpawnPos; } }
+
+    [Signal] public delegate void OnCustomerAddedEventHandler(Vector3 cashSpawnPos);
+    [Signal] public delegate void OnNoCustomersEventHandler();
 
     List<Customer> line = new List<Customer>();
 
@@ -25,30 +26,22 @@ public partial class Cashier : StaticBody3D, IInteractable {
     Customer prevCustomer = null;
 
 
-    /// <summary>
-    /// Remove a specified customer from the line
-    /// </summary>
-    /// <param name="cust">the customer to be removed</param>
     //removes a customer from the line
     //used when customers get too angry
     public void RemoveCustomer(Customer cust) {
         line.Remove(cust);
     }
 
-    /// <summary>
     /// Add a specified customer to the line
-    /// </summary>
-    /// <param name="cust">the customer to add</param>
     void AddCustomer(Customer cust) {
         if (line.Contains(cust)) return;
 
+        EmitSignal(SignalName.OnCustomerAdded, cashierSpawnPos.GlobalPosition);
         cust.StartCashierTimer();
         line.Add(cust);
     }
 
-    /// <summary>
     ///Will process all the items in a customer's cart and spawn them at the itemSpawnPos
-    /// </summary>
     void Checkout() {
         if (line.Count != 0 && currCustomer == null) {
             currCustomer = line[0];
@@ -57,22 +50,21 @@ public partial class Cashier : StaticBody3D, IInteractable {
         }
     }
 
-    /// <summary>
     /// The current Customer will leave
-    /// </summary>
     void DespawnCustomer() {
         prevCustomer = currCustomer;
         line.Remove(currCustomer);
         currCustomer.Leave();
+
+        if (line.Count == 0)
+            EmitSignal(SignalName.OnNoCustomers);
 
         currCustInventory = null;
         currItem = null;
         currCustomer = null;
     }
 
-    /// <summary>
     /// Spawns the first item in the current customer's inventory
-    /// </summary>
     void SpawnItem() {
         if (currCustInventory.IsEmpty()) {
             DespawnCustomer();
@@ -92,9 +84,9 @@ public partial class Cashier : StaticBody3D, IInteractable {
 
 
     public void Interact(Node3D body) {
-        if (body is Customer && prevCustomer != (Customer)body)
-            AddCustomer((Customer)body);
-        if (body is Player)
+        if (body is Customer customer && prevCustomer != customer)
+            AddCustomer(customer);
+        if (body is Player || body is Cashier)
             Checkout();
     }
 

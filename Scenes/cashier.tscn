@@ -1,41 +1,60 @@
-[gd_scene load_steps=4 format=3 uid="uid://cye6eyd3u56cp"]
+[gd_scene load_steps=8 format=3 uid="uid://cye6eyd3u56cp"]
 
-[ext_resource type="Script" path="res://Scripts/Managers/Cashier.cs" id="1_88o2x"]
+[ext_resource type="PackedScene" uid="uid://dbr5gcelrsyiw" path="res://Scenes/hands.tscn" id="1_3lhga"]
+[ext_resource type="Script" path="res://Scenes/Cashier.cs" id="1_thwqa"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_67eww"]
-albedo_color = Color(0.184314, 0.65098, 0.745098, 1)
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8eod4"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_vtp2e"]
-size = Vector3(4, 1.5, 1.5)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8yklp"]
+albedo_color = Color(0.0784314, 0.784314, 0.345098, 1)
 
-[node name="Cashier" type="StaticBody3D" node_paths=PackedStringArray("spawnPos", "itemSpawnPos", "itemPriceLabel", "itemSpawnTimer") groups=["Cashier"]]
-script = ExtResource("1_88o2x")
-spawnPos = NodePath("custSpawnPos")
-itemSpawnPos = NodePath("itemSpawnPos")
-itemPriceLabel = NodePath("itemPriceLabel")
-itemSpawnTimer = NodePath("itemSpawnTimer")
+[sub_resource type="BoxMesh" id="BoxMesh_dai5x"]
+size = Vector3(0.49, 0.29, 0.32)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-size = Vector3(4, 1.5, 1.5)
-material = SubResource("StandardMaterial3D_67eww")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ioan"]
+albedo_color = Color(0.164706, 0.843137, 0.458824, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4y5rn"]
+
+[node name="Cashier" type="CharacterBody3D" node_paths=PackedStringArray("agent", "raycasts", "hands")]
+script = ExtResource("1_thwqa")
+agent = NodePath("NavigationAgent3D")
+raycasts = [NodePath("Raycasts/forward"), NodePath("Raycasts/Right"), NodePath("Raycasts/Left")]
+hands = NodePath("Hands")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_8eod4")
+surface_material_override/0 = SubResource("StandardMaterial3D_8yklp")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.412846, -0.475231)
+mesh = SubResource("BoxMesh_dai5x")
+surface_material_override/0 = SubResource("StandardMaterial3D_5ioan")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_vtp2e")
+shape = SubResource("CapsuleShape3D_4y5rn")
 
-[node name="custSpawnPos" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.70815)
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
 
-[node name="itemSpawnPos" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09393, 0)
+[node name="Hands" parent="." instance=ExtResource("1_3lhga")]
 
-[node name="itemPriceLabel" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19259, 0)
-pixel_size = 0.0101
-billboard = 1
-text = "jimin"
+[node name="Raycasts" type="Node3D" parent="."]
 
-[node name="itemSpawnTimer" type="Timer" parent="."]
-wait_time = 1.5
-one_shot = true
+[node name="forward" type="RayCast3D" parent="Raycasts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.464713, 0)
+target_position = Vector3(0, 0, -3.59)
+debug_shape_custom_color = Color(0.686275, 0.188235, 0.188235, 1)
+debug_shape_thickness = 5
 
-[connection signal="timeout" from="itemSpawnTimer" to="." method="OnItemSpawnTimerTimeout"]
+[node name="Right" type="RayCast3D" parent="Raycasts"]
+transform = Transform3D(0.73902, 0, -0.673683, 0, 1, 0, 0.673683, 0, 0.73902, 0, 0.464713, 0)
+target_position = Vector3(0, 0, -3.59)
+debug_shape_custom_color = Color(0.686275, 0.188235, 0.188235, 1)
+debug_shape_thickness = 5
+
+[node name="Left" type="RayCast3D" parent="Raycasts"]
+transform = Transform3D(0.747172, 0, 0.664631, 0, 1, 0, -0.664631, 0, 0.747172, 0, 0.464713, 0)
+target_position = Vector3(0, 0, -3.59)
+debug_shape_custom_color = Color(0.686275, 0.188235, 0.188235, 1)
+debug_shape_thickness = 5

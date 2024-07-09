@@ -2,9 +2,7 @@ using System.Collections.Generic;
 using Godot;
 using static Godot.GD;
 
-/// <summary>
 /// Holds the buyable ItemR's that Customers can put into their shopping baskets and leave with
-/// </summary>
 public partial class Shelf : StaticBody3D, IInteractable {
 
     [Export] Node3D customerSpawnPos;
@@ -36,11 +34,7 @@ public partial class Shelf : StaticBody3D, IInteractable {
     public bool HasItemR() { return item != null; }
 
 
-    /// <summary>
     /// For each of the same item in the customer's shopping basket, will give that item to the customer 
-    /// </summary>
-    /// <param name="cust">The customer interacting</param>
-    /// <param name="howMany">How much of the item the customer wants</param>
     public void TakeItem(Customer cust, int howMany) {
         //if this isn't the item
         if (cust.GetItemLookingFor.GetName != item.GetName) return;
@@ -58,10 +52,7 @@ public partial class Shelf : StaticBody3D, IInteractable {
         DisplayStockAmt();
     }
 
-    /// <summary>
     /// Stocks the specified crate's items onto the Shelf
-    /// </summary>
-    /// <param name="crate">the crate who's items will be stocked</param>
     public void StockItem(CrateR crate, ICharacter character) {
         if (dynamicInventory.GetIsInventoryFull) {
             Print("No need for stock");
@@ -83,9 +74,6 @@ public partial class Shelf : StaticBody3D, IInteractable {
 
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     void UnstockItem() {
         if (IsEmpty() || Player.Instance.GetMouseOverItem == null) return;
 

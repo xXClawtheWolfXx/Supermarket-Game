@@ -2,12 +2,10 @@ using Godot;
 using System;
 using Godot.Collections;
 
-/// <summary>
 /// A soon to be obselete class
 /// Used in early testing to get interaction from Area3Ds that were attached to every interactable object
 /// If the player entered and pressed the interact key, they could interact with the world
 /// If a customer enters, it would interact with the interactable
-/// </summary>
 public partial class Interaction : Area3D {
 
     [Export] Node3D interactable;

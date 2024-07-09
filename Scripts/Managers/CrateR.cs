@@ -1,9 +1,7 @@
 using Godot;
 using System;
 
-/// <summary>
 /// Holds an itemR, the amount of items to spawn, and scene to be instantiated into the world
-/// </summary>
 [GlobalClass]// to intialize in the inspector
 public partial class CrateR : Resource, IGatherable {
     [Export] ItemR itemR;

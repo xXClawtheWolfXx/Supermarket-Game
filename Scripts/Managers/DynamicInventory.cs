@@ -5,9 +5,7 @@ using System.Collections.Generic;
 
 using static Godot.GD;
 
-/// <summary>
 /// An inventory that spawns IGatherables procedurally into the world
-/// </summary>
 public partial class DynamicInventory : Node3D {
 
     [Export] Array<MeshInstance3D> meshes = new Array<MeshInstance3D>();
@@ -35,18 +33,11 @@ public partial class DynamicInventory : Node3D {
 
     bool isFull = false;
 
-    /// <summary>
     /// Checks if the inventory is empty
-    /// </summary>
-    /// <returns> true if the inventory is empty</returns>
     public bool IsEmpty() {
         return crates.Count <= 0;
     }
-    /// <summary>
     /// Checks if a specified itemR exists in the inventory
-    /// </summary>
-    /// <param name="item"> the item to be checked</param>
-    /// <returns></returns>
     public bool HasItemR(ItemR item) {
         foreach (CrateR crateR in crates) {
             if (crateR.GetItemR == item)
@@ -55,20 +46,14 @@ public partial class DynamicInventory : Node3D {
         return false;
     }
 
-    /// <summary>
     /// Will populate and add IGatherable to inventory if it is a CrateR
-    /// </summary>
-    /// <param name="gatherable"> the IGatherable to be added to the inventory</param>
     public void AddToInventory(IGatherable gatherable, ICharacter character) {
         if (gatherable is CrateR)
             ShowItems((CrateR)gatherable, character);
     }
 
-    /// <summary>
     /// Shows the items in the crate
     /// If there is no more space, the crate will be given back to the player. If some,but not all of the items are spawned, a modified crate with the remaining stock amount will be picked up by the player.
-    /// </summary>
-    /// <param name="crate"> the crate to be added</param>
     void ShowItems(CrateR crate, ICharacter character) {
         //if we've exhausted all meshes, give the crate back to the player
         if (meshIndex >= meshes.Count) {
@@ -108,13 +93,8 @@ public partial class DynamicInventory : Node3D {
     }
 
 
-    /// <summary>
     /// Returns the old crate with the items it did stock
     /// and crates a new crate with the items it did NOT stock and gives it to the player
-    /// </summary>
-    /// <param name="crate"> the current crate being unpacked</param>
-    /// <param name="itemAmt"> the amount of items not yet stocked</param>
-    /// <returns> the old crate with the items it did stock </returns>
     CrateR CleanUp(CrateR crate, int itemAmt, ICharacter character) {
         int crateAmt = crate.GetAmtToSpawn;
 
@@ -125,11 +105,7 @@ public partial class DynamicInventory : Node3D {
         return crate;
     }
 
-    /// <summary>
     /// Spawns an item into the world 
-    /// </summary>
-    /// <param name="item"> the item to be spawned</param>
-    /// <returns> the item spawned as a Node3D</returns>
     Node3D SpawnItem(ItemR item) {
         Node3D newItem = item.GetPackedScene().Instantiate<Node3D>();
         newItem.Position = meshSpawnPos.Position;
@@ -137,11 +113,7 @@ public partial class DynamicInventory : Node3D {
         return newItem;
     }
 
-    /// <summary>
     /// Gets an Node3D's AABB 
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns> the specified Node3D's AABB</returns>
     Aabb GetItemAABB(Node3D item) {
         foreach (Node child in item.GetChildren(true))
             if (child is MeshInstance3D)
@@ -149,11 +121,7 @@ public partial class DynamicInventory : Node3D {
         return new Aabb();
     }
 
-    /// <summary>
     /// Randomly generates a position that is not taken or outside a mesh's bounds or is touching another item's mesh
-    /// </summary>
-    /// <param name="objAABB"> the object's AABB</param>
-    /// <returns> a Vector3 position</returns>
     Vector3 RandomPosition(Aabb objAABB) {
         //starts at the topleft corner of the mesh with the offset from the beginning
         Vector3 startPos = currMeshAABB.Position - objAABB.Position + posOffset;
@@ -180,12 +148,7 @@ public partial class DynamicInventory : Node3D {
         return randPos;
     }
 
-    /// <summary>
     /// Checks if the mesh is too close to another item 
-    /// </summary>
-    /// <param name="pos"> the position to be checked</param>
-    /// <param name="objBounds"> the bounds of the object to be checked</param>
-    /// <returns> if the position is taken</returns>
     bool CheckIfPosTaken(Vector3 pos, Aabb objBounds) {
         foreach (Vector3 tp in takenPos) {
             float dist = tp.DistanceTo(pos);
@@ -218,11 +181,7 @@ public partial class DynamicInventory : Node3D {
         meshIndex = 0;
         Player.Instance.GetMouseOverItem = null;
     }
-    /// <summary>
     /// Removes a specified amount of a specified itemR from the inventory
-    /// </summary>
-    /// <param name="item">the item to be removed</param>
-    /// <param name="amt">the amount of that item to be removed</param>
     public void RemoveFromInventory(ItemR item, int amt) {
         //find the item
         for (int i = 0; i < itemObjects.Count; i++) {
@@ -239,6 +198,7 @@ public partial class DynamicInventory : Node3D {
         isFull = false;
         meshIndex = 0;
     }
+
     public CrateR RemoveFromInventory(ItemR item) {
         CrateR crate = null;
         for (int i = 0; i < itemObjects.Count; i++) {
@@ -279,10 +239,7 @@ public partial class DynamicInventory : Node3D {
         return crate;
     }
 
-    /// <summary>
     /// Removes the entirety of the specified list of items from the world
-    /// </summary>
-    /// <param name="itemObjs"> the Items to be destroyed</param>
     void DestoryObjects(List<Item> itemObjs) {
         foreach (Item i in itemObjs) {
             takenPos.Remove(i.Position);
@@ -290,11 +247,7 @@ public partial class DynamicInventory : Node3D {
         }
     }
 
-    /// <summary>
     /// Removes a certain amount of items from the world
-    /// </summary>
-    /// <param name="itemObjs"> the items to be removed</param>
-    /// <param name="amt"> the amount to be removed</param>
     void DestoryObjects(List<Item> itemObjs, int amt) {
         for (int i = 0; i < amt; i++) {//int i = itemObjs.Count - 1; i < amt; i--) {
             takenPos.Remove(itemObjs[i].Position);

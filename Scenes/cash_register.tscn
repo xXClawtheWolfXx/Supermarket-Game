@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbtfbohp0g48b"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/CashRegister.cs" id="1_ip572"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_67eww"]
+albedo_color = Color(0.184314, 0.65098, 0.745098, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vtp2e"]
+size = Vector3(4, 1.5, 1.5)
+
+[node name="CashRegister" type="StaticBody3D" node_paths=PackedStringArray("custSpawnPos", "cashierSpawnPos", "itemSpawnPos", "itemPriceLabel", "itemSpawnTimer") groups=["CashRegister"]]
+script = ExtResource("1_ip572")
+custSpawnPos = NodePath("custSpawnPos")
+cashierSpawnPos = NodePath("cashierSpawnPos")
+itemSpawnPos = NodePath("itemSpawnPos")
+itemPriceLabel = NodePath("itemPriceLabel")
+itemSpawnTimer = NodePath("itemSpawnTimer")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+size = Vector3(4, 1.5, 1.5)
+material = SubResource("StandardMaterial3D_67eww")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_vtp2e")
+
+[node name="custSpawnPos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.25514)
+
+[node name="cashierSpawnPos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.37164)
+
+[node name="itemSpawnPos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09393, 0)
+
+[node name="itemPriceLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19259, 0)
+pixel_size = 0.0101
+billboard = 1
+text = "jimin"
+
+[node name="itemSpawnTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="timeout" from="itemSpawnTimer" to="." method="OnItemSpawnTimerTimeout"]

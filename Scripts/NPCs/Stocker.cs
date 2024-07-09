@@ -3,10 +3,8 @@ using System;
 using Godot.Collections;
 using System.Diagnostics.SymbolStore;
 
-public partial class Stocker : Staff, ICharacter {
+public partial class Stocker : Staff {
     [Export] Node3D shelfContainer;
-    [Export] Hands hands;
-
     Array<StockInventory> stocks = new Array<StockInventory>();
     Array<Shelf> shelves = new Array<Shelf>();
 
@@ -32,16 +30,7 @@ public partial class Stocker : Staff, ICharacter {
     public override void _PhysicsProcess(double delta) {
         if (agent.IsNavigationFinished())
             return;
-        /*{
-            if (currentStock != null && agent.TargetPosition == currentStock.Position)
-                StockStock();
-            else if (currentShelf != null && agent.TargetPosition == currentShelf.Position)
-                StockShelf();
-            return;
-        }
-        */
         base._PhysicsProcess(delta);
-
     }
 
     public void StockShelf() {
@@ -52,25 +41,14 @@ public partial class Stocker : Staff, ICharacter {
     }
 
     public void DealWithMoreStock() {
-        if (!hands.IsEmpty())
+        if (!IsEmpty())
             Move(currentStock.Position);
         else
             Rest();
         currentStock = null;
     }
 
-    /*
-        private void StockStock() {
-            if (hands.IsEmpty()) {
-                //pick up stock
-                CrateR crate = currentStock.RemoveFromInventory(workingItemR);
-                hands.PickUp(crate);
-                Move(currentShelf.Position);
-            } else
-                currentStock.AddToInventory((CrateR)hands.PutDown());
-        }
 
-    */
     protected override void Work() {
 
         currentShelf = LowestShelf();
@@ -94,7 +72,6 @@ public partial class Stocker : Staff, ICharacter {
         currentStock = FindCorrectStock(workingItemR);
         if (currentStock != null) {
             Move(currentStock.Position);
-
             base.Work();
         } else {
             GD.PrintS(Name, "no stock to stock");
@@ -123,19 +100,6 @@ public partial class Stocker : Staff, ICharacter {
                 return stock;
             }
         }
-
         return null;
-    }
-
-    public void PickUp(IGatherable item) {
-        hands.PickUp(item);
-    }
-
-    public IGatherable PutDown() {
-        return hands.PutDown();
-    }
-
-    public bool IsEmpty() {
-        return hands.IsEmpty();
     }
 }

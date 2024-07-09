@@ -2,9 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-/// <summary>
 /// Spawns many Customers and destroys them when they are finished
-/// </summary>
 public partial class NPCSpawner : Node3D {
 
     //singleton
@@ -24,9 +22,7 @@ public partial class NPCSpawner : Node3D {
         timer.WaitTime = timeUntilNextCust;
     }
 
-    /// <summary>
     /// Spawns a new customer every timeUntilNextCust seconds
-    /// </summary>
     public void SpawnCustomer() {
         timer.Start();
         if (numNPCs >= maxNumNPCs) {
@@ -41,10 +37,7 @@ public partial class NPCSpawner : Node3D {
         newCust.Browse();
     }
 
-    /// <summary>
     /// Fills a Customer's shoppingList with random ItemRs
-    /// </summary>
-    /// <returns>A shoppingList</returns>
     public List<ItemR> GetShoppingList() {
         List<ItemR> shoppingList = new List<ItemR>();
         for (int i = 0; i < maxNumInShoppingCart; i++) {
@@ -56,10 +49,7 @@ public partial class NPCSpawner : Node3D {
         return shoppingList;
     }
 
-    /// <summary>
     /// Destroys a specified customer from the world
-    /// </summary>
-    /// <param name="cust"> the customer to be destroyed</param>
     public void DestroyCustomer(Customer cust) {
         cust.QueueFree();
         numNPCs--;

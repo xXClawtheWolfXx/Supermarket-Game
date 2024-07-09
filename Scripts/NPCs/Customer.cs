@@ -185,10 +185,10 @@ public partial class Customer : CharacterBody3D {
             Leave();
             return;
         }
-        Array<Node> cashiers = GetTree().GetNodesInGroup("Cashier");
+        Array<Node> cashRegisters = GetTree().GetNodesInGroup("CashRegister");
         //eventually check which cashier has the least people on it and go there
-        Cashier cashier = cashiers[0].GetNode<Cashier>(".");
-        Move(cashier.GetSpawnPos.GlobalPosition);
+        CashRegister cashRegister = cashRegisters[0].GetNode<CashRegister>(".");
+        Move(cashRegister.GetSpawnPos.GlobalPosition);
 
     }
 
