@@ -24,7 +24,6 @@ public partial class NPCSpawner : Node3D {
 
     /// Spawns a new customer every timeUntilNextCust seconds
     public void SpawnCustomer() {
-        timer.Start();
         if (numNPCs >= maxNumNPCs) {
             GD.Print("Can spawn no more customers");
             return;
@@ -57,6 +56,14 @@ public partial class NPCSpawner : Node3D {
 
     public void OnTimerTimeOut() {
         SpawnCustomer();
+    }
+
+    public void CanSpawn(bool canSpawn) {
+        if (canSpawn) {
+            SpawnCustomer();
+            timer.Start();
+        } else
+            timer.Stop();
     }
 
 }

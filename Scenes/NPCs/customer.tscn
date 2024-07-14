@@ -38,6 +38,8 @@ maxItems = 100
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
+time_horizon_agents = 2.0
+debug_enabled = true
 
 [node name="forward" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.464713, 0)
@@ -61,4 +63,5 @@ debug_shape_thickness = 5
 wait_time = 20.0
 one_shot = true
 
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="OnNavigationAgent3DVelocityComputed"]
 [connection signal="timeout" from="CashierTimer" to="." method="OnCashierTimerTimeout"]

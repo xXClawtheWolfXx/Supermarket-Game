@@ -10,7 +10,6 @@ public enum Mood { HAPPY, NEUTRAL, ANGRY, ENRAGED };
 /// </summary>
 public partial class Customer : CharacterBody3D {
 
-
     [Export] Timer cashierTimer;
     [Export] Inventory shoppingBasket;
     [Export] Array<RayCast3D> raycasts;
@@ -19,17 +18,19 @@ public partial class Customer : CharacterBody3D {
     [Export] float speed = 10;
     [Export] float rotateSpeed = 10;
 
-    public Inventory GetShoppingBasket { get { return shoppingBasket; } }
-    public ItemR GetItemLookingFor { get { return first; } }
+    public Inventory GetShoppingBasket { get => shoppingBasket; }
+    public ItemR GetItemLookingFor { get => first; }
 
     List<ItemR> shoppingList = new List<ItemR>();
     Mood mood = Mood.HAPPY;
     int shoppingIndex = 0;
 
+    bool isCheckingOut = false;
 
     ItemR first;
 
-    public List<ItemR> ShoppingList { set { shoppingList = value; } }
+    public List<ItemR> ShoppingList { set => shoppingList = value; }
+    public bool IsCheckingOut { get => isCheckingOut; }
 
     //every physics frame, get closer to the target position and check if interacting
     public override void _PhysicsProcess(double delta) {
@@ -56,18 +57,18 @@ public partial class Customer : CharacterBody3D {
         Vector3 offset = nextLoc - GlobalPosition;
         Vector3 newVel = offset.Normalized() * speed;
 
-        Velocity = newVel;
+        agent.Velocity = newVel;
+
         MoveAndSlide();
 
         ///rotation 
         offset.Y = 0;
+        if (GlobalTransform.Origin.IsEqualApprox(GlobalPosition + offset))
+            return;
         LookAt(GlobalPosition + offset, Vector3.Up);
     }
 
-    /// <summary>
     /// Fills the shoppingBasket with a specified item
-    /// </summary>
-    /// <param name="item"> the item to go into the shoppingBasket</param>
     public void FillShoppingBasket(ItemR item) {
         if (item == null) {
             Complain("there's no more items");
@@ -77,16 +78,11 @@ public partial class Customer : CharacterBody3D {
         } else {
             shoppingBasket.AddToInventory(item);
             shoppingList.Remove(item);
-
-            //GD.Print(Name + " filled Shoppingcart with: " + item.GetName);
         }
         Browse();
     }
 
-    /// <summary>
     /// Checks if there are still more of a specified item in the shopping list
-    /// </summary>
-    /// <param name="item">the item checked</param>
     void CheckIfMoreInList(ItemR item) {
         if (shoppingIndex >= shoppingList.Count) { Leave(); return; }
         if (shoppingList[shoppingIndex].GetName == item.GetName) {
@@ -95,11 +91,7 @@ public partial class Customer : CharacterBody3D {
         }
     }
 
-    /// <summary>
     /// Returns how many items of the specified item are in the shopping list
-    /// </summary>
-    /// <param name="item"> the item to look for</param>
-    /// <returns>the amount of the item in the shoppingList</returns>
     public int HowManyItems(ItemR item) {
         int count = 0;
         foreach (ItemR i in shoppingList)
@@ -108,9 +100,7 @@ public partial class Customer : CharacterBody3D {
         return count;
     }
 
-    /// <summary>
     /// Finds all the items on the shopping list and collects them 
-    /// </summary>
     public void Browse() {
         if (shoppingList.Count == 0) {
             Checkout();
@@ -123,12 +113,8 @@ public partial class Customer : CharacterBody3D {
         Array<Node> shelves = GetTree().GetNodesInGroup("Shelf");
         foreach (Node shelfNode in shelves) {
             Shelf shelf = shelfNode.GetNode<Shelf>(".");
-            //GD.PrintS("itemInShelf", shelf.HasItemR());
-
-            if (!shelf.HasItemR()) {
-                //GD.Print("can't find this item now");
+            if (!shelf.HasItemR())
                 continue;
-            }
             if (shelf.HasItemR() && shelf.GetItemR?.GetName != first.GetName)
                 continue;
             //we found a shelf
@@ -143,10 +129,7 @@ public partial class Customer : CharacterBody3D {
 
 
 
-    /// <summary>
     /// Decreases mood and prints a message 
-    /// </summary>
-    /// <param name="msg"> the message to be printed</param>
     void Complain(string msg) {
         mood++;
         GD.Print(Name + " is " + mood.ToString() + " " + msg);
@@ -164,22 +147,15 @@ public partial class Customer : CharacterBody3D {
         Move(NPCSpawner.Instance.Position);
     }
 
-    /// <summary>
     /// Updates targetPosition to specified position
-    /// </summary>
-    /// <param name="pos"> the position to move to</param>
-    void Move(Vector3 pos) {
-        //need to move
-        //GD.Print("Moving");
+    public void Move(Vector3 pos) {
         agent.TargetPosition = pos;
     }
 
-    /// <summary>
     /// Finds a cashier [with conditions] and moves to them
     /// If there's nothing in their shopping basket, they will leave
-    /// </summary>
     void Checkout() {
-        //GD.Print("Checking out");
+        isCheckingOut = true;
         if (shoppingBasket.IsEmpty()) {
             Complain("There's nothing for me here!");
             Leave();
@@ -189,6 +165,7 @@ public partial class Customer : CharacterBody3D {
         //eventually check which cashier has the least people on it and go there
         CashRegister cashRegister = cashRegisters[0].GetNode<CashRegister>(".");
         Move(cashRegister.GetSpawnPos.GlobalPosition);
+        cashRegister.AddCustomer(this);
 
     }
 
@@ -200,4 +177,8 @@ public partial class Customer : CharacterBody3D {
         Complain("The cashier is taking too long");
     }
 
+    public void OnNavigationAgent3DVelocityComputed(Vector3 safeVel) {
+        Velocity = safeVel;//Velocity.MoveToward(safeVel, .9f);
+        MoveAndSlide();
+    }
 }

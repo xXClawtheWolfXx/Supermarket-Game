@@ -1,6 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://ratdhqfgp8gj"]
+[gd_scene load_steps=6 format=3 uid="uid://ratdhqfgp8gj"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/GameManager.cs" id="1_sq76x"]
+[ext_resource type="Resource" uid="uid://nhg27bd602y" path="res://Resources/Blackberry.tres" id="2_fi5y3"]
+[ext_resource type="Script" path="res://Scripts/Time/Clock.cs" id="2_xhv3v"]
+[ext_resource type="Resource" uid="uid://dbhflyhsvyx4f" path="res://Resources/Apple.tres" id="3_tx05g"]
+[ext_resource type="Resource" uid="uid://c07c4al8f0hqw" path="res://Resources/Butter.tres" id="4_6slbk"]
 
-[node name="GameManager" type="Node3D"]
+[node name="GameManager" type="Node3D" node_paths=PackedStringArray("startTime", "endTime")]
 script = ExtResource("1_sq76x")
+startTime = NodePath("StartTime")
+endTime = NodePath("EndTime")
+allItems = [ExtResource("2_fi5y3"), ExtResource("3_tx05g"), ExtResource("4_6slbk")]
+
+[node name="StartTime" type="Node" parent="."]
+script = ExtResource("2_xhv3v")
+hour = 7
+
+[node name="EndTime" type="Node" parent="."]
+script = ExtResource("2_xhv3v")
+hour = 17

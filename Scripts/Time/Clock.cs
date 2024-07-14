@@ -36,5 +36,12 @@ public partial class Clock : Node {
 
     }
 
+    public override bool Equals(object obj) {
+        if (obj is not Clock) return false;
+        Clock other = (Clock)obj;
+        if (other.minute != minute) return false;
+        if (other.hour != hour) return false;
+        return true;
+    }
 
 }

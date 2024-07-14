@@ -13,5 +13,6 @@ autostart = true
 
 [node name="Clock" type="Node" parent="."]
 script = ExtResource("2_oeix5")
+hour = 5
 
 [connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

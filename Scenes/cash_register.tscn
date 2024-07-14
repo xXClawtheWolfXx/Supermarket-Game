@@ -15,6 +15,7 @@ cashierSpawnPos = NodePath("cashierSpawnPos")
 itemSpawnPos = NodePath("itemSpawnPos")
 itemPriceLabel = NodePath("itemPriceLabel")
 itemSpawnTimer = NodePath("itemSpawnTimer")
+custSpawnRadius = 2.0
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 size = Vector3(4, 1.5, 1.5)

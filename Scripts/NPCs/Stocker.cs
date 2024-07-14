@@ -88,7 +88,8 @@ public partial class Stocker : Staff {
                 bestShelf = shelf;
             }
         }
-        if (bestShelf.IsFull())
+
+        if (bestShelf == null || bestShelf.IsFull())
             return null;
 
         return bestShelf;
