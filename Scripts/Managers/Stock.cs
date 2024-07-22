@@ -95,13 +95,6 @@ public partial class Stock : StaticBody3D, IInteractable {
 
 
     void GetStock() {
-        /*
-        //get rid of stock by pointing at it
-        //highlightingit, 
-        //on f the stock is put into a crate into the player's hands
-        //and deleted from stocktable
-        //need to put stock and amt in player hands
-*/
         //give player first item
         if (totalStock != 0) {
             CrateR crate = crates[0];

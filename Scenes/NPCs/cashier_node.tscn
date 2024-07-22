@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdavncnm1bklh"]
+
+[ext_resource type="Script" path="res://Scripts/NPCs/Cashier.cs" id="1_s3dft"]
+
+[node name="CashierNode" type="Node3D" node_paths=PackedStringArray("raycasts")]
+script = ExtResource("1_s3dft")
+raycasts = []

@@ -8,15 +8,11 @@ public enum Mood { HAPPY, NEUTRAL, ANGRY, ENRAGED };
 /// <summary>
 /// Customers browse the store for the items in their cart, fill them, then leave the store
 /// </summary>
-public partial class Customer : CharacterBody3D {
+public partial class Customer : Node3D {
 
+    [Export] NPC npcComp;
     [Export] Timer cashierTimer;
     [Export] Inventory shoppingBasket;
-    [Export] Array<RayCast3D> raycasts;
-
-    [Export] NavigationAgent3D agent;
-    [Export] float speed = 10;
-    [Export] float rotateSpeed = 10;
 
     public Inventory GetShoppingBasket { get => shoppingBasket; }
     public ItemR GetItemLookingFor { get => first; }
@@ -31,41 +27,7 @@ public partial class Customer : CharacterBody3D {
 
     public List<ItemR> ShoppingList { set => shoppingList = value; }
     public bool IsCheckingOut { get => isCheckingOut; }
-
-    //every physics frame, get closer to the target position and check if interacting
-    public override void _PhysicsProcess(double delta) {
-
-        //check if Customer is interacting
-        foreach (RayCast3D rayCast3D in raycasts) {
-            if (rayCast3D.IsColliding() && rayCast3D.GetCollider() is IInteractable) {
-                ((IInteractable)rayCast3D.GetCollider()).Interact(this);
-                break;
-            }
-        }
-
-        //if at destination, no need to calculate potition
-        if (agent.IsNavigationFinished()) {
-            if (agent.TargetPosition == NPCSpawner.Instance.Position)
-                NPCSpawner.Instance.DestroyCustomer(this);
-            return;
-        }
-
-        ///////movememt
-
-        Vector3 nextLoc = agent.GetNextPathPosition();
-        Vector3 offset = nextLoc - GlobalPosition;
-        Vector3 newVel = offset.Normalized() * speed;
-
-        agent.Velocity = newVel;
-
-        MoveAndSlide();
-
-        ///rotation 
-        offset.Y = 0;
-        if (GlobalTransform.Origin.IsEqualApprox(GlobalPosition + offset))
-            return;
-        LookAt(GlobalPosition + offset, Vector3.Up);
-    }
+    public NPC GetNPCComp { get => npcComp; }
 
     /// Fills the shoppingBasket with a specified item
     public void FillShoppingBasket(ItemR item) {
@@ -101,6 +63,7 @@ public partial class Customer : CharacterBody3D {
 
     /// Finds all the items on the shopping list and collects them 
     public void Browse() {
+        GD.Print("Browsing");
         if (shoppingList.Count == 0) {
             Checkout();
             return;
@@ -117,7 +80,7 @@ public partial class Customer : CharacterBody3D {
             if (shelf.HasItemR() && shelf.GetItemR?.GetName != first.GetName)
                 continue;
             //we found a shelf
-            Move(shelf.GetCustomerSpawnPos.GlobalPosition);
+            npcComp.Move(shelf.GetCustomerSpawnPos.GlobalPosition);
             return;
         }
         shoppingList.RemoveAt(0);
@@ -143,13 +106,9 @@ public partial class Customer : CharacterBody3D {
     }
 
     public void Leave() {
-        Move(NPCSpawner.Instance.Position);
+        npcComp.Move(NPCSpawner.Instance.Position);
     }
 
-    /// Updates targetPosition to specified position
-    public void Move(Vector3 pos) {
-        agent.TargetPosition = pos;
-    }
 
     /// Finds a cashier [with conditions] and moves to them
     /// If there's nothing in their shopping basket, they will leave
@@ -163,7 +122,7 @@ public partial class Customer : CharacterBody3D {
         Array<Node> cashRegisters = GetTree().GetNodesInGroup("CashRegister");
         //eventually check which cashier has the least people on it and go there
         CashRegister cashRegister = cashRegisters[0].GetNode<CashRegister>(".");
-        Move(cashRegister.GetSpawnPos.GlobalPosition);
+        npcComp.Move(cashRegister.GetSpawnPos.GlobalPosition);
         cashRegister.AddCustomer(this);
 
     }
@@ -176,8 +135,5 @@ public partial class Customer : CharacterBody3D {
         Complain("The cashier is taking too long");
     }
 
-    public void OnNavigationAgent3DVelocityComputed(Vector3 safeVel) {
-        Velocity = safeVel;//Velocity.MoveToward(safeVel, .9f);
-        MoveAndSlide();
-    }
+
 }

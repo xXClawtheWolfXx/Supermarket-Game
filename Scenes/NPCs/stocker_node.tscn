@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://spoylxghmgla"]
+
+[ext_resource type="Script" path="res://Scripts/NPCs/Stocker.cs" id="1_0pe6a"]
+
+[node name="StockerNode" type="Node3D"]
+script = ExtResource("1_0pe6a")

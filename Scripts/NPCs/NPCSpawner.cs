@@ -30,8 +30,9 @@ public partial class NPCSpawner : Node3D {
         }
 
         numNPCs++;
-        Customer newCust = customerScene.Instantiate<Customer>();
-        AddChild(newCust);
+        NPC newNPC = customerScene.Instantiate<NPC>();
+        AddChild(newNPC);
+        Customer newCust = newNPC.GetNode<Customer>("CustomerNode");
         newCust.ShoppingList = GetShoppingList();
         newCust.Browse();
     }
@@ -49,7 +50,7 @@ public partial class NPCSpawner : Node3D {
     }
 
     /// Destroys a specified customer from the world
-    public void DestroyCustomer(Customer cust) {
+    public void DestroyCustomer(NPC cust) {
         cust.QueueFree();
         numNPCs--;
     }

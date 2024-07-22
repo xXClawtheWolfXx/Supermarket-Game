@@ -1,42 +1,45 @@
-[gd_scene load_steps=8 format=3 uid="uid://cye6eyd3u56cp"]
+[gd_scene load_steps=8 format=3 uid="uid://pkmyi1mh2p8w"]
 
-[ext_resource type="PackedScene" uid="uid://dbr5gcelrsyiw" path="res://Scenes/hands.tscn" id="1_3lhga"]
-[ext_resource type="Script" path="res://Scripts/NPCs/Cashier.cs" id="1_thwqa"]
+[ext_resource type="Script" path="res://Scripts/NPCs/NPC.cs" id="1_jmb83"]
+[ext_resource type="PackedScene" uid="uid://dbr5gcelrsyiw" path="res://Scenes/hands.tscn" id="2_4rg0b"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_8eod4"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_m6myh"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8yklp"]
-albedo_color = Color(0.0784314, 0.784314, 0.345098, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_blpys"]
+albedo_color = Color(0.831373, 0.431373, 0.996078, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_dai5x"]
+[sub_resource type="BoxMesh" id="BoxMesh_16ulh"]
 size = Vector3(0.49, 0.29, 0.32)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ioan"]
-albedo_color = Color(0.164706, 0.843137, 0.458824, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_skgd5"]
+albedo_color = Color(0.882353, 0.521569, 0.988235, 1)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4y5rn"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cvgrb"]
 
-[node name="Cashier" type="CharacterBody3D" node_paths=PackedStringArray("hands")]
-script = ExtResource("1_thwqa")
-hands = NodePath("Hands")
+[node name="NPC" type="CharacterBody3D" node_paths=PackedStringArray("raycasts", "agent")]
+script = ExtResource("1_jmb83")
+raycasts = [NodePath("Raycasts/forward"), NodePath("Raycasts/Right"), NodePath("Raycasts/Left")]
+agent = NodePath("NavigationAgent3D")
+speed = 3.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_8eod4")
-surface_material_override/0 = SubResource("StandardMaterial3D_8yklp")
+mesh = SubResource("CapsuleMesh_m6myh")
+surface_material_override/0 = SubResource("StandardMaterial3D_blpys")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.412846, -0.475231)
-mesh = SubResource("BoxMesh_dai5x")
-surface_material_override/0 = SubResource("StandardMaterial3D_5ioan")
+mesh = SubResource("BoxMesh_16ulh")
+surface_material_override/0 = SubResource("StandardMaterial3D_skgd5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_4y5rn")
+shape = SubResource("CapsuleShape3D_cvgrb")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 time_horizon_agents = 2.0
+debug_enabled = true
 
-[node name="Hands" parent="." instance=ExtResource("1_3lhga")]
+[node name="Hands" parent="." instance=ExtResource("2_4rg0b")]
 
 [node name="Raycasts" type="Node3D" parent="."]
 

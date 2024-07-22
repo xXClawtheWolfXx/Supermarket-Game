@@ -2,14 +2,15 @@ using Godot;
 using System;
 using Godot.Collections;
 
-public partial class Staff : CharacterBody3D, ICharacter {
+public partial class Staff : Node3D, ICharacter {
 
-    [Export] protected NavigationAgent3D agent;
-    [Export] float speed = 10;
-    [Export] float rotateSpeed = 10;
+    //[Export] protected NavigationAgent3D agent;
+    [Export] protected NPC npcComp;
+    // [Export] float speed = 10;
+    //[Export] float rotateSpeed = 10;
 
     [Export] int energyDepleteAmt = 5;
-    [Export] Array<RayCast3D> raycasts;
+    //[Export] Array<RayCast3D> raycasts;
     [Export] Hands hands;
     [Export] float restTimerTime = 8f;
 
@@ -28,7 +29,7 @@ public partial class Staff : CharacterBody3D, ICharacter {
     }
 
     public override void _PhysicsProcess(double delta) {
-
+        /*
         //interact with the world
         foreach (RayCast3D raycast in raycasts) {
             if (raycast.IsColliding() && raycast.GetCollider() is IInteractable ini) {
@@ -56,12 +57,13 @@ public partial class Staff : CharacterBody3D, ICharacter {
         //rotation
         offset.Y = 0;
         LookAt(GlobalPosition + offset, Vector3.Up);
+        */
     }
-
+    /*
     protected void Move(Vector3 pos) {
         agent.TargetPosition = pos;
     }
-
+*/
 
     protected virtual void Work() {
         if (!isWorking) return;
@@ -69,7 +71,6 @@ public partial class Staff : CharacterBody3D, ICharacter {
         energy -= energyDepleteAmt;
         if (energy <= 0)
             Rest();
-
     }
 
     public void OnRestTimerTimeout() {
@@ -80,7 +81,8 @@ public partial class Staff : CharacterBody3D, ICharacter {
     public void Rest() {
         isWorking = false;
         //go to rest area and leave if energy fully dep
-        Move(StaffManager.Instance.Position);
+
+        npcComp.Move(StaffManager.Instance.Position);
         GD.PrintS("Resting");
         energy += 5;
         if (restTimer.TimeLeft <= 0)
@@ -108,9 +110,10 @@ public partial class Staff : CharacterBody3D, ICharacter {
     public bool IsEmpty() {
         return hands.IsEmpty();
     }
-
-    public void OnNavigationAgent3DVelocityComputed(Vector3 safeVel) {
-        Velocity = safeVel;
-        MoveAndSlide();
-    }
+    /*
+        public void OnNavigationAgent3DVelocityComputed(Vector3 safeVel) {
+            Velocity = safeVel;
+            MoveAndSlide();
+        }
+        */
 }

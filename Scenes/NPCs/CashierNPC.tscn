@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://csb4l3murbjib"]
+
+[ext_resource type="PackedScene" uid="uid://pkmyi1mh2p8w" path="res://Scenes/NPCs/npc.tscn" id="1_mgdbl"]
+[ext_resource type="PackedScene" uid="uid://bdavncnm1bklh" path="res://Scenes/NPCs/cashier_node.tscn" id="2_e0sb6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ryfl"]
+albedo_color = Color(0.52549, 1, 0.905882, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xegkg"]
+albedo_color = Color(0.639216, 0.964706, 0.94902, 1)
+
+[node name="CashierNPC" instance=ExtResource("1_mgdbl")]
+
+[node name="Cashier" parent="." index="0" node_paths=PackedStringArray("npcComp", "hands") instance=ExtResource("2_e0sb6")]
+npcComp = NodePath("..")
+hands = NodePath("../Hands")
+
+[node name="MeshInstance3D" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_4ryfl")
+
+[node name="MeshInstance3D2" parent="." index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_xegkg")

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7j4nx1v0gnkr"]
+
+[ext_resource type="Script" path="res://Scripts/NPCs/Customer.cs" id="1_0fown"]
+[ext_resource type="PackedScene" uid="uid://ddq18kyu4gb3x" path="res://Scenes/NPCs/inventory.tscn" id="2_741ff"]
+
+[node name="CustomerNode" type="Node3D" node_paths=PackedStringArray("cashierTimer", "shoppingBasket")]
+script = ExtResource("1_0fown")
+cashierTimer = NodePath("CashierTimer")
+shoppingBasket = NodePath("Inventory")
+
+[node name="CashierTimer" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true
+
+[node name="Inventory" parent="." instance=ExtResource("2_741ff")]
+maxItems = 100

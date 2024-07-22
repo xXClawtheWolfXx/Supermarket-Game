@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using Godot.Collections;
-using System.Diagnostics.SymbolStore;
 
 public partial class Stocker : Staff {
     [Export] Node3D shelfContainer;
@@ -29,15 +28,16 @@ public partial class Stocker : Staff {
 
 
     public void StockShelf() {
-        Move(currentShelf.Position);
+        npcComp.Move(currentShelf.Position);
         currentShelf = null;
         isAtCurrShelf = true;
         //if we still have stock left, put it back
     }
 
     public void DealWithMoreStock() {
+        if (currentStock == null) return;
         if (!IsEmpty())
-            Move(currentStock.Position);
+            npcComp.Move(currentStock.Position);
         else
             Rest();
         currentStock = null;
@@ -66,7 +66,7 @@ public partial class Stocker : Staff {
 
         currentStock = FindCorrectStock(workingItemR);
         if (currentStock != null) {
-            Move(currentStock.Position);
+            npcComp.Move(currentStock.Position);
             base.Work();
         } else {
             GD.PrintS(Name, "no stock to stock");

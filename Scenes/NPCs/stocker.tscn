@@ -10,10 +10,8 @@ albedo_color = Color(0.337255, 0.960784, 0.698039, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ggu3d"]
 
-[node name="Stocker" type="CharacterBody3D" node_paths=PackedStringArray("agent", "raycasts", "hands")]
+[node name="Stocker" type="CharacterBody3D" node_paths=PackedStringArray("hands")]
 script = ExtResource("1_dn3q4")
-agent = NodePath("NavigationAgent3D")
-raycasts = [NodePath("Raycasts/forward"), NodePath("Raycasts/Right"), NodePath("Raycasts/Left")]
 hands = NodePath("Hands")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

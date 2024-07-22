@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvv7x2dstcq7c"]
+
+[ext_resource type="PackedScene" uid="uid://pkmyi1mh2p8w" path="res://Scenes/NPCs/npc.tscn" id="1_rtwql"]
+[ext_resource type="PackedScene" uid="uid://b7j4nx1v0gnkr" path="res://Scenes/NPCs/customer_node.tscn" id="2_s4143"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ks4ke"]
+albedo_color = Color(1, 0.262745, 0.447059, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u8ljy"]
+albedo_color = Color(0.984314, 0.345098, 0.592157, 1)
+
+[node name="CustomerNPC" instance=ExtResource("1_rtwql")]
+
+[node name="CustomerNode" parent="." index="0" node_paths=PackedStringArray("npcComp") instance=ExtResource("2_s4143")]
+npcComp = NodePath("..")
+
+[node name="MeshInstance3D" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ks4ke")
+
+[node name="MeshInstance3D2" parent="." index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_u8ljy")

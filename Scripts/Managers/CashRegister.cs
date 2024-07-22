@@ -31,7 +31,6 @@ public partial class CashRegister : StaticBody3D, IInteractable {
         originalCustSpawnPosition = custSpawnPos.GlobalPosition;
     }
 
-
     //removes a customer from the line
     //used when customers get too angry
     public void RemoveCustomer(Customer cust) {
@@ -79,7 +78,7 @@ public partial class CashRegister : StaticBody3D, IInteractable {
     void MoveCustomersUpInLine() {
         GD.PrintS("cust in line", line.Count);
         for (int i = 0; i < line.Count; i++) {
-            line[i].Move(originalCustSpawnPosition + new Vector3(-custSpawnRadius * i, 0f, 0f));
+            line[i].GetNPCComp.Move(originalCustSpawnPosition + new Vector3(-custSpawnRadius * i, 0f, 0f));
         }
     }
 
@@ -103,8 +102,16 @@ public partial class CashRegister : StaticBody3D, IInteractable {
 
 
     public void Interact(Node3D body) {
-        if (body is Player || body is Cashier)
+        if (body is Player)
             Checkout();
+
+        if (body is NPC) {
+            foreach (Node node in body.GetChildren())
+                if (node is Cashier) {
+                    Checkout();
+                    break;
+                }
+        }
     }
 
     public void OnItemSpawnTimerTimeout() {

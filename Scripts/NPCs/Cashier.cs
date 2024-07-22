@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Xml.Serialization;
 using Godot;
 using Godot.Collections;
 
@@ -24,10 +22,8 @@ public partial class Cashier : Staff {
         base._Ready();
     }
 
-
-
     private void TendToCustomer(Vector3 pos) {
-        Move(pos);
+        npcComp.Move(pos);
         Work();
     }
 

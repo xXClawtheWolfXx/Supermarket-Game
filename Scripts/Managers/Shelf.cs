@@ -89,27 +89,44 @@ public partial class Shelf : StaticBody3D, IInteractable {
     }
 
     public void Interact(Node3D body) {
-        if (body is Customer cust)
-            TakeItem(cust, cust.HowManyItems(item));
-        else if (body is Player player) {
-            if (player.GetHands.IsEmpty()) {
-                UnstockItem();
-            } else {
-                IGatherable ig = player.PutDown();
-                if (ig is CrateR crate) {
-                    StockItem(crate, player);
-                } else
-                    player.PickUp(ig);
+        //Player
+        if (body is Player player)
+            PlayerInteraction(player);
+        else if (body is NPC) {
+            foreach (Node node in body.GetChildren()) {
+                if (node is Customer cust) {
+                    TakeItem(cust, cust.HowManyItems(item));
+                    break;
+                }
+                //Stocker 
+                else if (node is Stocker stocker) {
+                    StockerInteraction(stocker);
+                    break;
+                }
             }
-        } else if (body is Stocker stocker) {
-            if (!stocker.IsEmpty()) {
-                IGatherable ig = stocker.PutDown();
-                if (ig is CrateR crate) {
-                    StockItem(crate, stocker);
-                    stocker.DealWithMoreStock();
-                } else
-                    stocker.PickUp(ig);
-            }
+        }
+    }
+
+    private void PlayerInteraction(Player player) {
+        if (player.GetHands.IsEmpty()) {
+            UnstockItem();
+        } else {
+            IGatherable ig = player.PutDown();
+            if (ig is CrateR crate) {
+                StockItem(crate, player);
+            } else
+                player.PickUp(ig);
+        }
+    }
+
+    private void StockerInteraction(Stocker stocker) {
+        if (!stocker.IsEmpty()) {
+            IGatherable ig = stocker.PutDown();
+            if (ig is CrateR crate) {
+                StockItem(crate, stocker);
+                stocker.DealWithMoreStock();
+            } else
+                stocker.PickUp(ig);
         }
     }
 }
