@@ -24,11 +24,7 @@ public partial class Cashier : Staff {
         base._Ready();
     }
 
-    public override void _PhysicsProcess(double delta) {
-        if (agent.IsNavigationFinished())
-            return;
-        base._PhysicsProcess(delta);
-    }
+
 
     private void TendToCustomer(Vector3 pos) {
         Move(pos);

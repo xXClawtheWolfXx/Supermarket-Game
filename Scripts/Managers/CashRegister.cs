@@ -64,11 +64,7 @@ public partial class CashRegister : StaticBody3D, IInteractable {
     void DespawnCustomer() {
         prevCustomer = currCustomer;
         line.Remove(currCustomer);
-        GD.PrintS("gone cust", line.Count);
-
         currCustomer.Leave();
-        GD.PrintS("gone realyl cust", line.Count);
-
 
         MoveCustomersUpInLine();
 
@@ -83,8 +79,7 @@ public partial class CashRegister : StaticBody3D, IInteractable {
     void MoveCustomersUpInLine() {
         GD.PrintS("cust in line", line.Count);
         for (int i = 0; i < line.Count; i++) {
-            GD.PrintS("moving to", originalCustSpawnPosition + new Vector3(0f, 0f, custSpawnRadius * i));
-            line[i].Move(originalCustSpawnPosition + new Vector3(0f, 0f, custSpawnRadius * i));
+            line[i].Move(originalCustSpawnPosition + new Vector3(-custSpawnRadius * i, 0f, 0f));
         }
     }
 
@@ -108,8 +103,6 @@ public partial class CashRegister : StaticBody3D, IInteractable {
 
 
     public void Interact(Node3D body) {
-        /* if (body is Customer customer && prevCustomer != customer && customer.IsCheckingOut)
-             AddCustomer(customer);*/
         if (body is Player || body is Cashier)
             Checkout();
     }

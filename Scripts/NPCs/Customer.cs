@@ -43,7 +43,6 @@ public partial class Customer : CharacterBody3D {
             }
         }
 
-
         //if at destination, no need to calculate potition
         if (agent.IsNavigationFinished()) {
             if (agent.TargetPosition == NPCSpawner.Instance.Position)

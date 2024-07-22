@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bm4aunvoehknb" path="res://Scenes/buy_stock.tscn" id="3_r1wmy"]
 [ext_resource type="Resource" uid="uid://br85ho7fjqipd" path="res://Resources/AppleCrate.tres" id="4_g2dn1"]
 [ext_resource type="Resource" uid="uid://dcfsn40srrjbr" path="res://Resources/ButterCrate.tres" id="5_q6sht"]
-[ext_resource type="PackedScene" uid="uid://cye6eyd3u56cp" path="res://Scenes/cashier.tscn" id="6_rok4x"]
+[ext_resource type="PackedScene" uid="uid://cye6eyd3u56cp" path="res://Scenes/NPCs/cashier.tscn" id="6_rok4x"]
 [ext_resource type="Script" path="res://Scripts/Managers/StaffManager.cs" id="7_et0b7"]
 [ext_resource type="PackedScene" uid="uid://ekdcvl5gblkh" path="res://Scenes/new_stock.tscn" id="7_g508f"]
 [ext_resource type="PackedScene" uid="uid://brf05haln1ovu" path="res://Scenes/NPCs/npc_spawner.tscn" id="8_j525u"]

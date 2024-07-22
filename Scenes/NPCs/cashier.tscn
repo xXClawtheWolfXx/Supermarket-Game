@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cye6eyd3u56cp"]
 
 [ext_resource type="PackedScene" uid="uid://dbr5gcelrsyiw" path="res://Scenes/hands.tscn" id="1_3lhga"]
-[ext_resource type="Script" path="res://Scenes/Cashier.cs" id="1_thwqa"]
+[ext_resource type="Script" path="res://Scripts/NPCs/Cashier.cs" id="1_thwqa"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8eod4"]
 
@@ -36,6 +36,7 @@ shape = SubResource("CapsuleShape3D_4y5rn")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
+time_horizon_agents = 2.0
 
 [node name="Hands" parent="." instance=ExtResource("1_3lhga")]
 
@@ -58,3 +59,5 @@ transform = Transform3D(0.747172, 0, 0.664631, 0, 1, 0, -0.664631, 0, 0.747172, 
 target_position = Vector3(0, 0, -3.59)
 debug_shape_custom_color = Color(0.686275, 0.188235, 0.188235, 1)
 debug_shape_thickness = 5
+
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="OnNavigationAgent3DVelocityComputed"]

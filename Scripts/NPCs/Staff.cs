@@ -37,13 +37,17 @@ public partial class Staff : CharacterBody3D, ICharacter {
             }
         }
 
+        if (agent.IsNavigationFinished())
+            return;
+
         //move to place
 
         Vector3 nextLoc = agent.GetNextPathPosition();
         Vector3 offset = nextLoc - GlobalPosition;
         Vector3 newVel = offset.Normalized() * speed;
 
-        Velocity = newVel;
+        agent.Velocity = newVel;
+
         MoveAndSlide();
 
         if (GlobalTransform.Origin.IsEqualApprox(GlobalPosition + offset))
@@ -103,5 +107,10 @@ public partial class Staff : CharacterBody3D, ICharacter {
 
     public bool IsEmpty() {
         return hands.IsEmpty();
+    }
+
+    public void OnNavigationAgent3DVelocityComputed(Vector3 safeVel) {
+        Velocity = safeVel;
+        MoveAndSlide();
     }
 }

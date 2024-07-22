@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dbtfbohp0g48b" path="res://Scenes/cash_register.tscn" id="15_7s62a"]
 [ext_resource type="PackedScene" uid="uid://dpkusfqq2gexd" path="res://Scenes/Models/wall.tscn" id="16_2uxli"]
 [ext_resource type="PackedScene" uid="uid://bfssguemfh8qh" path="res://Scenes/NPCs/stocker.tscn" id="16_oco1i"]
-[ext_resource type="PackedScene" uid="uid://cye6eyd3u56cp" path="res://Scenes/cashier.tscn" id="17_nh8xf"]
+[ext_resource type="PackedScene" uid="uid://cye6eyd3u56cp" path="res://Scenes/NPCs/cashier.tscn" id="17_nh8xf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_25ghb"]
 sky_top_color = Color(0.47451, 0.847059, 0.941176, 1)

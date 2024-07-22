@@ -27,11 +27,6 @@ public partial class Stocker : Staff {
                 shelves.Add(shelf);
     }
 
-    public override void _PhysicsProcess(double delta) {
-        if (agent.IsNavigationFinished())
-            return;
-        base._PhysicsProcess(delta);
-    }
 
     public void StockShelf() {
         Move(currentShelf.Position);
