@@ -40,7 +40,6 @@ public partial class RayPickerCamera : Camera3D {
         currItem = item;
         item.Change(true);
         Player.Instance.GetMouseOverItem = GameManager.Instance.GetItemR(item.GetName);
-        GD.PrintS(item);
     }
 
     private void TurnItemsBackToNormal() {

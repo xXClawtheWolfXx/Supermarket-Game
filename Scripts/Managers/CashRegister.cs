@@ -37,7 +37,6 @@ public partial class CashRegister : StaticBody3D, IInteractable {
         line.Remove(cust);
     }
 
-
     /// Add a specified customer to the line
     public void AddCustomer(Customer cust) {
         if (line.Contains(cust)) return;

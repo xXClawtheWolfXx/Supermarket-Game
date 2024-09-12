@@ -2,6 +2,5 @@
 
 [ext_resource type="Script" path="res://Scripts/NPCs/Cashier.cs" id="1_s3dft"]
 
-[node name="CashierNode" type="Node3D" node_paths=PackedStringArray("raycasts")]
+[node name="CashierNode" type="Node3D"]
 script = ExtResource("1_s3dft")
-raycasts = []

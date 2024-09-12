@@ -11,7 +11,7 @@ albedo_color = Color(0.639216, 0.964706, 0.94902, 1)
 
 [node name="CashierNPC" instance=ExtResource("1_mgdbl")]
 
-[node name="Cashier" parent="." index="0" node_paths=PackedStringArray("npcComp", "hands") instance=ExtResource("2_e0sb6")]
+[node name="CashierNode" parent="." index="0" node_paths=PackedStringArray("npcComp", "hands") instance=ExtResource("2_e0sb6")]
 npcComp = NodePath("..")
 hands = NodePath("../Hands")
 

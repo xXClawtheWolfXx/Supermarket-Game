@@ -10,16 +10,20 @@ public partial class Cashier : Staff {
 
     public override void _Ready() {
 
+        base._Ready();
+
         Array<Node> nodes = cashRegisterContainer.GetChildren();
+
         foreach (Node node in nodes) {
             if (node is CashRegister cr) {
-                GD.Print(cr.Name);
                 cashRegisters.Add(cr);
                 cr.OnCustomerAdded += TendToCustomer;
                 cr.OnNoCustomers += Rest;
             }
         }
-        base._Ready();
+
+        Rest();
+
     }
 
     private void TendToCustomer(Vector3 pos) {
@@ -30,4 +34,5 @@ public partial class Cashier : Staff {
     protected override void Work() {
         base.Work();
     }
+
 }

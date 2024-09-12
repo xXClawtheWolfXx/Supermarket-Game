@@ -16,49 +16,56 @@ size = Vector3(0.74, 0.17, 0.48)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8f215"]
 radius = 0.574908
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("pivot", "hands")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("meshRoot", "twistPivot", "pitchPivot", "hands")]
 script = ExtResource("1_y3t3v")
-Speed = 10.0
-pivot = NodePath("CamOrigin")
-hands = NodePath("Hands")
+meshRoot = NodePath("meshRoot")
+twistPivot = NodePath("TwistPivot")
+pitchPivot = NodePath("TwistPivot/PitchPivot")
+hands = NodePath("meshRoot/Hands")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="meshRoot" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_ormet")
 surface_material_override/0 = SubResource("StandardMaterial3D_unpy0")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40957, -0.442921)
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="meshRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40957, 0.483891)
 mesh = SubResource("BoxMesh_exh16")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_unpy0")
+
+[node name="Hands" parent="meshRoot" instance=ExtResource("3_tgylp")]
+
+[node name="Hand Pos" parent="meshRoot/Hands" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.555, 1.15)
+
+[node name="InteractionRay" type="RayCast3D" parent="meshRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.464713, 0)
+target_position = Vector3(0, 0, 4)
+debug_shape_custom_color = Color(0.686275, 0.188235, 0.188235, 1)
+debug_shape_thickness = 5
+script = ExtResource("3_ehs6e")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_8f215")
 
-[node name="CamOrigin" type="Node3D" parent="."]
+[node name="TwistPivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.90993, 0)
 
-[node name="SpringArm3D" type="SpringArm3D" parent="CamOrigin"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.847116, 0)
-spring_length = 3.5
+[node name="PitchPivot" type="SpringArm3D" parent="TwistPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 0, 0)
+spring_length = 8.0
 margin = 0.5
 
-[node name="Camera3D" type="Camera3D" parent="CamOrigin/SpringArm3D" node_paths=PackedStringArray("raycast", "player")]
+[node name="Camera3D" type="Camera3D" parent="TwistPivot/PitchPivot" node_paths=PackedStringArray("raycast", "player")]
 transform = Transform3D(1, 0, 0, 0, 0.967223, 0.253927, 0, -0.253927, 0.967223, 0, 1.885, 3.3)
 script = ExtResource("2_dcvgs")
 raycast = NodePath("InFrontRay")
 player = NodePath("../../..")
 
-[node name="InFrontRay" type="RayCast3D" parent="CamOrigin/SpringArm3D/Camera3D"]
+[node name="InFrontRay" type="RayCast3D" parent="TwistPivot/PitchPivot/Camera3D"]
 target_position = Vector3(0, 0, -3)
 collision_mask = 4
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="Hands" parent="." instance=ExtResource("3_tgylp")]
-
-[node name="InteractionRay" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.464713, 0)
-target_position = Vector3(0, 0, -4)
-debug_shape_custom_color = Color(0.686275, 0.188235, 0.188235, 1)
-debug_shape_thickness = 5
-script = ExtResource("3_ehs6e")
+[editable path="meshRoot/Hands"]

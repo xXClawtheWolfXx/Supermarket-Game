@@ -22,11 +22,7 @@ public partial class Inventory : Node3D {
         return currItemAmt == 0;
     }
 
-    /// <summary>
     /// Adds the specified item to the inventory
-    /// </summary>
-    /// <param name="item"> the item to be added</param>
-    /// <returns> if it succeeded</returns>
     public bool AddToInventory(IGatherable item) {
         if (currItemAmt <= maxItems) {
             items.Add(item);
@@ -37,10 +33,7 @@ public partial class Inventory : Node3D {
         return false;
     }
 
-    /// <summary>
     /// Removes the specified item from the inventory
-    /// </summary>
-    /// <param name="item"> the item to be removed</param>
     public void RemoveFromInventory(IGatherable item) {
         if (items.Contains(item)) {
             items.Remove(item);
@@ -48,10 +41,7 @@ public partial class Inventory : Node3D {
             //HideItems();
         }
     }
-    /// <summary>
     /// Always removes the first item from the inventory and returns it
-    /// </summary>
-    /// <returns>The first</returns>
     public IGatherable RemoveFromInventory() {
         if (!IsEmpty()) {
             IGatherable item = items[0];

@@ -1,19 +1,16 @@
-[gd_scene load_steps=25 format=3 uid="uid://bor04tplcmskv"]
+[gd_scene load_steps=22 format=3 uid="uid://bor04tplcmskv"]
 
 [ext_resource type="PackedScene" uid="uid://dhxdgadu6oxme" path="res://Scenes/player.tscn" id="1_v3pqw"]
 [ext_resource type="PackedScene" uid="uid://c18wkc2g6xkfw" path="res://Scenes/shelf.tscn" id="2_7gsmv"]
 [ext_resource type="PackedScene" uid="uid://bm4aunvoehknb" path="res://Scenes/buy_stock.tscn" id="3_r1wmy"]
 [ext_resource type="Resource" uid="uid://br85ho7fjqipd" path="res://Resources/AppleCrate.tres" id="4_g2dn1"]
 [ext_resource type="Resource" uid="uid://dcfsn40srrjbr" path="res://Resources/ButterCrate.tres" id="5_q6sht"]
-[ext_resource type="PackedScene" uid="uid://cye6eyd3u56cp" path="res://Scenes/NPCs/cashier.tscn" id="6_rok4x"]
 [ext_resource type="Script" path="res://Scripts/Managers/StaffManager.cs" id="7_et0b7"]
 [ext_resource type="PackedScene" uid="uid://ekdcvl5gblkh" path="res://Scenes/new_stock.tscn" id="7_g508f"]
 [ext_resource type="PackedScene" uid="uid://brf05haln1ovu" path="res://Scenes/NPCs/npc_spawner.tscn" id="8_j525u"]
 [ext_resource type="PackedScene" uid="uid://ratdhqfgp8gj" path="res://Scenes/game_manager.tscn" id="9_6b7on"]
-[ext_resource type="Resource" uid="uid://nhg27bd602y" path="res://Resources/Blackberry.tres" id="10_twjkd"]
-[ext_resource type="Resource" uid="uid://dbhflyhsvyx4f" path="res://Resources/Apple.tres" id="11_ihvwk"]
-[ext_resource type="Resource" uid="uid://c07c4al8f0hqw" path="res://Resources/Butter.tres" id="12_tbg4s"]
 [ext_resource type="PackedScene" uid="uid://dnhvdiof62i6c" path="res://Scenes/ui_manager.tscn" id="13_1uavl"]
+[ext_resource type="PackedScene" uid="uid://csb4l3murbjib" path="res://Scenes/NPCs/CashierNPC.tscn" id="14_b2yeb"]
 [ext_resource type="PackedScene" uid="uid://bfssguemfh8qh" path="res://Scenes/NPCs/stocker.tscn" id="15_6wnxt"]
 [ext_resource type="PackedScene" uid="uid://dbtfbohp0g48b" path="res://Scenes/cash_register.tscn" id="15_hhcki"]
 [ext_resource type="PackedScene" uid="uid://duau4b7orib43" path="res://Scenes/game_time.tscn" id="16_1d5qd"]
@@ -54,7 +51,6 @@ size = Vector3(22, 1, 22)
 timeUntilNextTime = 5.0
 
 [node name="GameManager" parent="Managers" instance=ExtResource("9_6b7on")]
-allItems = [ExtResource("10_twjkd"), ExtResource("11_ihvwk"), ExtResource("12_tbg4s")]
 
 [node name="NPCSpawner" parent="Managers" instance=ExtResource("8_j525u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8.78107)
@@ -121,6 +117,10 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.9522
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shelfContainer = NodePath("../NavigationRegion3D")
 
-[node name="Cashier" parent="." node_paths=PackedStringArray("cashRegisterContainer") groups=["CashRegister"] instance=ExtResource("6_rok4x")]
-transform = Transform3D(-0.00708602, 0, 0.999975, 0, 1, 0, -0.999975, 0, -0.00708602, 7.404, 1.5, -8.378)
-cashRegisterContainer = NodePath("../NavigationRegion3D")
+[node name="CashierNPC" parent="." instance=ExtResource("14_b2yeb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59573, -7.96388)
+
+[node name="Cashier" parent="CashierNPC" index="0" node_paths=PackedStringArray("cashRegisterContainer")]
+cashRegisterContainer = NodePath("../../NavigationRegion3D")
+
+[editable path="CashierNPC"]

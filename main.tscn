@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://low48jg67342"]
+[gd_scene load_steps=18 format=3 uid="uid://low48jg67342"]
 
 [ext_resource type="PackedScene" uid="uid://dhxdgadu6oxme" path="res://Scenes/player.tscn" id="1_8wwns"]
 [ext_resource type="PackedScene" uid="uid://c18wkc2g6xkfw" path="res://Scenes/shelf.tscn" id="2_e4dxn"]
@@ -9,10 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cye6eyd3u56cp" path="res://Scenes/NPCs/cashier.tscn" id="6_isd6n"]
 [ext_resource type="PackedScene" uid="uid://brf05haln1ovu" path="res://Scenes/NPCs/npc_spawner.tscn" id="6_yy7a7"]
 [ext_resource type="PackedScene" uid="uid://ratdhqfgp8gj" path="res://Scenes/game_manager.tscn" id="7_apsrb"]
-[ext_resource type="Resource" uid="uid://nhg27bd602y" path="res://Resources/Blackberry.tres" id="8_v6a4x"]
 [ext_resource type="PackedScene" uid="uid://ekdcvl5gblkh" path="res://Scenes/new_stock.tscn" id="9_nbr5d"]
-[ext_resource type="Resource" uid="uid://dbhflyhsvyx4f" path="res://Resources/Apple.tres" id="12_yj52b"]
-[ext_resource type="Resource" uid="uid://c07c4al8f0hqw" path="res://Resources/Butter.tres" id="13_jtxim"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_25ghb"]
 sky_top_color = Color(0.47451, 0.847059, 0.941176, 1)
@@ -117,7 +114,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -17.6169)
 maxNumNPCs = 4
 
 [node name="GameManager" parent="." instance=ExtResource("7_apsrb")]
-allItems = [ExtResource("8_v6a4x"), ExtResource("12_yj52b"), ExtResource("13_jtxim")]
 
 [node name="UIManager" parent="." instance=ExtResource("3_1hcqx")]
 mouse_filter = 2
