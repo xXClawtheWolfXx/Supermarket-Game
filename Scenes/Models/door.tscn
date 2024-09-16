@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjdwh5g5bkab"]
+
+[ext_resource type="Script" path="res://Scripts/Items/Door.cs" id="1_w7shy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fd165"]
+size = Vector3(3.71, 5.49, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vuv76"]
+albedo_color = Color(1, 0.401352, 0.48552, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p0666"]
+size = Vector3(3.71, 5.49, 0.2)
+
+[node name="Door" type="StaticBody3D" node_paths=PackedStringArray("collision", "mesh")]
+script = ExtResource("1_w7shy")
+collision = NodePath("CollisionShape3D")
+mesh = NodePath("MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_fd165")
+surface_material_override/0 = SubResource("StandardMaterial3D_vuv76")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_p0666")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://diuwy3b42yv5c"]
+[gd_scene load_steps=25 format=3 uid="uid://diuwy3b42yv5c"]
 
 [ext_resource type="PackedScene" uid="uid://duau4b7orib43" path="res://Scenes/game_time.tscn" id="1_1fa1f"]
 [ext_resource type="PackedScene" uid="uid://ratdhqfgp8gj" path="res://Scenes/game_manager.tscn" id="2_5h1wp"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://c18wkc2g6xkfw" path="res://Scenes/shelf.tscn" id="13_v5j50"]
 [ext_resource type="PackedScene" uid="uid://ekdcvl5gblkh" path="res://Scenes/new_stock.tscn" id="14_4fdbf"]
 [ext_resource type="PackedScene" uid="uid://dbtfbohp0g48b" path="res://Scenes/cash_register.tscn" id="15_7s62a"]
+[ext_resource type="PackedScene" uid="uid://cjdwh5g5bkab" path="res://Scenes/Models/door.tscn" id="15_43pke"]
 [ext_resource type="PackedScene" uid="uid://dpkusfqq2gexd" path="res://Scenes/Models/wall.tscn" id="16_2uxli"]
 [ext_resource type="PackedScene" uid="uid://csb4l3murbjib" path="res://Scenes/NPCs/CashierNPC.tscn" id="17_1c2c4"]
 [ext_resource type="PackedScene" uid="uid://bhjth2wvweyoo" path="res://Scenes/NPCs/StockerNPC.tscn" id="18_7thbs"]
@@ -187,6 +188,9 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10, 0
 
 [node name="Wall15" parent="NavigationRegion3D/Store" instance=ExtResource("16_2uxli")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10, 0.440159, 5.57196)
+
+[node name="Door" parent="NavigationRegion3D/Store" instance=ExtResource("15_43pke")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, -12.4)
 
 [node name="StockerNPC" parent="." instance=ExtResource("18_7thbs")]
 transform = Transform3D(1, 0, 0, 0, 0.999885, -0.0151838, 0, 0.0151838, 0.999885, 3, 1.78271, -10)

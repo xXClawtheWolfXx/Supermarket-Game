@@ -18,6 +18,7 @@ public partial class GameManager : Node {
     public Array<ItemR> GetAllItems { get { return allItems; } }
 
     [Signal] public delegate void OnOpenStoreEventHandler();
+    [Signal] public delegate void OnCloseStoreEventHandler();
 
     //instantiates the instance when the game runs
     public override void _Ready() {
@@ -43,12 +44,14 @@ public partial class GameManager : Node {
     public void CloseStore() {
         NPCSpawner.Instance.CanSpawn(false);
         GD.Print("closing store");
+        EmitSignal(SignalName.OnCloseStore);
     }
 
     private void CheckTime(Clock gameTime) {
-        if (gameTime.Equals(startTime))
-            OpenStore();
-        else if (gameTime.Equals(endTime))
+        //if (gameTime.Equals(startTime))
+        //  OpenStore();
+        //else 
+        if (gameTime.Equals(endTime))
             CloseStore();
     }
 }
