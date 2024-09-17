@@ -19,8 +19,8 @@ public partial class UIManager : Control {
         moneyLabel.Text = "Money: " + money;
     }
 
-    public void UpdateTimeLabel(Clock gameTime) {
-        timeLabel.Text = "Time: " + gameTime.ToString();
+    public void UpdateTimeLabel(string time) {
+        timeLabel.Text = time;
 
     }
 

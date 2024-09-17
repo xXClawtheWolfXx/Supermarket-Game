@@ -9,7 +9,7 @@ size = Vector3(3.71, 5.49, 0.2)
 albedo_color = Color(1, 0.401352, 0.48552, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p0666"]
-size = Vector3(3.71, 5.49, 0.2)
+size = Vector3(3.71, 4.69062, 0.2)
 
 [node name="Door" type="StaticBody3D" node_paths=PackedStringArray("collision", "mesh")]
 script = ExtResource("1_w7shy")
@@ -21,4 +21,9 @@ mesh = SubResource("BoxMesh_fd165")
 surface_material_override/0 = SubResource("StandardMaterial3D_vuv76")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.399692, 0)
 shape = SubResource("BoxShape3D_p0666")
+
+[node name="NavigationLink3D" type="NavigationLink3D" parent="."]
+start_position = Vector3(0, -2.62, -0.735)
+end_position = Vector3(0, -2.62, 1.13)

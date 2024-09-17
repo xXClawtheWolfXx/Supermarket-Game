@@ -64,9 +64,9 @@ public partial class Staff : Node3D, ICharacter {
 
     }
 
-    public void CheckTime(Clock gameTime) {
-        GD.PrintS(Name, "time checkd", gameTime);
-        if (gameTime.GetHour > 1 && gameTime.GetHour < 14) {
+    public void CheckTime(int time) {
+        GD.PrintS(Name, "time checked", time);
+        if (GameManager.Instance.GetIsOpen) {
             Work();
         }
     }

@@ -11,11 +11,15 @@ public partial class GameManager : Node {
     private static GameManager instance;
     public static GameManager Instance { get { return instance; } }
 
-    [Export] Clock startTime;
-    [Export] Clock endTime;
-    [Export] Array<ItemR> allItems = new Array<ItemR>();
+    [Export] private int startTime;
+    [Export] private int endTime;
+    [Export] private Array<ItemR> allItems = new Array<ItemR>();
+
+    private bool isOpen;
 
     public Array<ItemR> GetAllItems { get { return allItems; } }
+    public bool GetIsOpen { get => isOpen; }
+
 
     [Signal] public delegate void OnOpenStoreEventHandler();
     [Signal] public delegate void OnCloseStoreEventHandler();
@@ -31,6 +35,7 @@ public partial class GameManager : Node {
     public void OpenStore() {
         NPCSpawner.Instance.CanSpawn(true);
         EmitSignal(SignalName.OnOpenStore);
+        isOpen = true;
     }
 
     /// Returns an ItemR matching the specified name from an Item
@@ -45,13 +50,14 @@ public partial class GameManager : Node {
         NPCSpawner.Instance.CanSpawn(false);
         GD.Print("closing store");
         EmitSignal(SignalName.OnCloseStore);
+        isOpen = false;
     }
 
-    private void CheckTime(Clock gameTime) {
+    private void CheckTime(int time) {
         //if (gameTime.Equals(startTime))
         //  OpenStore();
         //else 
-        if (gameTime.Equals(endTime))
+        if (time == endTime)
             CloseStore();
     }
 }

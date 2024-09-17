@@ -7,12 +7,14 @@ public partial class GameTime : Node {
     private static GameTime instance;
     public static GameTime Instance { get { return instance; } }
 
-    [Export] Clock gameTime;
+    //[Export] Clock gameTime;
     [Export] Timer timer;
     [Export] float timeUntilNextTime = 30;
-    [Export] int timeIncrease = 30;
+    //[Export] int timeIncrease = 30;
+    [Export] int maxTimeSlots = 48; // every 30 mins
+    [Export] int time;
 
-    [Signal] public delegate void OnTimeIncreaseEventHandler(Clock gameTime);
+    [Signal] public delegate void OnTimeIncreaseEventHandler(int time);
 
     public override void _Ready() {
         instance = this;
@@ -20,10 +22,18 @@ public partial class GameTime : Node {
     }
 
     public void OnTimerTimeout() {
-        gameTime.IncreaseTime(timeIncrease);
-        UIManager.Instance.UpdateTimeLabel(gameTime);
-        EmitSignal(SignalName.OnTimeIncrease, gameTime);
+        // gameTime.IncreaseTime(timeIncrease);
+        time++;
+        UIManager.Instance.UpdateTimeLabel(timeToString());
+        EmitSignal(SignalName.OnTimeIncrease, time);
     }
 
+    private string timeToString() {
+        string timeStr = "";
+        timeStr += (time / 2).ToString().PadLeft(2, '0') + ":";
 
+        if (time % 2 == 1) timeStr += "30";
+        else timeStr += "00";
+        return timeStr;
+    }
 }
