@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TaskR" load_steps=2 format=3 uid="uid://dchn6ehsp3ld2"]
+
+[ext_resource type="Script" path="res://Scripts/Tasks/TaskR.cs" id="1_jxc1q"]
+
+[resource]
+script = ExtResource("1_jxc1q")
+taskName = "Sitting"
+duration = 2
+isDurationTask = true
+needSatisfied = 2

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TaskR" load_steps=2 format=3 uid="uid://rgx6sepxp0t0"]
+
+[ext_resource type="Script" path="res://Scripts/Tasks/TaskR.cs" id="1_nmq15"]
+
+[resource]
+script = ExtResource("1_nmq15")
+taskName = "Nap"
+duration = 4
+isDurationTask = true
+needSatisfied = 2

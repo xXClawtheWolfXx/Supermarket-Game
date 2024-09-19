@@ -1,11 +1,16 @@
 using Godot;
 using System;
 using Godot.Collections;
+using System.Reflection.Metadata;
+using System.Collections.Generic;
+using System.Linq;
+using System.Diagnostics.Tracing;
 
 public partial class NPC : CharacterBody3D {
 
     [ExportGroup("Movement")]
     [Export] private Array<RayCast3D> raycasts;
+    [Export] private ShapeCast3D shapecast;
     [Export] protected NavigationAgent3D agent;
     [Export] private float speed = 10;
     [Export] private float rotateSpeed = 10;
@@ -14,12 +19,13 @@ public partial class NPC : CharacterBody3D {
     [Export] private Array<NPCRelationship> frens = new Array<NPCRelationship>();
     [Export] private Array<Task> schedule = new Array<Task>();
     [Export] private int money;
+    [Export] private Node3D house;
     //dialogue
     //house
     //job
 
     private NPCNeed[] npcNeeds = new NPCNeed[4];
-    //private Task currTask
+    private Task currTask;
 
     public override void _Ready() {
         for (int i = 0; i < npcNeeds.Length; i++) {
@@ -27,6 +33,10 @@ public partial class NPC : CharacterBody3D {
             int needAmt = GD.RandRange(60, 80);
             npcNeeds[i] = new NPCNeed(need, needAmt);
         }
+
+        //init schedule
+        for (int i = 0; i < GameTime.Instance.GetMaxTimeSlots; i++)
+            schedule.Add(null);
 
         GameTime.Instance.OnTimeIncrease += NextTask;
         NextTask(0);
@@ -78,10 +88,77 @@ public partial class NPC : CharacterBody3D {
         Velocity = safeVel;
         MoveAndSlide();
     }
-
     //-------------NPC Stuff----------
     public void NextTask(int time) {
         //get next task
+        currTask = schedule[time];
+
+        //find next task
+        if (currTask is null) {
+            List<Task> closest = FindTasksInArea();
+
+            //if time is during job time, find job task
+
+            //if needs are low enough, find need task
+            //PrintNeeds();
+            Need lowest = LowestNeed();
+
+            //consider hobbies next
+
+        }
+
+        //do task
+
+    }
+
+    public void DecreaseAllNeeds(int time) {
+        foreach (NPCNeed npcNeed in npcNeeds) {
+            npcNeed.amount -= 10;
+        }
+    }
+
+    public void PrintNeeds() {
+        GD.Print(Name);
+        foreach (NPCNeed npcNeed in npcNeeds) {
+            GD.PrintS(npcNeed.need.ToString(), npcNeed.amount);
+        }
+    }
+    //Find the lowest Need
+    public Need LowestNeed() {
+        Need lowest = Need.NONE;
+        int best = int.MaxValue;
+        for (int i = 0; i < npcNeeds.Length; i++)
+            if (best > npcNeeds[i].amount) {
+                lowest = npcNeeds[i].need;
+                best = npcNeeds[i].amount;
+            }
+        return lowest;
+    }
+
+    public List<Task> FindTasksInArea() {
+        List<Task> closestsNeeds = new List<Task>();
+        shapecast.Enabled = true;
+
+        GD.Print(shapecast.IsColliding());
+        if (shapecast.IsColliding())
+            foreach (Variant node in shapecast.CollisionResult) {
+                //shapecast.
+                GD.Print(node);
+                if (CheckIfTaskNode((Node)node))
+                    closestsNeeds.Add((Task)node);
+            }
+
+        GD.PrintS("closest", Name, closestsNeeds.Count);
+        //shapecast.Enabled = false;
+
+        return closestsNeeds;
+    }
+
+    private bool CheckIfTaskNode(Node node) {
+        foreach (Node n in node.GetParent().GetChildren())
+            if (n is Task)
+                return true;
+        return false;
     }
 
 }

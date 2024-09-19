@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_idgs0")
-taskName = "Cooking"
-duration = 0
-isDurationTask = false
+taskName = "Reading"
+duration = 1
+isDurationTask = true
+needSatisfied = 3

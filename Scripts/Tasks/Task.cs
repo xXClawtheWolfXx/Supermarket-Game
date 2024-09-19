@@ -12,7 +12,11 @@ public partial class Task : Node3D {
         return location.DistanceTo(npcPosition);
     }
 
-    public void IsBeingUsed(bool used) {
+    public void SetBeingUsed(bool used) {
         isUsed = used;
+    }
+
+    public bool IsBeingUsed() {
+        return isUsed;
     }
 }

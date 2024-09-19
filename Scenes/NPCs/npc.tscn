@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://pkmyi1mh2p8w"]
+[gd_scene load_steps=9 format=3 uid="uid://pkmyi1mh2p8w"]
 
 [ext_resource type="Script" path="res://Scripts/NPCs/NPC.cs" id="1_jmb83"]
 [ext_resource type="PackedScene" uid="uid://dbr5gcelrsyiw" path="res://Scenes/hands.tscn" id="2_4rg0b"]
@@ -16,9 +16,13 @@ albedo_color = Color(0.882353, 0.521569, 0.988235, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cvgrb"]
 
-[node name="NPC" type="CharacterBody3D" node_paths=PackedStringArray("raycasts", "agent")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_xrdoo"]
+radius = 20.0
+
+[node name="NPC" type="CharacterBody3D" node_paths=PackedStringArray("raycasts", "shapecast", "agent")]
 script = ExtResource("1_jmb83")
 raycasts = [NodePath("Raycasts/forward"), NodePath("Raycasts/Right"), NodePath("Raycasts/Left")]
+shapecast = NodePath("ShapeCast3D")
 agent = NodePath("NavigationAgent3D")
 speed = 3.0
 
@@ -60,5 +64,10 @@ transform = Transform3D(0.747172, 0, 0.664631, 0, 1, 0, -0.664631, 0, 0.747172, 
 target_position = Vector3(0, 0, -3.59)
 debug_shape_custom_color = Color(0.686275, 0.188235, 0.188235, 1)
 debug_shape_thickness = 5
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+shape = SubResource("SphereShape3D_xrdoo")
+target_position = Vector3(0, 0, 0)
+debug_shape_custom_color = Color(0.656139, 0.32941, 0.166253, 1)
 
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="OnNavigationAgent3DVelocityComputed"]

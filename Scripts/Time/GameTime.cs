@@ -16,6 +16,8 @@ public partial class GameTime : Node {
 
     [Signal] public delegate void OnTimeIncreaseEventHandler(int time);
 
+    public int GetMaxTimeSlots { get => maxTimeSlots; }
+
     public override void _Ready() {
         instance = this;
         timer.WaitTime = timeUntilNextTime;
