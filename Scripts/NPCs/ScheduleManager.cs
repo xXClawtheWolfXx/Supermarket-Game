@@ -17,7 +17,6 @@ public partial class ScheduleManager : Node3D {
         PriorityQueue<Task, float> potentialTasks = new();
         // List<Task> potentialTasks = new List<Task>();
         foreach (Task task in tasks) {
-            GD.PrintS(npc.Name, task.GetNeed);
             if (task.GetNeed == need)
                 potentialTasks.Enqueue(task, task.GetTaskScore(npc.Position));
             //potentialTasks. Add(task);
@@ -28,10 +27,10 @@ public partial class ScheduleManager : Node3D {
 
         if (newTask == null) return null;
 
-        GD.PrintS(newTask, !newTask.IsBeingUsed());
+        GD.PrintS(newTask, !newTask.IsBeingUsed);
 
         //check if we can do the task, if not, get the next one
-        while (newTask.IsBeingUsed()) {
+        while (newTask.IsBeingUsed) {
             potentialTasks.TryDequeue(out newTask, out priority);
             if (newTask == null)
                 break;

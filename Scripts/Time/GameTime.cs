@@ -26,6 +26,7 @@ public partial class GameTime : Node {
     public void OnTimerTimeout() {
         // gameTime.IncreaseTime(timeIncrease);
         time++;
+        if (time >= maxTimeSlots) time = 0;
         UIManager.Instance.UpdateTimeLabel(timeToString());
         EmitSignal(SignalName.OnTimeIncrease, time);
     }

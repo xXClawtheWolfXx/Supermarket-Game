@@ -91,7 +91,7 @@ shadow_enabled = true
 environment = SubResource("Environment_g2spj")
 
 [node name="Player" parent="." instance=ExtResource("9_pys1w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.461346, 2.25457, -3.1737)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.461346, 2.25457, -26.1737)
 
 [node name="Enviornment" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_5jnnv")

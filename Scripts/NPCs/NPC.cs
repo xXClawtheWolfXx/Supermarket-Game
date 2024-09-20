@@ -25,8 +25,10 @@ public partial class NPC : CharacterBody3D {
     //house
     //job
 
+    //NPC AI Stuff
     private NPCNeed[] npcNeeds = new NPCNeed[4];
     private Task currTask;
+    private bool isDoingTask = false;
     private int timeLeftOnTask = 0;
 
     public override void _Ready() {
@@ -60,6 +62,10 @@ public partial class NPC : CharacterBody3D {
             if (agent.TargetPosition == NPCSpawner.Instance.Position)
                 //GD.Print("Finished---------------------");
                 NPCSpawner.Instance.DestroyCustomer(this);
+            if (isDoingTask && currTask != null && agent.TargetPosition == currTask.GetTaskPosition) {
+                currTask.DoTask(this);
+                isDoingTask = false;
+            }
             return;
         }
 
@@ -90,18 +96,24 @@ public partial class NPC : CharacterBody3D {
         Velocity = safeVel;
         MoveAndSlide();
     }
+
+
+
     //-------------NPC Stuff----------
+
+
     public void NextTask(int time) {
+        GD.PrintS(Name, timeLeftOnTask);
         //check if already doing task
         if (timeLeftOnTask > 0) {
             timeLeftOnTask--;
             return;
             //schedule[time] = currTask;
         }
-
         //get next task
         currTask = schedule[time];
-
+        GD.PrintS(Name, "Looking for Task");
+        Need lowest = LowestNeed();
         //find next task
         if (currTask is null) {
             List<Task> closest = FindTasksInArea();
@@ -109,22 +121,22 @@ public partial class NPC : CharacterBody3D {
             //if time is during job time, find job task
 
             //if needs are low enough, find need task
-
-            //PrintNeeds();
-            Need lowest = LowestNeed();
-            GD.PrintS(Name, "lowest", lowest);
             currTask = ScheduleManager.GetNeedTask(this, lowest, closest);
 
+            //what if task is null??
             if (currTask == null)
                 return;
 
-            GD.PrintS(Name, currTask.ToString());
-            //what if task is null??
+            GD.PrintS(Name, currTask.ToString(), currTask.GetParent().Name);
             //consider hobbies next
         }
         //do task
         timeLeftOnTask = currTask.GetDuration;
+        Move(currTask.GetTaskPosition);
+        isDoingTask = true;
 
+        //add to lowest need
+        npcNeeds[(int)lowest].amount += 10;
 
     }
 
@@ -155,7 +167,7 @@ public partial class NPC : CharacterBody3D {
     public List<Task> FindTasksInArea() {
         List<Task> closestsTasks = new List<Task>();
 
-        GD.PrintS(Name, shapecast.IsColliding());
+        //GD.PrintS(Name, shapecast.IsColliding());
 
         if (shapecast.IsColliding()) {
             for (int i = 0; i < shapecast.GetCollisionCount(); i++) {
@@ -168,7 +180,7 @@ public partial class NPC : CharacterBody3D {
                     closestsTasks.Add(task);
             }
         }
-        GD.PrintS("closest", Name, closestsTasks.Count);
+        //GD.PrintS("closest", Name, closestsTasks.Count);
 
         return closestsTasks;
     }
