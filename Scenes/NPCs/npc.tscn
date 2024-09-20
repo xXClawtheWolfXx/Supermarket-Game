@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://pkmyi1mh2p8w"]
 
 [ext_resource type="Script" path="res://Scripts/NPCs/NPC.cs" id="1_jmb83"]
-[ext_resource type="PackedScene" uid="uid://dbr5gcelrsyiw" path="res://Scenes/hands.tscn" id="2_4rg0b"]
+[ext_resource type="PackedScene" uid="uid://dbr5gcelrsyiw" path="res://Scenes/Utils/hands.tscn" id="2_4rg0b"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_m6myh"]
 
@@ -50,24 +50,28 @@ debug_enabled = true
 [node name="forward" type="RayCast3D" parent="Raycasts"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.464713, 0)
 target_position = Vector3(0, 0, -3.59)
+collision_mask = 9
 debug_shape_custom_color = Color(0.686275, 0.188235, 0.188235, 1)
 debug_shape_thickness = 5
 
 [node name="Right" type="RayCast3D" parent="Raycasts"]
 transform = Transform3D(0.73902, 0, -0.673683, 0, 1, 0, 0.673683, 0, 0.73902, 0, 0.464713, 0)
 target_position = Vector3(0, 0, -3.59)
+collision_mask = 9
 debug_shape_custom_color = Color(0.686275, 0.188235, 0.188235, 1)
 debug_shape_thickness = 5
 
 [node name="Left" type="RayCast3D" parent="Raycasts"]
 transform = Transform3D(0.747172, 0, 0.664631, 0, 1, 0, -0.664631, 0, 0.747172, 0, 0.464713, 0)
 target_position = Vector3(0, 0, -3.59)
+collision_mask = 9
 debug_shape_custom_color = Color(0.686275, 0.188235, 0.188235, 1)
 debug_shape_thickness = 5
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="."]
 shape = SubResource("SphereShape3D_xrdoo")
 target_position = Vector3(0, 0, 0)
+collision_mask = 8
 debug_shape_custom_color = Color(0.656139, 0.32941, 0.166253, 1)
 
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="OnNavigationAgent3DVelocityComputed"]

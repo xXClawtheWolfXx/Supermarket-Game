@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ekdcvl5gblkh"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/StockInventory.cs" id="1_ye7xm"]
-[ext_resource type="PackedScene" uid="uid://daog1nnun51w1" path="res://Scenes/dynamic_inventory.tscn" id="2_e5umd"]
+[ext_resource type="PackedScene" uid="uid://daog1nnun51w1" path="res://Scenes/Utils/dynamic_inventory.tscn" id="2_e5umd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s0ivi"]
 size = Vector3(2.35229, 4.93469, 0.146729)
@@ -17,6 +17,7 @@ albedo_color = Color(0.819608, 0.752941, 0.921569, 0.172549)
 size = Vector3(2.5, 0.15, 2)
 
 [node name="NewStock" type="StaticBody3D" node_paths=PackedStringArray("dynamicInventory")]
+collision_layer = 8
 script = ExtResource("1_ye7xm")
 dynamicInventory = NodePath("DynamicInventory")
 

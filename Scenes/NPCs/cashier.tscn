@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cye6eyd3u56cp"]
 
-[ext_resource type="PackedScene" uid="uid://dbr5gcelrsyiw" path="res://Scenes/hands.tscn" id="1_3lhga"]
+[ext_resource type="PackedScene" uid="uid://dbr5gcelrsyiw" path="res://Scenes/Utils/hands.tscn" id="1_3lhga"]
 [ext_resource type="Script" path="res://Scripts/NPCs/Cashier.cs" id="1_thwqa"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8eod4"]

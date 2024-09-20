@@ -10,6 +10,7 @@ albedo_color = Color(0.321569, 0.172549, 0.172549, 1)
 size = Vector3(4, 6, 0.2)
 
 [node name="Wall" type="StaticBody3D"]
+collision_layer = 2
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)

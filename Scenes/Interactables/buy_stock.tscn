@@ -17,6 +17,7 @@ size = Vector3(2, 0.12, 2)
 size = Vector3(2, 0.427676, 2)
 
 [node name="BuyStock" type="StaticBody3D"]
+collision_layer = 8
 script = ExtResource("1_jkwxh")
 crate = ExtResource("2_rjaqn")
 

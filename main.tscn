@@ -1,15 +1,15 @@
 [gd_scene load_steps=18 format=3 uid="uid://low48jg67342"]
 
 [ext_resource type="PackedScene" uid="uid://dhxdgadu6oxme" path="res://Scenes/player.tscn" id="1_8wwns"]
-[ext_resource type="PackedScene" uid="uid://c18wkc2g6xkfw" path="res://Scenes/shelf.tscn" id="2_e4dxn"]
-[ext_resource type="PackedScene" uid="uid://dnhvdiof62i6c" path="res://Scenes/ui_manager.tscn" id="3_1hcqx"]
-[ext_resource type="PackedScene" uid="uid://bm4aunvoehknb" path="res://Scenes/buy_stock.tscn" id="4_vpu4l"]
+[ext_resource type="PackedScene" uid="uid://c18wkc2g6xkfw" path="res://Scenes/Interactables/shelf.tscn" id="2_e4dxn"]
+[ext_resource type="PackedScene" uid="uid://dnhvdiof62i6c" path="res://Scenes/Managers/ui_manager.tscn" id="3_1hcqx"]
+[ext_resource type="PackedScene" uid="uid://bm4aunvoehknb" path="res://Scenes/Interactables/buy_stock.tscn" id="4_vpu4l"]
 [ext_resource type="Resource" uid="uid://br85ho7fjqipd" path="res://Resources/AppleCrate.tres" id="5_4v4hg"]
 [ext_resource type="Resource" uid="uid://dcfsn40srrjbr" path="res://Resources/ButterCrate.tres" id="6_7rvse"]
 [ext_resource type="PackedScene" uid="uid://cye6eyd3u56cp" path="res://Scenes/NPCs/cashier.tscn" id="6_isd6n"]
 [ext_resource type="PackedScene" uid="uid://brf05haln1ovu" path="res://Scenes/NPCs/npc_spawner.tscn" id="6_yy7a7"]
-[ext_resource type="PackedScene" uid="uid://ratdhqfgp8gj" path="res://Scenes/game_manager.tscn" id="7_apsrb"]
-[ext_resource type="PackedScene" uid="uid://ekdcvl5gblkh" path="res://Scenes/new_stock.tscn" id="9_nbr5d"]
+[ext_resource type="PackedScene" uid="uid://ratdhqfgp8gj" path="res://Scenes/Utils/game_manager.tscn" id="7_apsrb"]
+[ext_resource type="PackedScene" uid="uid://ekdcvl5gblkh" path="res://Scenes/Interactables/new_stock.tscn" id="9_nbr5d"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_25ghb"]
 sky_top_color = Color(0.47451, 0.847059, 0.941176, 1)

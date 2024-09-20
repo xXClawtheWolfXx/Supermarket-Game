@@ -8,3 +8,6 @@
 [node name="StockerNode" parent="." index="0" node_paths=PackedStringArray("npcComp", "hands") instance=ExtResource("2_53tvv")]
 npcComp = NodePath("..")
 hands = NodePath("../Hands")
+
+[node name="ShapeCast3D" parent="." index="7"]
+collision_mask = 8

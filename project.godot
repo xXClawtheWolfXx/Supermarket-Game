@@ -114,6 +114,7 @@ run={
 3d_physics/layer_1="Player"
 3d_physics/layer_2="Env"
 3d_physics/layer_3="Items"
+3d_physics/layer_4="Tasks"
 
 [rendering]
 

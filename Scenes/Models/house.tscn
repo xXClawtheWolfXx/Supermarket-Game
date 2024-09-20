@@ -77,6 +77,8 @@ material_override = ExtResource("2_hvduo")
 
 [node name="Bed" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 0.5, 0.3)
+collision_layer = 8
+collision_mask = 3
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Bed"]
 mesh = SubResource("BoxMesh_xrs6h")
@@ -89,6 +91,8 @@ taskBase = ExtResource("4_ac3po")
 
 [node name="Bookshelf" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2.4, 1.2)
+collision_layer = 8
+collision_mask = 3
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Bookshelf"]
 mesh = SubResource("BoxMesh_8fbit")
@@ -101,6 +105,8 @@ taskBase = ExtResource("5_y3tc4")
 
 [node name="Kitchen" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9, 0.8, -2.6)
+collision_layer = 8
+collision_mask = 3
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Kitchen"]
 mesh = SubResource("BoxMesh_yrhnb")

@@ -5,6 +5,7 @@ using System.Reflection.Metadata;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics.Tracing;
+using Godot.NativeInterop;
 
 public partial class NPC : CharacterBody3D {
 
@@ -26,6 +27,7 @@ public partial class NPC : CharacterBody3D {
 
     private NPCNeed[] npcNeeds = new NPCNeed[4];
     private Task currTask;
+    private int timeLeftOnTask = 0;
 
     public override void _Ready() {
         for (int i = 0; i < npcNeeds.Length; i++) {
@@ -90,6 +92,13 @@ public partial class NPC : CharacterBody3D {
     }
     //-------------NPC Stuff----------
     public void NextTask(int time) {
+        //check if already doing task
+        if (timeLeftOnTask > 0) {
+            timeLeftOnTask--;
+            return;
+            //schedule[time] = currTask;
+        }
+
         //get next task
         currTask = schedule[time];
 
@@ -100,14 +109,22 @@ public partial class NPC : CharacterBody3D {
             //if time is during job time, find job task
 
             //if needs are low enough, find need task
+
             //PrintNeeds();
             Need lowest = LowestNeed();
+            GD.PrintS(Name, "lowest", lowest);
+            currTask = ScheduleManager.GetNeedTask(this, lowest, closest);
 
+            if (currTask == null)
+                return;
+
+            GD.PrintS(Name, currTask.ToString());
+            //what if task is null??
             //consider hobbies next
-
         }
-
         //do task
+        timeLeftOnTask = currTask.GetDuration;
+
 
     }
 
@@ -136,29 +153,30 @@ public partial class NPC : CharacterBody3D {
     }
 
     public List<Task> FindTasksInArea() {
-        List<Task> closestsNeeds = new List<Task>();
-        shapecast.Enabled = true;
+        List<Task> closestsTasks = new List<Task>();
 
-        GD.Print(shapecast.IsColliding());
-        if (shapecast.IsColliding())
-            foreach (Variant node in shapecast.CollisionResult) {
-                //shapecast.
-                GD.Print(node);
-                if (CheckIfTaskNode((Node)node))
-                    closestsNeeds.Add((Task)node);
+        GD.PrintS(Name, shapecast.IsColliding());
+
+        if (shapecast.IsColliding()) {
+            for (int i = 0; i < shapecast.GetCollisionCount(); i++) {
+                //GD.PrintS(Name, ((Node3D)shapecast.GetCollider(i)).Name);
+                if (shapecast.GetCollider(i) is not Node3D)
+                    continue;
+
+                Task task = CheckIfTaskNode((Node3D)shapecast.GetCollider(i));
+                if (task != null)
+                    closestsTasks.Add(task);
             }
+        }
+        GD.PrintS("closest", Name, closestsTasks.Count);
 
-        GD.PrintS("closest", Name, closestsNeeds.Count);
-        //shapecast.Enabled = false;
-
-        return closestsNeeds;
+        return closestsTasks;
     }
 
-    private bool CheckIfTaskNode(Node node) {
-        foreach (Node n in node.GetParent().GetChildren())
-            if (n is Task)
-                return true;
-        return false;
+    private Task CheckIfTaskNode(Node3D node) {
+        foreach (Node child in node.GetChildren())
+            if (child is Task task)
+                return task;
+        return null;
     }
-
 }

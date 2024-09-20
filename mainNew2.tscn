@@ -1,19 +1,19 @@
 [gd_scene load_steps=31 format=3 uid="uid://diuwy3b42yv5c"]
 
-[ext_resource type="PackedScene" uid="uid://duau4b7orib43" path="res://Scenes/game_time.tscn" id="1_1fa1f"]
-[ext_resource type="PackedScene" uid="uid://ratdhqfgp8gj" path="res://Scenes/game_manager.tscn" id="2_5h1wp"]
+[ext_resource type="PackedScene" uid="uid://duau4b7orib43" path="res://Scenes/Utils/game_time.tscn" id="1_1fa1f"]
+[ext_resource type="PackedScene" uid="uid://ratdhqfgp8gj" path="res://Scenes/Utils/game_manager.tscn" id="2_5h1wp"]
 [ext_resource type="PackedScene" uid="uid://cvv7x2dstcq7c" path="res://Scenes/NPCs/CustomerNPC.tscn" id="4_bfrpp"]
 [ext_resource type="PackedScene" uid="uid://brf05haln1ovu" path="res://Scenes/NPCs/npc_spawner.tscn" id="6_603nh"]
 [ext_resource type="Script" path="res://Scripts/NPCs/ScheduleManager.cs" id="7_3ajfk"]
 [ext_resource type="Script" path="res://Scripts/Managers/StaffManager.cs" id="7_wy6wb"]
-[ext_resource type="PackedScene" uid="uid://dnhvdiof62i6c" path="res://Scenes/ui_manager.tscn" id="8_2s517"]
+[ext_resource type="PackedScene" uid="uid://dnhvdiof62i6c" path="res://Scenes/Managers/ui_manager.tscn" id="8_2s517"]
 [ext_resource type="PackedScene" uid="uid://dhxdgadu6oxme" path="res://Scenes/player.tscn" id="9_pys1w"]
-[ext_resource type="PackedScene" uid="uid://bm4aunvoehknb" path="res://Scenes/buy_stock.tscn" id="10_68rv2"]
+[ext_resource type="PackedScene" uid="uid://bm4aunvoehknb" path="res://Scenes/Interactables/buy_stock.tscn" id="10_68rv2"]
 [ext_resource type="Resource" uid="uid://br85ho7fjqipd" path="res://Resources/AppleCrate.tres" id="11_f2w55"]
 [ext_resource type="Resource" uid="uid://dcfsn40srrjbr" path="res://Resources/ButterCrate.tres" id="12_nmfvt"]
-[ext_resource type="PackedScene" uid="uid://c18wkc2g6xkfw" path="res://Scenes/shelf.tscn" id="13_v5j50"]
-[ext_resource type="PackedScene" uid="uid://ekdcvl5gblkh" path="res://Scenes/new_stock.tscn" id="14_4fdbf"]
-[ext_resource type="PackedScene" uid="uid://dbtfbohp0g48b" path="res://Scenes/cash_register.tscn" id="15_7s62a"]
+[ext_resource type="PackedScene" uid="uid://c18wkc2g6xkfw" path="res://Scenes/Interactables/shelf.tscn" id="13_v5j50"]
+[ext_resource type="PackedScene" uid="uid://ekdcvl5gblkh" path="res://Scenes/Interactables/new_stock.tscn" id="14_4fdbf"]
+[ext_resource type="PackedScene" uid="uid://dbtfbohp0g48b" path="res://Scenes/Interactables/cash_register.tscn" id="15_7s62a"]
 [ext_resource type="PackedScene" uid="uid://cjdwh5g5bkab" path="res://Scenes/Models/door.tscn" id="15_43pke"]
 [ext_resource type="PackedScene" uid="uid://dpkusfqq2gexd" path="res://Scenes/Models/wall.tscn" id="16_2uxli"]
 [ext_resource type="PackedScene" uid="uid://gadilcqnbb7m" path="res://Scenes/Models/house.tscn" id="16_15sg6"]
@@ -91,12 +91,13 @@ shadow_enabled = true
 environment = SubResource("Environment_g2spj")
 
 [node name="Player" parent="." instance=ExtResource("9_pys1w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.461346, 2.25457, -26.1737)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.461346, 2.25457, -3.1737)
 
 [node name="Enviornment" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_5jnnv")
 
 [node name="Ground" type="StaticBody3D" parent="Enviornment"]
+collision_mask = 2
 
 [node name="Ground" type="MeshInstance3D" parent="Enviornment/Ground"]
 mesh = SubResource("BoxMesh_uikad")
@@ -178,7 +179,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10, 0
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10, 0.440159, 5.57196)
 
 [node name="Door" parent="Enviornment/Store" instance=ExtResource("15_43pke")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, -12.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.4, -12.4)
 
 [node name="BuyStock" parent="Enviornment/Store" instance=ExtResource("10_68rv2")]
 transform = Transform3D(0.0533642, 0, -0.998575, 0, 1, 0, 0.998575, 0, 0.0533642, -7.74056, 0.782673, 2.64013)
@@ -222,6 +223,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 24, 0,
 
 [node name="Bench" type="CSGBox3D" parent="Enviornment/Park"]
 transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 1, 1.15, 15.2)
+layers = 8
 size = Vector3(3, 1.3, 1.4)
 material = SubResource("StandardMaterial3D_645fv")
 
@@ -230,6 +232,7 @@ taskBase = ExtResource("18_leooq")
 
 [node name="Bench2" type="CSGBox3D" parent="Enviornment/Park"]
 transform = Transform3D(-5.96046e-08, 0, -1, 0, 1, 0, 1, 0, -5.96046e-08, 3, 1.15, 20.2)
+layers = 8
 size = Vector3(3, 1.3, 1.4)
 material = SubResource("StandardMaterial3D_645fv")
 
@@ -238,6 +241,7 @@ taskBase = ExtResource("18_leooq")
 
 [node name="Bench3" type="CSGBox3D" parent="Enviornment/Park"]
 transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -5, 1.15, 21.2)
+layers = 8
 size = Vector3(3, 1.3, 1.4)
 material = SubResource("StandardMaterial3D_645fv")
 
@@ -246,6 +250,7 @@ taskBase = ExtResource("18_leooq")
 
 [node name="Flowers" type="CSGBox3D" parent="Enviornment/Park"]
 transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -9.75981, 0.65, 22.216)
+layers = 8
 size = Vector3(3, 0.3, 2)
 material = SubResource("StandardMaterial3D_645fv")
 
@@ -259,6 +264,15 @@ speed = 10.0
 [node name="StockerNode" parent="StockerNPC" index="0" node_paths=PackedStringArray("shelfContainer")]
 shelfContainer = NodePath("../../Enviornment")
 
+[node name="forward" parent="StockerNPC/Raycasts" index="0"]
+collision_mask = 1
+
+[node name="Right" parent="StockerNPC/Raycasts" index="1"]
+collision_mask = 1
+
+[node name="Left" parent="StockerNPC/Raycasts" index="2"]
+collision_mask = 1
+
 [node name="ShapeCast3D" parent="StockerNPC" index="7"]
 enabled = false
 
@@ -268,8 +282,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.68238, 0)
 [node name="CashierNode" parent="CashierNPC" index="0" node_paths=PackedStringArray("cashRegisterContainer")]
 cashRegisterContainer = NodePath("../../Enviornment")
 
+[node name="forward" parent="CashierNPC/Raycasts" index="0"]
+collision_mask = 1
+
+[node name="Right" parent="CashierNPC/Raycasts" index="1"]
+collision_mask = 1
+
+[node name="Left" parent="CashierNPC/Raycasts" index="2"]
+collision_mask = 1
+
 [node name="ShapeCast3D" parent="CashierNPC" index="7"]
 enabled = false
+collision_mask = 1
 
 [node name="NPCs" type="Node3D" parent="."]
 
@@ -288,5 +312,6 @@ raycasts = [NodePath("../Jimin/Raycasts/forward"), NodePath("../Jimin/Raycasts/R
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 1.5, -1)
 raycasts = [NodePath("../Jimin/Raycasts/forward"), NodePath("../Jimin/Raycasts/Right"), NodePath("../Jimin/Raycasts/Left")]
 
+[editable path="Enviornment/Store/Door"]
 [editable path="StockerNPC"]
 [editable path="CashierNPC"]

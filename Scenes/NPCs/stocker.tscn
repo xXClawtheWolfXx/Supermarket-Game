@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bfssguemfh8qh"]
 
 [ext_resource type="Script" path="res://Scripts/NPCs/Stocker.cs" id="1_dn3q4"]
-[ext_resource type="PackedScene" uid="uid://dbr5gcelrsyiw" path="res://Scenes/hands.tscn" id="2_7kmqv"]
+[ext_resource type="PackedScene" uid="uid://dbr5gcelrsyiw" path="res://Scenes/Utils/hands.tscn" id="2_7kmqv"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jplar"]
 

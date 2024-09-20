@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Managers/Shelf.cs" id="1_bs6pm"]
 [ext_resource type="Resource" uid="uid://dtot5k2d2lvgo" path="res://Resources/dummyItemR.tres" id="2_bku27"]
-[ext_resource type="PackedScene" uid="uid://daog1nnun51w1" path="res://Scenes/dynamic_inventory.tscn" id="2_nvbei"]
+[ext_resource type="PackedScene" uid="uid://daog1nnun51w1" path="res://Scenes/Utils/dynamic_inventory.tscn" id="2_nvbei"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_o8cos"]
 size = Vector3(4.83, 0.15, 1)
@@ -17,6 +17,7 @@ size = Vector3(4.83, 0.15, 1)
 size = Vector3(4.747, 3.87, 0.076)
 
 [node name="Shelf" type="StaticBody3D" node_paths=PackedStringArray("customerSpawnPos", "label", "dynamicInventory") groups=["Shelf"]]
+collision_layer = 8
 script = ExtResource("1_bs6pm")
 customerSpawnPos = NodePath("customerSpawnPos")
 label = NodePath("Label3D")

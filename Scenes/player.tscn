@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_y3t3v"]
 [ext_resource type="Script" path="res://Scripts/Util/RayPickerCamera.cs" id="2_dcvgs"]
 [ext_resource type="Script" path="res://Scripts/NPCs/Interact.cs" id="3_ehs6e"]
-[ext_resource type="PackedScene" uid="uid://dbr5gcelrsyiw" path="res://Scenes/hands.tscn" id="3_tgylp"]
+[ext_resource type="PackedScene" uid="uid://dbr5gcelrsyiw" path="res://Scenes/Utils/hands.tscn" id="3_tgylp"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ormet"]
 
@@ -17,6 +17,7 @@ size = Vector3(0.74, 0.17, 0.48)
 radius = 0.574908
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("meshRoot", "twistPivot", "pitchPivot", "hands")]
+collision_mask = 11
 script = ExtResource("1_y3t3v")
 meshRoot = NodePath("meshRoot")
 twistPivot = NodePath("TwistPivot")
@@ -41,6 +42,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.555, 1.15)
 [node name="InteractionRay" type="RayCast3D" parent="meshRoot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.464713, 0)
 target_position = Vector3(0, 0, 4)
+collision_mask = 9
 debug_shape_custom_color = Color(0.686275, 0.188235, 0.188235, 1)
 debug_shape_thickness = 5
 script = ExtResource("3_ehs6e")

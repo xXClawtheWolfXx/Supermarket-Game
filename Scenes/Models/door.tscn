@@ -12,6 +12,7 @@ albedo_color = Color(1, 0.401352, 0.48552, 1)
 size = Vector3(3.71, 4.69062, 0.2)
 
 [node name="Door" type="StaticBody3D" node_paths=PackedStringArray("collision", "mesh")]
+collision_layer = 2
 script = ExtResource("1_w7shy")
 collision = NodePath("CollisionShape3D")
 mesh = NodePath("MeshInstance3D")
