@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bmp7p36rehpuh" path="res://Scenes/Item/crate_butter.tscn" id="1_0xiag"]
 [ext_resource type="Script" path="res://Scripts/Managers/CrateR.cs" id="1_e62t2"]
-[ext_resource type="Resource" uid="uid://c07c4al8f0hqw" path="res://Resources/Butter.tres" id="2_fphu3"]
+[ext_resource type="Resource" uid="uid://c07c4al8f0hqw" path="res://Resources/Items/Butter.tres" id="2_fphu3"]
 
 [resource]
 script = ExtResource("1_e62t2")

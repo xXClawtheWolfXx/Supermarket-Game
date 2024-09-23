@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TaskR" load_steps=2 format=3 uid="uid://6hd456juaufl"]
 
-[ext_resource type="Script" path="res://Scripts/Tasks/TaskR.cs" id="1_dk606"]
+[ext_resource type="Script" path="res://Scripts/TasksUtil/TaskR.cs" id="1_dk606"]
 
 [resource]
 script = ExtResource("1_dk606")

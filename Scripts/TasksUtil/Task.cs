@@ -1,11 +1,13 @@
 using Godot;
 using System;
 using Godot.Collections;
+using System.Threading;
 
 public partial class Task : Node3D {
 
     [Export] protected TaskR taskBase;
     [Export] protected bool isUsed = false;
+    [Export] protected bool isCultureTask = false;
     [Export] protected Array<Task> adjacentTasks = new Array<Task>();
 
     public Need GetNeed { get { return taskBase.GetNeedSatisfied; } }
@@ -13,6 +15,7 @@ public partial class Task : Node3D {
     public int GetDuration { get { return taskBase.GetDuration; } }
     public Vector3 GetTaskPosition { get { return GlobalPosition; } }
     public bool IsBeingUsed { get { return isUsed; } }
+    public bool GetIsCultureTask { get { return isCultureTask; } }
 
     private Vector3 location;
 
@@ -32,7 +35,6 @@ public partial class Task : Node3D {
     public virtual bool CheckIfCanDoTask(NPC npc) {
         return isUsed;
     }
-
 
     public virtual Task GetAdjacentTasks(NPC npc) {
         return null;

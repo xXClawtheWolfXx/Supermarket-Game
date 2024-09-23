@@ -86,7 +86,7 @@ mesh = SubResource("BoxMesh_xrs6h")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bed"]
 shape = SubResource("BoxShape3D_22l0x")
 
-[node name="Task" parent="Bed" instance=ExtResource("3_akrny")]
+[node name="SleepTask" parent="Bed" instance=ExtResource("3_akrny")]
 taskBase = ExtResource("4_ac3po")
 
 [node name="Bookshelf" type="StaticBody3D" parent="."]
@@ -100,7 +100,7 @@ mesh = SubResource("BoxMesh_8fbit")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bookshelf"]
 shape = SubResource("BoxShape3D_gnxep")
 
-[node name="Task" parent="Bookshelf" instance=ExtResource("3_akrny")]
+[node name="ReadTask" parent="Bookshelf" instance=ExtResource("3_akrny")]
 taskBase = ExtResource("5_y3tc4")
 
 [node name="Kitchen" type="StaticBody3D" parent="."]
@@ -114,7 +114,7 @@ mesh = SubResource("BoxMesh_yrhnb")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Kitchen"]
 shape = SubResource("BoxShape3D_ucum3")
 
-[node name="Task" parent="Kitchen" instance=ExtResource("3_akrny")]
+[node name="CookTask" parent="Kitchen" instance=ExtResource("3_akrny")]
 taskBase = ExtResource("6_dtf8r")
 
 [editable path="Wall"]

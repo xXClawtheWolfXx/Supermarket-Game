@@ -117,7 +117,7 @@ public partial class Player : CharacterBody3D, ICharacter {
 
     //mouseMovement and player Rotation
     public override void _Input(InputEvent @event) {
-        if (@event is InputEventMouseMotion mouseMotion) {
+        if (@event is InputEventMouseMotion mouseMotion && Input.MouseMode == Input.MouseModeEnum.Captured) {
             twistInput = -mouseMotion.Relative.X * mouseSensitivity;
             pitchInput = -mouseMotion.Relative.Y * mouseSensitivity;
 

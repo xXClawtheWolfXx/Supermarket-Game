@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CrateR" load_steps=4 format=3 uid="uid://6rpn5iap0wof"]
 
 [ext_resource type="PackedScene" uid="uid://dd0inly3nu0si" path="res://Scenes/Item/crate.tscn" id="1_hq671"]
-[ext_resource type="Resource" uid="uid://nhg27bd602y" path="res://Resources/Blackberry.tres" id="2_wpqrm"]
+[ext_resource type="Resource" uid="uid://nhg27bd602y" path="res://Resources/Items/Blackberry.tres" id="2_wpqrm"]
 [ext_resource type="Script" path="res://Scripts/Managers/CrateR.cs" id="3_h5hsx"]
 
 [resource]

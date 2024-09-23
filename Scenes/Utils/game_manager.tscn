@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://ratdhqfgp8gj"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/GameManager.cs" id="1_sq76x"]
-[ext_resource type="Resource" uid="uid://nhg27bd602y" path="res://Resources/Blackberry.tres" id="2_fi5y3"]
-[ext_resource type="Resource" uid="uid://dbhflyhsvyx4f" path="res://Resources/Apple.tres" id="3_tx05g"]
-[ext_resource type="Resource" uid="uid://c07c4al8f0hqw" path="res://Resources/Butter.tres" id="4_6slbk"]
+[ext_resource type="Resource" uid="uid://nhg27bd602y" path="res://Resources/Items/Blackberry.tres" id="2_fi5y3"]
+[ext_resource type="Resource" uid="uid://dbhflyhsvyx4f" path="res://Resources/Items/Apple.tres" id="3_tx05g"]
+[ext_resource type="Resource" uid="uid://c07c4al8f0hqw" path="res://Resources/Items/Butter.tres" id="4_6slbk"]
 
 [node name="GameManager" type="Node3D"]
 script = ExtResource("1_sq76x")

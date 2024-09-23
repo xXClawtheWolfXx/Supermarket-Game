@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TaskR" load_steps=2 format=3 uid="uid://c185ik7fap1by"]
+
+[ext_resource type="Script" path="res://Scripts/TasksUtil/TaskR.cs" id="1_17vba"]
+
+[resource]
+script = ExtResource("1_17vba")
+taskName = "Cleaning up trash"
+duration = 2
+isDurationTask = true
+needSatisfied = 5
+isJobTask = true

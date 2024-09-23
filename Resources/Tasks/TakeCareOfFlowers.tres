@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TaskR" load_steps=2 format=3 uid="uid://diqaxcutu60ui"]
+
+[ext_resource type="Script" path="res://Scripts/TasksUtil/TaskR.cs" id="1_mvdfs"]
+
+[resource]
+script = ExtResource("1_mvdfs")
+taskName = "Taking Care of Flowers"
+duration = 3
+isDurationTask = true
+needSatisfied = 3
+isJobTask = true

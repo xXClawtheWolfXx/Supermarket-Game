@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Managers/BuyStock.cs" id="1_jkwxh"]
 [ext_resource type="PackedScene" uid="uid://qtl1a3gvbksv" path="res://Scenes/NPCs/interaction.tscn" id="2_4okeg"]
-[ext_resource type="Resource" uid="uid://6rpn5iap0wof" path="res://Resources/BlackberryCrate.tres" id="2_rjaqn"]
+[ext_resource type="Resource" uid="uid://6rpn5iap0wof" path="res://Resources/Crate/BlackberryCrate.tres" id="2_rjaqn"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_68sb8"]
 size = Vector3(2, 0.12, 2)
