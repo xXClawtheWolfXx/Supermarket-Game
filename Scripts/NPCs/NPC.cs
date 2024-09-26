@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics.Tracing;
 using Godot.NativeInterop;
+using System.Security.Principal;
 
 public partial class NPC : CharacterBody3D {
 
@@ -26,6 +27,7 @@ public partial class NPC : CharacterBody3D {
     [ExportGroup("Tasks")]
     [Export] private Task hobby;
     [Export] private Culture culture;
+    [Export] private Array<Task> favoriteTasks = new Array<Task>();
     //dialogue
 
     //NPC AI Stuff
@@ -45,6 +47,7 @@ public partial class NPC : CharacterBody3D {
         for (int i = 0; i < GameTime.Instance.GetMaxTimeSlots; i++)
             schedule.Add(null);
 
+        GameTime.Instance.OnTimeIncrease += DecreaseAllNeeds;
         GameTime.Instance.OnTimeIncrease += NextTask;
         NextTask(0);
     }
@@ -120,49 +123,30 @@ public partial class NPC : CharacterBody3D {
         Need lowest = LowestNeed();
         //find next task
         if (currTask is null) {
-
-            //check if culture thing is neccessary
-            if (culture.tasks[time].GetIsCultureTask) {
-                GD.PrintS(Name, "is doing culture task");
-                currTask = culture.tasks[time];
-                if (culture.tasks[time].CheckIfCanDoTask(this))
-                    currTask = null;
-            }
-
-            List<Task> closest = FindTasksInArea();
-
-            //if time is during job time, find job task
-            if (job != null && time >= job.GetStartTime && time < job.GetEndTime) {
-                GD.PrintS(Name, "is doing job task");
-                currTask = job.GetJobTask(this);
-            }
-
-            //if needs are low enough, find need task
-            if (!AreNeedsHighEnough()) {
-                GD.PrintS(Name, "is doing need task");
-                currTask = ScheduleManager.GetNeedTask(this, lowest, closest);
-                //add to lowest need
-                npcNeeds[(int)lowest].amount += 10;
-            }
-
-            //do hobby when?
-
-            //if task is null, do culture task or can do rand task
+            currTask = FindNextTask(time, lowest);
+            GD.PrintS(Name, currTask == null);
+            //if task is null, do favored task
             if (currTask == null) {
-                if (culture.tasks[time].CheckIfCanDoTask(this)) {
+                currTask = DoFavoredTasks();
+            }
+            GD.PrintS(Name, "passed favor", currTask == null);
+
+            //if task is still null, do culture task 
+            if (currTask == null) {
+                if (!culture.tasks[time].CheckIfCanDoTask(this)) {
                     currTask = null;
                     return;
                 }
                 currTask = culture.tasks[time];
+
             }
 
+            GD.PrintS(Name, "passed culture 2", currTask == null);
+
+
             currTask.SetBeingUsed(true);
-            //return;
 
-            //if not(task still null), go home and sleep
-
-
-            //GD.PrintS(Name, currTask.ToString(), currTask.GetParent().Name);
+            GD.PrintS(Name, currTask.ToString());
             //consider hobbies next
         }
         //do task
@@ -170,6 +154,55 @@ public partial class NPC : CharacterBody3D {
         Move(currTask.GetTaskPosition);
         isDoingTask = true;
 
+    }
+
+    private Task FindNextTask(int time, Need lowest) {
+        //check if culture thing is neccessary
+        Task cultureTask = culture.tasks[time];
+        if (cultureTask.GetIsCultureTask) {
+            if (cultureTask.CheckIfCanDoTask(this)) {
+                GD.PrintS(Name, "is doing culture task");
+                return cultureTask;
+            }
+        }
+
+        //if time is during job time, find job task
+        if (job != null && time >= job.GetStartTime && time < job.GetEndTime) {
+            Task jobTask = job.GetJobTask(this);
+            if (jobTask != null) {
+                GD.PrintS(Name, "is doing job task");
+                return jobTask;
+            }
+        }
+
+        List<Task> closest = FindTasksInArea();
+
+        //if needs are low enough, find need task
+        PrintNeeds();
+        GD.PrintS("needs not high enough", !AreNeedsHighEnough());
+        if (!AreNeedsHighEnough()) {
+            Task needTask = ScheduleManager.GetNeedTask(this, lowest, closest);
+            if (needTask != null) {
+                GD.PrintS(Name, "is doing need task");
+                //add to lowest need
+                npcNeeds[(int)lowest].amount += 10;
+                return needTask;
+            }
+        }
+
+        //do hobby when?
+        return null;
+    }
+
+    private Task DoFavoredTasks() {
+        int randNum = GD.RandRange(0, favoriteTasks.Count - 1);
+        Task task = favoriteTasks[randNum];
+        //GD.PrintS(Name, task.ToString(), task.CheckIfCanDoTask(this));
+        if (task.CheckIfCanDoTask(this)) {
+            GD.PrintS(Name, "is doing favored task");
+            return task;
+        }
+        return null;
     }
 
     public void DecreaseAllNeeds(int time) {
@@ -181,16 +214,17 @@ public partial class NPC : CharacterBody3D {
     //Is the average 80% or more?
     private bool AreNeedsHighEnough() {
         foreach (NPCNeed n in npcNeeds)
-            if (n.amount < 40)
+            if (n.amount < 75)
                 return false;
         return true;
     }
 
     public void PrintNeeds() {
-        GD.Print(Name);
+        string needs = Name;
         foreach (NPCNeed npcNeed in npcNeeds) {
-            GD.PrintS(npcNeed.need.ToString(), npcNeed.amount);
+            needs += npcNeed.need.ToString() + " " + npcNeed.amount + " ";
         }
+        GD.PrintS(needs);
     }
     //Find the lowest Need
     public Need LowestNeed() {

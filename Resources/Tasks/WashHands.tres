@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TaskR" load_steps=2 format=3 uid="uid://degasux736bjw"]
+
+[ext_resource type="Script" path="res://Scripts/TasksUtil/TaskR.cs" id="1_5auy7"]
+
+[resource]
+script = ExtResource("1_5auy7")
+taskName = "WashingHands"
+duration = 1
+isDurationTask = true
+needSatisfied = 1
+isJobTask = false

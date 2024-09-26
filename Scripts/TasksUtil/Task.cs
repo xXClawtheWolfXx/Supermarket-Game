@@ -3,6 +3,8 @@ using System;
 using Godot.Collections;
 using System.Threading;
 
+[GlobalClass]
+
 public partial class Task : Node3D {
 
     [Export] protected TaskR taskBase;
@@ -33,7 +35,7 @@ public partial class Task : Node3D {
     }
 
     public virtual bool CheckIfCanDoTask(NPC npc) {
-        return isUsed;
+        return !isUsed;
     }
 
     public virtual Task GetAdjacentTasks(NPC npc) {

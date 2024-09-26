@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://gadilcqnbb7m"]
+[gd_scene load_steps=18 format=3 uid="uid://gadilcqnbb7m"]
 
 [ext_resource type="PackedScene" uid="uid://dpkusfqq2gexd" path="res://Scenes/Models/wall.tscn" id="1_d60ga"]
 [ext_resource type="Material" uid="uid://172m2k62wkij" path="res://Art/Materials/grey.tres" id="2_hvduo"]
 [ext_resource type="PackedScene" uid="uid://dvt6rxnkpq81o" path="res://Scenes/Task/task.tscn" id="3_akrny"]
 [ext_resource type="Resource" uid="uid://6hd456juaufl" path="res://Resources/Tasks/Sleep.tres" id="4_ac3po"]
+[ext_resource type="Resource" uid="uid://degasux736bjw" path="res://Resources/Tasks/WashHands.tres" id="5_lu65w"]
 [ext_resource type="Resource" uid="uid://v6o5akwldfjp" path="res://Resources/Tasks/Read.tres" id="5_y3tc4"]
 [ext_resource type="Resource" uid="uid://bgnqkocon2830" path="res://Resources/Tasks/Cook.tres" id="6_dtf8r"]
 
@@ -18,6 +19,12 @@ size = Vector3(3, 1, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_22l0x"]
 size = Vector3(3, 1, 5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rjxlv"]
+size = Vector3(1, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_41frp"]
+size = Vector3(1, 2, 2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_8fbit"]
 size = Vector3(0.88, 4.72, 3.16)
@@ -88,6 +95,20 @@ shape = SubResource("BoxShape3D_22l0x")
 
 [node name="SleepTask" parent="Bed" instance=ExtResource("3_akrny")]
 taskBase = ExtResource("4_ac3po")
+
+[node name="Sink" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3, 1, -3.7)
+collision_layer = 8
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sink"]
+mesh = SubResource("BoxMesh_rjxlv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sink"]
+shape = SubResource("BoxShape3D_41frp")
+
+[node name="WashHandsTask" parent="Sink" instance=ExtResource("3_akrny")]
+taskBase = ExtResource("5_lu65w")
 
 [node name="Bookshelf" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2.4, 1.2)

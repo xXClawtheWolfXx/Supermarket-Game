@@ -4,13 +4,6 @@ using System.Collections.Generic;
 
 public partial class ScheduleManager : Node3D {
 
-    public static Task GetNextTask(NPC npc, List<Task> potentialTasks) {
-        Task newTask = null;
-
-
-        return newTask;
-    }
-
     public static Task GetNeedTask(NPC npc, Need need, List<Task> tasks) {
         Task newTask = null;
 
@@ -32,6 +25,7 @@ public partial class ScheduleManager : Node3D {
         //check if we can do the task, if not, get the next one
         while (newTask.IsBeingUsed) {
             potentialTasks.TryDequeue(out newTask, out priority);
+            //if no more tasks
             if (newTask == null)
                 break;
         }
@@ -39,19 +33,6 @@ public partial class ScheduleManager : Node3D {
         return newTask;
     }
 
-    public static Task GetJobTask(NPC npc) {
-        Task newTask = null;
-
-
-        return newTask;
-    }
-
-    public static Task GetHobbyTask(NPC npc) {
-        Task newTask = null;
-
-
-        return newTask;
-    }
 
     public static Task GetBestTask(Vector3 pos, List<Task> potentialTasks) {
         Task bestTask = null;
