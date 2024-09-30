@@ -20,6 +20,7 @@ albedo_color = Color(0.882353, 0.521569, 0.988235, 1)
 radius = 20.0
 
 [node name="NPC" type="CharacterBody3D" node_paths=PackedStringArray("raycasts", "shapecast", "agent")]
+collision_mask = 3
 script = ExtResource("1_jmb83")
 raycasts = [NodePath("Raycasts/forward"), NodePath("Raycasts/Right"), NodePath("Raycasts/Left")]
 shapecast = NodePath("ShapeCast3D")

@@ -33,7 +33,7 @@ public partial class GameManager : Node {
 
     /// Opens the store
     public void OpenStore() {
-        NPCSpawner.Instance.CanSpawn(true);
+        // NPCSpawner.Instance.CanSpawn(true);
         EmitSignal(SignalName.OnOpenStore);
         isOpen = true;
     }

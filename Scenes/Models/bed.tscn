@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://obdbw7e7mpo4"]
+
+[ext_resource type="PackedScene" uid="uid://dvt6rxnkpq81o" path="res://Scenes/Task/task.tscn" id="1_pcipp"]
+[ext_resource type="Script" path="res://Scripts/TasksUtil/Tasks/SleepTask.cs" id="2_bln4m"]
+[ext_resource type="Resource" uid="uid://6hd456juaufl" path="res://Resources/Tasks/Sleep.tres" id="3_rlu31"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xrs6h"]
+size = Vector3(3, 1, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_22l0x"]
+size = Vector3(3, 1, 5)
+
+[node name="Bed" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 0.5, 0.3)
+collision_layer = 8
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_xrs6h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_22l0x")
+
+[node name="SleepTask" parent="." node_paths=PackedStringArray("topOfBedPos", "sideOfBedPos") instance=ExtResource("1_pcipp")]
+script = ExtResource("2_bln4m")
+topOfBedPos = NodePath("../TopOfBedPos")
+sideOfBedPos = NodePath("../SideBedPos")
+taskBase = ExtResource("3_rlu31")
+
+[node name="TopOfBedPos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="SideBedPos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7, 0, 0)

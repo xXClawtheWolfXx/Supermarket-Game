@@ -43,6 +43,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.555, 1.15)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.464713, 0)
 target_position = Vector3(0, 0, 4)
 collision_mask = 9
+collide_with_areas = true
 debug_shape_custom_color = Color(0.686275, 0.188235, 0.188235, 1)
 debug_shape_thickness = 5
 script = ExtResource("3_ehs6e")

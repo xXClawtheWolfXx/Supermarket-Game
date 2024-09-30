@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuv4hqtefsupy"]
+
+[ext_resource type="Script" path="res://Scripts/TasksUtil/Tasks/ShoppingTask.cs" id="1_c1n2t"]
+[ext_resource type="Resource" uid="uid://cowv0i4yucvqj" path="res://Resources/Tasks/ShopTask.tres" id="2_vxfun"]
+
+[node name="ShoppingTask" type="Node3D"]
+script = ExtResource("1_c1n2t")
+taskBase = ExtResource("2_vxfun")

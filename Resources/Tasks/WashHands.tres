@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_5auy7")
 taskName = "WashingHands"
-duration = 1
+duration = 2
 isDurationTask = true
 needSatisfied = 1
 isJobTask = false

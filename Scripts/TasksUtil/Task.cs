@@ -18,6 +18,7 @@ public partial class Task : Node3D {
     public Vector3 GetTaskPosition { get { return GlobalPosition; } }
     public bool IsBeingUsed { get { return isUsed; } }
     public bool GetIsCultureTask { get { return isCultureTask; } }
+    public bool GetIsDurationTask { get { return taskBase.GetIsDurationTask; } }
 
     private Vector3 location;
 
@@ -30,12 +31,16 @@ public partial class Task : Node3D {
     }
 
     public virtual void DoTask(NPC npc) {
-        isUsed = false;
+        isUsed = true;
         GD.PrintS(npc.Name, "is doing", ToString());
     }
 
     public virtual bool CheckIfCanDoTask(NPC npc) {
         return !isUsed;
+    }
+
+    public virtual void FinishTask(NPC npc) {
+        isUsed = false;
     }
 
     public virtual Task GetAdjacentTasks(NPC npc) {

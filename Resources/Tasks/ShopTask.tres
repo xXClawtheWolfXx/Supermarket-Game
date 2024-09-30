@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TaskR" load_steps=2 format=3 uid="uid://cowv0i4yucvqj"]
+
+[ext_resource type="Script" path="res://Scripts/TasksUtil/TaskR.cs" id="1_o62w3"]
+
+[resource]
+script = ExtResource("1_o62w3")
+taskName = "Shopping"
+duration = 0
+isDurationTask = false
+needSatisfied = 5
+isJobTask = false

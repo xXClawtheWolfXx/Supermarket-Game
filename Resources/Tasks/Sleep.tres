@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_dk606")
 taskName = "Sleeping"
-duration = 16
+duration = 2
 isDurationTask = true
 needSatisfied = 2
+isJobTask = false

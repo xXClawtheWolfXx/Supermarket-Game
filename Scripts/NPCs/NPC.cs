@@ -35,6 +35,9 @@ public partial class NPC : CharacterBody3D {
     private Task currTask;
     private bool isDoingTask = false;
     private int timeLeftOnTask = 0;
+    private int taskStep;
+
+    public int GetTaskStep { get { return taskStep; } }
 
     public override void _Ready() {
         for (int i = 0; i < npcNeeds.Length; i++) {
@@ -109,15 +112,17 @@ public partial class NPC : CharacterBody3D {
 
 
     public void NextTask(int time) {
-        GD.PrintS(Name, timeLeftOnTask);
-        //check if already doing task
+        //GD.PrintS(Name, timeLeftOnTask);
+        //check if already doing task and if duration task
         if (timeLeftOnTask > 0) {
             timeLeftOnTask--;
             return;
             //schedule[time] = currTask;
         }
+        currTask?.FinishTask(this);
+
         //get next task
-        currTask?.SetBeingUsed(false);
+        //currTask?.SetBeingUsed(false);
         currTask = schedule[time];
         GD.PrintS(Name, "Looking for Task");
         Need lowest = LowestNeed();
@@ -144,7 +149,7 @@ public partial class NPC : CharacterBody3D {
             GD.PrintS(Name, "passed culture 2", currTask == null);
 
 
-            currTask.SetBeingUsed(true);
+            // currTask.SetBeingUsed(true);
 
             GD.PrintS(Name, currTask.ToString());
             //consider hobbies next
@@ -185,7 +190,7 @@ public partial class NPC : CharacterBody3D {
             if (needTask != null) {
                 GD.PrintS(Name, "is doing need task");
                 //add to lowest need
-                npcNeeds[(int)lowest].amount += 10;
+                npcNeeds[(int)lowest].amount += 30;
                 return needTask;
             }
         }
@@ -205,9 +210,13 @@ public partial class NPC : CharacterBody3D {
         return null;
     }
 
+    public void IncreaseANeed(Need need, int amount) {
+        npcNeeds[(int)need].amount += amount;
+    }
+
     public void DecreaseAllNeeds(int time) {
         foreach (NPCNeed npcNeed in npcNeeds) {
-            npcNeed.amount -= 10;
+            npcNeed.amount -= 1;
         }
     }
 

@@ -1,19 +1,18 @@
 using Godot;
 using System;
 
-public partial class Door : StaticBody3D, IInteractable {
+public partial class Door : Area3D, IInteractable {
     [Export] private CollisionShape3D collision;
     [Export] private Node3D mesh;
+    [Export] private NavigationLink3D link;
 
     bool doorOpen;
-    public override void _Ready() {
-
-    }
 
     private void OpenDoor() {
         collision.Visible = false;
         collision.Disabled = true;
         mesh.Visible = false;
+        link.Enabled = true;
         GameManager.Instance.OpenStore();
     }
 
@@ -21,8 +20,8 @@ public partial class Door : StaticBody3D, IInteractable {
         collision.Visible = true;
         collision.Disabled = false;
         mesh.Visible = true;
+        link.Enabled = false;
         GameManager.Instance.CloseStore();
-
     }
 
     public void Interact(Node3D body) {
@@ -31,6 +30,7 @@ public partial class Door : StaticBody3D, IInteractable {
                 CloseDoor();
             else
                 OpenDoor();
+            doorOpen = !doorOpen;
         }
     }
 
