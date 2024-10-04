@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://qtl1a3gvbksv"]
 
-[ext_resource type="Script" path="res://Scripts/NPCs/Interaction.cs" id="1_lou6h"]
+[ext_resource type="Script" path="res://Scripts/ZZZZZZZ-----TO_BE_DELETED/Interaction.cs" id="1_lou6h"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_epnoi"]
 size = Vector3(3.5, 4, 0.99)

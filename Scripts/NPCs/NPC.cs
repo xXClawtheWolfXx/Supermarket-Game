@@ -1,14 +1,11 @@
 using Godot;
 using System;
 using Godot.Collections;
-using System.Reflection.Metadata;
 using System.Collections.Generic;
-using System.Linq;
-using System.Diagnostics.Tracing;
-using Godot.NativeInterop;
-using System.Security.Principal;
 
-public partial class NPC : CharacterBody3D {
+public partial class NPC : CharacterBody3D, ICharacter {
+
+    [Export] private Label3D nameLabel;
 
     [ExportGroup("Movement")]
     [Export] private Array<RayCast3D> raycasts;
@@ -23,6 +20,8 @@ public partial class NPC : CharacterBody3D {
     [Export] private int money;
     [Export] private Node3D house;
     [Export] private Job job;
+    [Export] private Hands hands;
+    [Export] private DynamicInventory basket;
 
     [ExportGroup("Tasks")]
     [Export] private Task hobby;
@@ -40,6 +39,7 @@ public partial class NPC : CharacterBody3D {
     public int GetTaskStep { get { return taskStep; } }
 
     public override void _Ready() {
+        nameLabel.Text = Name;
         for (int i = 0; i < npcNeeds.Length; i++) {
             Need need = (Need)Enum.Parse(typeof(Need), i.ToString());
             int needAmt = GD.RandRange(60, 80);
@@ -111,8 +111,12 @@ public partial class NPC : CharacterBody3D {
     //-------------NPC Stuff----------
 
 
+    public void SetCurrTask(Task task) {
+        currTask = task;
+    }
+
     public void NextTask(int time) {
-        //GD.PrintS(Name, timeLeftOnTask);
+        GD.PrintS(Name, timeLeftOnTask, currTask?.Name);
         //check if already doing task and if duration task
         if (timeLeftOnTask > 0) {
             timeLeftOnTask--;
@@ -148,13 +152,13 @@ public partial class NPC : CharacterBody3D {
 
             GD.PrintS(Name, "passed culture 2", currTask == null);
 
-
-            // currTask.SetBeingUsed(true);
+            schedule[time] = currTask;
 
             GD.PrintS(Name, currTask.ToString());
             //consider hobbies next
         }
         //do task
+
         timeLeftOnTask = currTask.GetDuration;
         Move(currTask.GetTaskPosition);
         isDoingTask = true;
@@ -273,5 +277,29 @@ public partial class NPC : CharacterBody3D {
             if (child is Task task)
                 return task;
         return null;
+    }
+
+
+    //-------------INVENTORY------------------
+    public void PickUp(IGatherable item) {
+        hands.PickUp(item);
+    }
+
+    public IGatherable PutDown() {
+        return hands.PutDown();
+    }
+
+    public void PutInBasket(ItemR item) {
+        basket.Visible = true;
+        basket.AddToInventory(item, this);
+    }
+
+    public void TakeOutOfBasket() {
+        basket.RemoveFromInventory();
+        basket.Visible = false;
+    }
+
+    public bool IsBasketFull() {
+        return basket.GetIsInventoryFull;
     }
 }

@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://s37vs2bqcq84"]
 
-[ext_resource type="Script" path="res://Scripts/Managers/Stock.cs" id="1_q6gvu"]
+[ext_resource type="Script" path="res://Scripts/ZZZZZZZ-----TO_BE_DELETED/Stock.cs" id="1_q6gvu"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_np4nq"]
 size = Vector3(2.5, 5, 2)

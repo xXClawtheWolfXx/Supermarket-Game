@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://pkmyi1mh2p8w"]
+[gd_scene load_steps=10 format=3 uid="uid://pkmyi1mh2p8w"]
 
 [ext_resource type="Script" path="res://Scripts/NPCs/NPC.cs" id="1_jmb83"]
 [ext_resource type="PackedScene" uid="uid://dbr5gcelrsyiw" path="res://Scenes/Utils/hands.tscn" id="2_4rg0b"]
+[ext_resource type="PackedScene" uid="uid://dsrouyyqgkb2p" path="res://Scenes/NPCs/basket.tscn" id="3_x8d4s"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_m6myh"]
 
@@ -17,11 +18,12 @@ albedo_color = Color(0.882353, 0.521569, 0.988235, 1)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cvgrb"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xrdoo"]
-radius = 20.0
+radius = 40.0
 
-[node name="NPC" type="CharacterBody3D" node_paths=PackedStringArray("raycasts", "shapecast", "agent")]
+[node name="NPC" type="CharacterBody3D" node_paths=PackedStringArray("nameLabel", "raycasts", "shapecast", "agent")]
 collision_mask = 3
 script = ExtResource("1_jmb83")
+nameLabel = NodePath("NameLabel")
 raycasts = [NodePath("Raycasts/forward"), NodePath("Raycasts/Right"), NodePath("Raycasts/Left")]
 shapecast = NodePath("ShapeCast3D")
 agent = NodePath("NavigationAgent3D")
@@ -74,5 +76,15 @@ shape = SubResource("SphereShape3D_xrdoo")
 target_position = Vector3(0, 0, 0)
 collision_mask = 8
 debug_shape_custom_color = Color(0.656139, 0.32941, 0.166253, 1)
+
+[node name="NameLabel" type="Label3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.544, 0)
+pixel_size = 0.009
+billboard = 2
+text = "Buttrer
+"
+
+[node name="Basket" parent="." instance=ExtResource("3_x8d4s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.3, 0)
 
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="OnNavigationAgent3DVelocityComputed"]

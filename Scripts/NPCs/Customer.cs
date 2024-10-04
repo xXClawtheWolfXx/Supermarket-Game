@@ -80,7 +80,7 @@ public partial class Customer : Node3D {
             if (shelf.HasItemR() && shelf.GetItemR?.GetName != first.GetName)
                 continue;
             //we found a shelf
-            npcComp.Move(shelf.GetCustomerSpawnPos.GlobalPosition);
+            // npcComp.Move(shelf.GetCustomerSpawnPos.GlobalPosition);
             return;
         }
         shoppingList.RemoveAt(0);

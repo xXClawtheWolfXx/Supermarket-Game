@@ -5,7 +5,7 @@ using static Godot.GD;
 /// Holds the buyable ItemR's that Customers can put into their shopping baskets and leave with
 public partial class Shelf : StaticBody3D, IInteractable {
 
-    [Export] Node3D customerSpawnPos;
+    //[Export] Node3D customerSpawnPos;
     [Export] Label3D label;
     [Export] DynamicInventory dynamicInventory;
     [Export] ItemR dummyItemR;
@@ -15,12 +15,11 @@ public partial class Shelf : StaticBody3D, IInteractable {
     List<CrateR> crates = new List<CrateR>(); // make a list of crates instead of just one?--for unstocking?
 
     public ItemR GetItemR { get { return item; } }
-    public Node3D GetCustomerSpawnPos { get { return customerSpawnPos; } }
+    // public Node3D GetCustomerSpawnPos { get { return customerSpawnPos; } }
     public int GetItemAmount { get { return itemAmount; } }
 
     public override void _Ready() {
-        //item = dummyItemR;
-        Print(HasItemR());
+        //Print(HasItemR());
     }
 
     public bool IsEmpty() {
@@ -32,7 +31,6 @@ public partial class Shelf : StaticBody3D, IInteractable {
     }
 
     public bool HasItemR() { return item != null; }
-
 
     /// For each of the same item in the customer's shopping basket, will give that item to the customer 
     public void TakeItem(Customer cust, int howMany) {

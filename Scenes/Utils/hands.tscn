@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dbr5gcelrsyiw"]
 
-[ext_resource type="Script" path="res://Scripts/NPCs/Hands.cs" id="1_lyfjf"]
+[ext_resource type="Script" path="res://Scripts/Inventory/Hands.cs" id="1_lyfjf"]
 
 [node name="Hands" type="Node3D" node_paths=PackedStringArray("handsPos")]
 script = ExtResource("1_lyfjf")

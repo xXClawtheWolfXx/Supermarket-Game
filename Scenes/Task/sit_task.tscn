@@ -1,0 +1,9 @@
+[gd_scene load_steps=4 format=3 uid="uid://d022s84tcbxcf"]
+
+[ext_resource type="PackedScene" uid="uid://dvt6rxnkpq81o" path="res://Scenes/Task/task.tscn" id="1_7o0em"]
+[ext_resource type="Script" path="res://Scripts/TasksUtil/Tasks/SitTask.cs" id="2_j3ukl"]
+[ext_resource type="Resource" uid="uid://dchn6ehsp3ld2" path="res://Resources/Tasks/Sit.tres" id="3_n6jeq"]
+
+[node name="SitTask" instance=ExtResource("1_7o0em")]
+script = ExtResource("2_j3ukl")
+taskBase = ExtResource("3_n6jeq")

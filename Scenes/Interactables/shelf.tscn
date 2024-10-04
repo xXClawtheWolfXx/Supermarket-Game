@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://c18wkc2g6xkfw"]
 
-[ext_resource type="Script" path="res://Scripts/Managers/Shelf.cs" id="1_bs6pm"]
+[ext_resource type="Script" path="res://Scripts/Items/Shelf.cs" id="1_bs6pm"]
 [ext_resource type="Resource" uid="uid://dtot5k2d2lvgo" path="res://Resources/Items/dummyItemR.tres" id="2_bku27"]
 [ext_resource type="PackedScene" uid="uid://daog1nnun51w1" path="res://Scenes/Utils/dynamic_inventory.tscn" id="2_nvbei"]
 

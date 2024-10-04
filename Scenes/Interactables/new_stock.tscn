@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://ekdcvl5gblkh"]
 
-[ext_resource type="Script" path="res://Scripts/Managers/StockInventory.cs" id="1_ye7xm"]
+[ext_resource type="Script" path="res://Scripts/Items/Store/StockInventory.cs" id="1_ye7xm"]
 [ext_resource type="PackedScene" uid="uid://daog1nnun51w1" path="res://Scenes/Utils/dynamic_inventory.tscn" id="2_e5umd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s0ivi"]

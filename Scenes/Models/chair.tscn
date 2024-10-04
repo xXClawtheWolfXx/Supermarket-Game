@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxqmhjnylh0cu"]
+
+[ext_resource type="Script" path="res://Scripts/Items/General/Chair.cs" id="1_5yc3d"]
+[ext_resource type="PackedScene" uid="uid://d022s84tcbxcf" path="res://Scenes/Task/sit_task.tscn" id="2_2014c"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ns0mn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bpcdd"]
+
+[node name="Chair" type="StaticBody3D" node_paths=PackedStringArray("topOfChair", "sideOfChair")]
+script = ExtResource("1_5yc3d")
+topOfChair = NodePath("topOfChairPos")
+sideOfChair = NodePath("sideOfChairPos")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ns0mn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_bpcdd")
+
+[node name="SitTask" parent="." node_paths=PackedStringArray("chair") instance=ExtResource("2_2014c")]
+chair = NodePath("..")
+
+[node name="topOfChairPos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="sideOfChairPos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 0)

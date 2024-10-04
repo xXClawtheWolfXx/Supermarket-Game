@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6ua2r1l30k5r"]
+
+[ext_resource type="PackedScene" uid="uid://dvt6rxnkpq81o" path="res://Scenes/Task/task.tscn" id="1_y6nc4"]
+
+[node name="BrowseTask" instance=ExtResource("1_y6nc4")]

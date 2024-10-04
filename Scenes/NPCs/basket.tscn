@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dsrouyyqgkb2p"]
+
+[ext_resource type="Script" path="res://Scripts/Inventory/DynamicInventory.cs" id="1_baox1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q35cg"]
+albedo_color = Color(1, 0.263246, 0.263246, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3epyp"]
+size = Vector3(1, 0.06, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6blwe"]
+size = Vector3(1, 0.06, 1)
+
+[node name="Basket" type="Node3D" node_paths=PackedStringArray("meshes", "meshSpawnPos", "itemParent")]
+script = ExtResource("1_baox1")
+meshes = [NodePath("BasketMesh/MeshInstance3D")]
+meshSpawnPos = NodePath("MeshSpawnPos")
+itemParent = NodePath("ItemParent")
+
+[node name="BasketMesh" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BasketMesh"]
+material_override = SubResource("StandardMaterial3D_q35cg")
+mesh = SubResource("BoxMesh_3epyp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BasketMesh"]
+shape = SubResource("BoxShape3D_6blwe")
+disabled = true
+
+[node name="ItemParent" type="Node3D" parent="."]
+
+[node name="MeshSpawnPos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)

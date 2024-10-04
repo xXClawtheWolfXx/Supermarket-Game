@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 using static Godot.GD;
 
+[GlobalClass]
+
 /// An inventory that spawns IGatherables procedurally into the world
 public partial class DynamicInventory : Node3D {
 

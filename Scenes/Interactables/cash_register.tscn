@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dbtfbohp0g48b"]
 
-[ext_resource type="Script" path="res://Scripts/Managers/CashRegister.cs" id="1_ip572"]
+[ext_resource type="Script" path="res://Scripts/Items/Store/CashRegister.cs" id="1_ip572"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_67eww"]
 albedo_color = Color(0.184314, 0.65098, 0.745098, 1)

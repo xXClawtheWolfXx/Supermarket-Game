@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpkhyof6u04fl"]
+
+[ext_resource type="PackedScene" uid="uid://dvt6rxnkpq81o" path="res://Scenes/Task/task.tscn" id="1_ofaq2"]
+[ext_resource type="Script" path="res://Scripts/TasksUtil/Tasks/SleepTask.cs" id="2_tepsb"]
+[ext_resource type="Resource" uid="uid://rgx6sepxp0t0" path="res://Resources/Tasks/Nap.tres" id="3_aofwk"]
+
+[node name="NapTask" node_paths=PackedStringArray("topOfBedPos", "sideOfBedPos") instance=ExtResource("1_ofaq2")]
+script = ExtResource("2_tepsb")
+topOfBedPos = NodePath("TopOfBedPos")
+sideOfBedPos = NodePath("SideBedPos")
+taskBase = ExtResource("3_aofwk")
+
+[node name="TopOfBedPos" type="Node3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="SideBedPos" type="Node3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7, 0, 0)

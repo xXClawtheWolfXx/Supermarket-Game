@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dbkm5b0k6pv21"]
 
-[ext_resource type="Script" path="res://Scripts/Managers/Item.cs" id="1_sev5g"]
+[ext_resource type="Script" path="res://Scripts/Items/Item.cs" id="1_sev5g"]
 [ext_resource type="Material" uid="uid://b1vf0vvvxyql" path="res://Art/Materials/whiteMat.tres" id="2_pp5ct"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_tdqyd"]
